@@ -7,15 +7,23 @@ public class Laser : Bullet
     [SerializeField] private Vector3 laserStartPosOffset;
 
 
-    protected override void FixedUpdate()
+    private void Update()
     {
-        Vector3 firePoint = Player.Instance.projectileSpawnPoint.position;
-
+        Vector3 firePoint = Player.Instance.GetFirePointPos();
         firePoint = firePoint + laserStartPosOffset;
-
         transform.position = firePoint;
 
         CheckCollisions();
+    }
+
+    protected override void FixedUpdate()
+    {
+        // DoNothing
+    }
+
+    public void DestroyLaser()
+    {
+        Destroy(gameObject);
     }
 
     protected override void CheckCollisions()

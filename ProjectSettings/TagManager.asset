@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1032884311
+    locked: 0
+  - name: Enemy
+    uniqueID: 2233694165
+    locked: 0
+  - name: Player
+    uniqueID: 1975386925
+    locked: 0
+  - name: Coin
+    uniqueID: 3425531883
+    locked: 0
+  - name: Projectile
+    uniqueID: 769162101
+    locked: 0
+  - name: Forground
+    uniqueID: 44889413
+    locked: 0
+  - name: Walls
+    uniqueID: 762448145
+    locked: 0

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D _boxCollider;
-    [SerializeField] public Transform projectileSpawnPoint;
+    [SerializeField] private Transform projectileSpawnPoint;
     private Projectiles projectiles;
 
 
@@ -68,15 +68,20 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Shoot()
     {
-        Transform projectile = projectiles.ChooseProjectile();
+        Transform projectile = projectiles.choosenProjectile;
 
         if (projectile != null)
         {
             Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
         }
         else
-            Debug.LogError("No Projectile Found");
+            Debug.LogError("Cant Use Projectile");
         
+    }
+
+    private void ShootLaser()
+    {
+
     }
 
     private void CheckCorner()
@@ -122,7 +127,10 @@ public class Player : MonoBehaviour, IDamagable
         Debug.Log("Player Dead");
     }
 
-
+    public Vector3 GetFirePointPos()
+    {
+        return projectileSpawnPoint.position;
+    }
 
 
 

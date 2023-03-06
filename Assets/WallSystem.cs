@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,12 @@ public class WallSystem : MonoBehaviour
     [SerializeField] private Fades fades;
 
     [SerializeField] private float warningBarDelay;
+    [SerializeField] private bool isFireWallActive;
+
+    private void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     private void OnEnable()
     {
@@ -18,6 +25,9 @@ public class WallSystem : MonoBehaviour
 
     private void StartFireWallSequence()
     {
+        if (isFireWallActive)
+            return;
+
         Invoke("StartWarningBars", 0);
     }
 
@@ -25,6 +35,8 @@ public class WallSystem : MonoBehaviour
     // fire wall stages 
     private void StartWarningBars()
     {
+        isFireWallActive = true;
+
         warningBar.OpenWarningBars();
 
         Invoke("StartFireWalls", warningBarDelay);
@@ -33,17 +45,25 @@ public class WallSystem : MonoBehaviour
     private void StartFireWalls()
     {
         warningBar.CloseWarningBars();
-        fades.CloseFades();
+        //fades.CloseFades();
         fireWalls.OpenFireWalls();
 
-        Invoke("StopFireWalls", 5);
+        int laserFireDuration = 5;
+        Invoke("StopFireWalls", laserFireDuration);
     }
 
 
     private void StopFireWalls()
     {
         fireWalls.CloseFireWalls();
-        fades.OpenFades();
+        //fades.OpenFades();
+
+        isFireWallActive = false;
     }
-    
+
+    private void OnDestroy()
+    {
+        Debug.LogError("wall system destroy");
+    }
+
 }

@@ -14,7 +14,26 @@ public class SpawnerBase : MonoBehaviour
     {
         InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
     }
-    
+
+    protected virtual void OnEnable()
+    {
+        FireWalls.OnFireWallStopped += SpawnPosXTo1;
+        FireWalls.OnFireWallFirstUsed += SpawnPosXTo15;
+        FireWalls.OnFireWallSecondtUsed += SpawnPosXTo2;
+    }
+
+    protected virtual void SpawnPosXTo1()
+    {
+        spawnPosOffsetX = 1;
+    }
+    protected virtual void SpawnPosXTo15()
+    {
+        spawnPosOffsetX = 1.5f;
+    }
+    protected virtual void SpawnPosXTo2()
+    {
+        spawnPosOffsetX = 2;
+    }
 
     protected virtual void Spawn()
     {

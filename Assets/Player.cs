@@ -108,6 +108,7 @@ public class Player : MonoBehaviour, IDamagable
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    Debug.Log(damagable.GetType());
                     TakeDamage();
                 }
             }
@@ -130,6 +131,11 @@ public class Player : MonoBehaviour, IDamagable
     public Vector3 GetFirePointPos()
     {
         return projectileSpawnPoint.position;
+    }
+
+    public float GetPlayerPosY()
+    {
+        return transform.position.y;
     }
 
 

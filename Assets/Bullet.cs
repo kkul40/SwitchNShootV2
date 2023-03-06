@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
-                    Destroy(gameObject);
+                    Destroy(this.gameObject);
                 }
             }
         }

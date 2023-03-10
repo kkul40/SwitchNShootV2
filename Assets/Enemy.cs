@@ -13,11 +13,10 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private float speed;
 
-    public EnemyState currentState;
+    public EnemyState currentState = EnemyState.Enemy;
 
     private void Start()
     {
-        currentState = EnemyState.Enemy;
     }
 
     public void TakeDamage()

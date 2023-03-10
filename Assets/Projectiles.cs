@@ -52,7 +52,7 @@ public class Projectiles : MonoBehaviour
         isLaserFired = false;
         howManyTimeLaserFired++;
 
-        // add stage checks here
+        // add stage checks here do it later
         SetProjectileIndex(2);
         laserTemp.GetComponent<Laser>().DestroyLaser();
     }

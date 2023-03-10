@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance;
+
+    public static event Action OnShoot;
 
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D _boxCollider;
@@ -73,6 +76,7 @@ public class Player : MonoBehaviour, IDamagable
         if (projectile != null)
         {
             Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+            OnShoot?.Invoke();
         }
         else
             Debug.LogError("Cant Use Projectile");
@@ -108,7 +112,6 @@ public class Player : MonoBehaviour, IDamagable
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
-                    Debug.Log(damagable.GetType());
                     TakeDamage();
                 }
             }

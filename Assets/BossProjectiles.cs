@@ -17,8 +17,12 @@ public class BossProjectiles : MonoBehaviour
     [SerializeField] private Transform middle;
     [SerializeField] private Transform left;
     [SerializeField] private Transform left2;
+    [SerializeField] private Transform left3;
+    [SerializeField] private Transform left4;
     [SerializeField] private Transform right;
     [SerializeField] private Transform right2;
+    [SerializeField] private Transform right3;
+    [SerializeField] private Transform right4;
 
     [Header("Projectiles")]
     [SerializeField] private Transform enemyPrefab;
@@ -27,7 +31,7 @@ public class BossProjectiles : MonoBehaviour
 
     private List<Transform> enemies = new List<Transform>();
 
-    private Attacks currentAttack;
+    [SerializeField] private Attacks currentAttack;
     private bool isAttacking;
     [SerializeField] private float attackDuration;
     private float lastAttackTime;
@@ -35,64 +39,142 @@ public class BossProjectiles : MonoBehaviour
 
     void Start()
     {
-        ChooseAttack();
+
     }
 
     void Update()
     {
+        if (!isAttacking)
+        {
+            lastAttackTime += Time.deltaTime;
+            if (lastAttackTime >= attackDuration)
+            {
+                ChooseAttack();
+                lastAttackTime = 0;
+            }
+        }
 
     }
 
     private void ChooseAttack()
     {
+        isAttacking = true;
         currentAttack = (Attacks)Random.Range(0, 4);
 
-        currentAttack = Attacks.PentaTriangelAttack;
+        //currentAttack = Attacks.TripleLeftAttack;
         switch (currentAttack)
         {
             case Attacks.PentaTriangelAttack:
                 StartCoroutine(PentaAttack());
                 break;
             case Attacks.TripleLeftAttack:
+                StartCoroutine(LeftTriAttack());
                 break;
             case Attacks.TripleRightAttack:
+                StartCoroutine(RightTriAttack());
                 break;
             case Attacks.PentaLeftAttack:
+                StartCoroutine(LeftPentaAttack());
                 break;
             case Attacks.PentaRigthAttack:
+                StartCoroutine(RightPentaAttack());
                 break;
             default:
                 break;
         }
     }
 
+    // daha sonra optimize et
     public IEnumerator PentaAttack()
     {
-        float delay = 0.1f;
+        enemies.Clear();
+        float delay = 0.3f;
 
-
-        enemies.Add(Instantiate(enemyPrefab, middle.position, Quaternion.identity));
-
+        InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
-        enemies.Add(Instantiate(enemyPrefab, left.position, Quaternion.identity));
-
-        enemies.Add(Instantiate(enemyPrefab, right.position, Quaternion.identity));
-
-
+        InstantiateBossEnemy(left2);
+        InstantiateBossEnemy(right2);
         yield return new WaitForSeconds(delay);
-        enemies.Add(Instantiate(enemyPrefab, left2.position, Quaternion.identity));
+        InstantiateBossEnemy(left4);
+        InstantiateBossEnemy(right4);
 
-        enemies.Add(Instantiate(enemyPrefab, right2.position, Quaternion.identity));
+        isAttacking = false;
+    }
 
-        yield return new WaitForNextFrameUnit();
+    public IEnumerator LeftTriAttack()
+    {
+        enemies.Clear();
+        float delay = 0.3f;
 
-        foreach (var item in enemies)
-        {
-            item.GetComponent<Enemy>().SwitchState(EnemyState.BossEnemy);
-        }
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(middle);
 
+        isAttacking = false;
+    }
+
+    public IEnumerator RightTriAttack()
+    {
+        enemies.Clear();
+        float delay = 0.3f;
+
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(middle);
+
+        isAttacking = false;
+    }
+
+    public IEnumerator LeftPentaAttack()
+    {
+        enemies.Clear();
+        float delay = 0.3f;
+
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(left);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(left2);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(left3);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(left4);
+
+        isAttacking = false;
+    }
+
+    public IEnumerator RightPentaAttack()
+    {
+        enemies.Clear();
+        float delay = 0.3f;
+
+        InstantiateBossEnemy(middle);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(right);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(right2);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(right3);
+        yield return new WaitForSeconds(delay);
+        InstantiateBossEnemy(right4);
+
+        isAttacking = false;
+    }
+
+    private void InstantiateBossEnemy(Transform transform)
+    {
+        var enemyPrefab = Instantiate(this.enemyPrefab, transform.position, Quaternion.identity);
+        enemyPrefab.GetComponent<Enemy>().SwitchState(EnemyState.BossEnemy);
     }
 
 
-    
+
+
+
+
+
 }

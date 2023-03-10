@@ -34,7 +34,8 @@ public class Boss : MonoBehaviour, IDamagable
         currentState = States.FirstApproach;
         direction = Vector3.right;
 
-        OpenBothEyes();
+        CloseBothEyes();
+        Invoke("OpenBothEyes", eyeOpenDuration);
     }
 
     void Update()
@@ -69,10 +70,18 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void OpenBothEyes()
     {
-        leftEye.SetColliderActiveTrue();
-        rightEye.SetColliderActiveTrue();
+        leftEye.SetEyeOpen();
+        rightEye.SetEyeOpen();
 
         isBothEyeOpen = true;
+    }
+
+    private void CloseBothEyes()
+    {
+        leftEye.SetEyeClose();
+        rightEye.SetEyeClose();
+
+        isBothEyeOpen = false;
     }
 
     private void CheckCorners()

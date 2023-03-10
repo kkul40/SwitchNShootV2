@@ -15,7 +15,7 @@ public class BossEye : MonoBehaviour, IDamagable
         eyeCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
 
-        isEyeOpen = false;
+        SetEyeClose();
     }
 
     public void TakeDamage()
@@ -23,18 +23,16 @@ public class BossEye : MonoBehaviour, IDamagable
         eyeCollider.enabled = false;
         anim.SetBool("isEyeOpen", false);
         isEyeOpen = false;
-
-        Debug.Log("eye is closed");
     }
 
-    public void SetColliderActiveTrue()
+    public void SetEyeOpen()
     {
         eyeCollider.enabled = true;
         isEyeOpen = true;
         anim.SetBool("isEyeOpen", true);
     }
 
-    public void SetColliderActiveFalse()
+    public void SetEyeClose()
     {
         eyeCollider.enabled = false;
         isEyeOpen = false;

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2f5e3574ecaa28488d45b6e03537814
+guid: 0bc50cb8458ac36428ed9c8c9939bd38
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boss_0
+      name: boss_eye_close_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 35
-        width: 62
-        height: 55
+        x: 0
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98d0cc4f17d70184c863a09d8a1c5fa3
-      internalID: -2059678480
+      spriteID: 6ccf78556097ecc4897533a2d101368d
+      internalID: -371782355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_1
+      name: boss_eye_close_1
       rect:
         serializedVersion: 2
-        x: 65
-        y: 35
-        width: 62
-        height: 55
+        x: 0
+        y: 0
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01db8a8cad6b8a543b81a0e3418b96e6
-      internalID: -335499799
+      spriteID: a8765cad9aa14f843b01a89088200a6b
+      internalID: -1522869404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_2
+      name: boss_eye_close_2
       rect:
         serializedVersion: 2
-        x: 7
-        y: 20
-        width: 18
-        height: 6
+        x: 48
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f71a295a47f4494b866ba2f649265a2
-      internalID: -591002936
+      spriteID: 0fc704c92a5d0a64ba75a09f9d7f6001
+      internalID: 1445595284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_3
+      name: boss_eye_close_3
       rect:
         serializedVersion: 2
-        x: 72
-        y: 15
-        width: 16
-        height: 13
+        x: 48
+        y: 0
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1094ce4949f8ac846b8214639c47033e
-      internalID: 778407326
+      spriteID: 098e5c9d86b8e86438d3b663809ebcd7
+      internalID: 894966039
       vertices: []
       indices: 
       edges: []
@@ -211,10 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      boss_2: -591002936
-      boss_0: -2059678480
-      boss_3: 778407326
-      boss_1: -335499799
+      boss_eye_close_1: -1522869404
+      boss_eye_close_2: 1445595284
+      boss_eye_close_3: 894966039
+      boss_eye_close_0: -371782355
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

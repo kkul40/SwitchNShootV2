@@ -73,14 +73,11 @@ public class Player : MonoBehaviour, IDamagable
     {
         Transform projectile = projectiles.choosenProjectile;
 
-        if (projectile != null)
-        {
-            Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
-            OnShoot?.Invoke();
-        }
-        else
-            Debug.LogError("Cant Use Projectile");
-        
+        if (projectile == null)
+            return;
+
+        Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+        OnShoot?.Invoke();
     }
 
     private void ShootLaser()

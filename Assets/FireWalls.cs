@@ -8,6 +8,7 @@ public class FireWalls : MonoBehaviour
     public static event Action OnFireWallStopped;
     public static event Action OnFireWallFirstUsed;
     public static event Action OnFireWallSecondtUsed;
+    public static event Action OnStageChanged;
 
     [SerializeField] private Transform LeftFireWall, RightFireWall;
 
@@ -81,6 +82,7 @@ public class FireWalls : MonoBehaviour
         if (triggerCount > 1)
         {
             // new stage alert
+            OnStageChanged?.Invoke();
             Debug.Log("Next Stage Alert");
             triggerCount = 0;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,10 @@ public enum States
 }
 
 
-
 public class Boss : MonoBehaviour, IDamagable
 {
+    public static event Action OnBossDeath;
+
     [SerializeField] private float speed;
     [SerializeField] private float offsetX;
     [SerializeField] private float pushForceOnY;
@@ -20,17 +22,20 @@ public class Boss : MonoBehaviour, IDamagable
 
     [SerializeField] private BossEye leftEye;
     [SerializeField] private BossEye rightEye;
+    [SerializeField] private float eyeOpenDuration;
 
     [SerializeField] private BossProjectiles bossProjectiles;
 
-    [SerializeField] private float eyeOpenDuration;
     private bool isBothEyeOpen;
+
+    [SerializeField] private int bossHealth;
 
     private States currentState;
     
 
     void Start()
     {
+        Debug.Log("boss doðdu");
         currentState = States.FirstApproach;
         direction = Vector3.right;
 
@@ -64,6 +69,7 @@ public class Boss : MonoBehaviour, IDamagable
             transform.position = new Vector3(transform.position.x, transform.position.y + pushForceOnY, transform.position.z);
 
             isBothEyeOpen = false;
+            CalculteHealt();
             Invoke("OpenBothEyes", eyeOpenDuration);
         }
     }
@@ -105,6 +111,17 @@ public class Boss : MonoBehaviour, IDamagable
     public void TakeDamage()
     {
         Debug.Log("boss been atacked");
+        CalculteHealt();
+    }
+
+    private void CalculteHealt()
+    {
+        bossHealth--;
+        if (bossHealth <= 0)
+        {
+            OnBossDeath?.Invoke();
+            Destroy(this.gameObject);
+        }
     }
 
 

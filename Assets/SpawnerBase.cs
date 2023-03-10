@@ -22,6 +22,13 @@ public class SpawnerBase : MonoBehaviour
         FireWalls.OnFireWallSecondtUsed += SpawnPosXTo2;
     }
 
+    protected virtual void OnDisable()
+    {
+        FireWalls.OnFireWallStopped -= SpawnPosXTo1;
+        FireWalls.OnFireWallFirstUsed -= SpawnPosXTo15;
+        FireWalls.OnFireWallSecondtUsed -= SpawnPosXTo2;
+    }
+
     protected virtual void SpawnPosXTo1()
     {
         spawnPosOffsetX = 1;

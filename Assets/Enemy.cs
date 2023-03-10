@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour, IDamagable
     public void TakeDamage()
     {
         Destroy(gameObject);
+        float duration = 0.1f;
+        float magnitude = 0.2f;
+        CameraScr.Instance.CameraShake(duration, magnitude);
     }
 
     public void TakeDamage(float t)

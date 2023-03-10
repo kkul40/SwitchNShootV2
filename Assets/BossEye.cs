@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class BossEye : MonoBehaviour, IDamagable
 {
-    private BoxCollider2D eyeCollider;
-    private Animator anim;
+    [SerializeField] private BoxCollider2D eyeCollider;
+    [SerializeField] private Animator anim;
 
     public bool isEyeOpen;
 
    
     private void Start()
     {
-        eyeCollider = GetComponent<BoxCollider2D>();
-        anim = GetComponent<Animator>();
+        /*eyeCollider = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();*/
 
-        SetEyeClose();
+        //SetEyeClose();
     }
 
     public void TakeDamage()
     {
-        eyeCollider.enabled = false;
-        anim.SetBool("isEyeOpen", false);
-        isEyeOpen = false;
+        SetEyeClose();
     }
 
     public void SetEyeOpen()
     {
+        if (eyeCollider.enabled)
+            return;
+
         eyeCollider.enabled = true;
         isEyeOpen = true;
         anim.SetBool("isEyeOpen", true);
@@ -34,6 +35,9 @@ public class BossEye : MonoBehaviour, IDamagable
 
     public void SetEyeClose()
     {
+        if (!eyeCollider.enabled)
+            return;
+
         eyeCollider.enabled = false;
         isEyeOpen = false;
         anim.SetBool("isEyeOpen", false);

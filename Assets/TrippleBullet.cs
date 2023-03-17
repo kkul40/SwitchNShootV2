@@ -67,6 +67,7 @@ public class TrippleBullet : DoubleBullet
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    InstantaiteBubble(item.transform.position);
                     Destroy(middleBulletCollider.transform.gameObject);
                 }
             }

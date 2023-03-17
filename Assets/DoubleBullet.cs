@@ -75,6 +75,7 @@ public class DoubleBullet : Bullet
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    InstantaiteBubble(item.transform.position);
                     Destroy(leftBulletPrefab.transform.gameObject);
                 }
             }
@@ -95,6 +96,7 @@ public class DoubleBullet : Bullet
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    InstantaiteBubble(item.transform.position);
                     Destroy(rightBulletPrefab.transform.gameObject);
                 }
             }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3399648251188969930}
   - component: {fileID: 3399648251188969933}
+  - component: {fileID: 3782652314279457089}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -84,6 +85,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3782652314279457089
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3399648251188969931}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9edabd55e1bc7dc4eab37fe0f389ffef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3399648252973989361
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,4 +178,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  Bubble: {fileID: 912306899832850265, guid: 6cc00851cfd77fb4d8061fd8c40d4d5d, type: 3}
   laserStartPosOffset: {x: 0, y: 6, z: 0}

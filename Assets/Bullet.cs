@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
 
     protected BoxCollider2D _boxCollider;
 
+    [SerializeField]
+    protected Transform Bubble;
+
     protected void Start()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
@@ -39,9 +42,19 @@ public class Bullet : MonoBehaviour
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    InstantaiteBubble(item.transform.position);
                     Destroy(this.gameObject);
                 }
             }
+        }
+    }
+
+    protected void InstantaiteBubble(Vector2 pos)
+    {
+        if (Random.value < 0.5)
+        {
+            var bubble = Instantiate(Bubble, pos, Quaternion.identity);
+            Destroy(bubble.gameObject, 0.066f);
         }
     }
 }

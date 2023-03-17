@@ -37,6 +37,7 @@ public class Laser : Bullet
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
+                    InstantaiteBubble(item.transform.position);
                 }
             }
         }

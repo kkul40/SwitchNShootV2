@@ -781,7 +781,7 @@ MonoBehaviour:
   right2: {fileID: 8357689277715287790}
   right3: {fileID: 8357689275652927516}
   right4: {fileID: 8357689276846356100}
-  enemyPrefab: {fileID: 2423022617658769762, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
+  enemyPrefab: {fileID: 8151152045660709153, guid: 18969ff36548b3c4593b5f6fb2a4238e, type: 3}
   laser: {fileID: 0}
   currentAttack: 4
   attackDuration: 2

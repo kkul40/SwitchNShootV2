@@ -42,7 +42,7 @@ public class SpawnerBase : MonoBehaviour
         spawnPosOffsetX = 2;
     }
 
-    protected virtual void Spawn()
+    public virtual void Spawn()
     {
         var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
             CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
@@ -52,13 +52,13 @@ public class SpawnerBase : MonoBehaviour
 
 
     [ContextMenu("StartSpawning")]
-    protected virtual void StartSpawning()
+    public virtual void StartSpawning()
     {
         InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
     }
 
     [ContextMenu("StopSpawning")]
-    protected virtual void StopSpawning()
+    public virtual void StopSpawning()
     {
         CancelInvoke("Spawn");
     }

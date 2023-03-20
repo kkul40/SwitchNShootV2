@@ -30,10 +30,10 @@ public class BossProjectiles : MonoBehaviour
 
     [SerializeField] private Attacks currentAttack;
     [SerializeField] private float attackDuration;
+    [HideInInspector] public bool isAttacking;
 
 
     private readonly List<Transform> enemies = new();
-    private bool isAttacking;
     private float lastAttackTime;
 
 
@@ -57,7 +57,7 @@ public class BossProjectiles : MonoBehaviour
     private void ChooseAttack()
     {
         isAttacking = true;
-        currentAttack = (Attacks)Random.Range(0, 4);
+        currentAttack = (Attacks)Random.Range(0, 5);
 
         //currentAttack = Attacks.TripleLeftAttack;
         switch (currentAttack)
@@ -80,7 +80,7 @@ public class BossProjectiles : MonoBehaviour
         }
     }
 
-    // daha sonra optimize et
+    //TODO daha sonra optimize et
     public IEnumerator PentaAttack()
     {
         enemies.Clear();
@@ -163,7 +163,6 @@ public class BossProjectiles : MonoBehaviour
 
     private void InstantiateBossEnemy(Transform transform)
     {
-        var enemyPrefab = Instantiate(this.enemyPrefab, transform.position, Quaternion.identity);
-        enemyPrefab.GetComponent<Enemy>().SwitchState(EnemyState.BossEnemy);
+        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
     }
 }

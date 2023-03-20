@@ -1,16 +1,8 @@
 using UnityEngine;
 
-public enum EnemyState
-{
-    Enemy,
-    BossEnemy
-}
-
 public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private float speed;
-
-    public EnemyState currentState = EnemyState.Enemy;
 
     private void Start()
     {
@@ -18,17 +10,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
     private void FixedUpdate()
     {
-        switch (currentState)
-        {
-            case EnemyState.Enemy:
-                CheckCorner();
-                transform.position += Vector3.down * speed * Time.deltaTime;
-                break;
-            case EnemyState.BossEnemy:
-                CheckCorner();
-                transform.position += Vector3.down * (speed / 2) * Time.deltaTime;
-                break;
-        }
+        CheckCorner();
+        transform.position += Vector3.down * speed * Time.deltaTime;
     }
 
     public void TakeDamage()
@@ -54,10 +37,5 @@ public class Enemy : MonoBehaviour, IDamagable
         }
 
         if (transform.position.y <= -10) Destroy(gameObject);
-    }
-
-    public void SwitchState(EnemyState newState)
-    {
-        currentState = newState;
     }
 }

@@ -716,6 +716,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   animator: {fileID: 0}
+--- !u!1 &828540992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828540994}
+  - component: {fileID: 828540993}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &828540993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828540992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fc42f4609d5b34ab3a4081a94f34da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStage: 0
+--- !u!4 &828540994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828540992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833210303
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +792,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
   bossSpawnPos: {fileID: 1518545641}
+  enemySpawner: {fileID: 1000103025}
+  coinSpawner: {fileID: 1243751095}
+  stage: 0
 --- !u!4 &833210305
 Transform:
   m_ObjectHideFlags: 0
@@ -926,7 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 2423022617658769762, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
   spawnPosOffsetX: 1
-  spawnRate: 0.2
+  spawnRate: 1
   waitForSecToSpawn: 1
 --- !u!4 &1000103026
 Transform:
@@ -1204,7 +1252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 3282136405728853971, guid: f9be0853cac4b69438671671b1470dfd, type: 3}
   spawnPosOffsetX: 1
-  spawnRate: 12
+  spawnRate: 8
   waitForSecToSpawn: 1
 --- !u!1 &1398985344
 GameObject:
@@ -1388,6 +1436,7 @@ MonoBehaviour:
   playerAnimation: {fileID: 683971238}
   _boxCollider: {fileID: 0}
   projectileSpawnPoint: {fileID: 1434898422}
+  playerStartPos: {x: -1.5, y: -5}
   speed: 8
 --- !u!4 &1530119399
 Transform:
@@ -1397,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530119397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.41, z: 0}
+  m_LocalPosition: {x: -1.5, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1453,7 +1502,7 @@ MonoBehaviour:
   - {fileID: 1241048163434404083, guid: 951c9e3ed28bbb34a90ca0727f6b0dc1, type: 3}
   choosenProjectile: {fileID: 0}
   laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
-  projectileIndex: 4
+  projectileIndex: 0
   laserDuration: 5
   isLaserFired: 0
 --- !u!50 &1530119402

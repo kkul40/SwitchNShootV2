@@ -11,7 +11,7 @@ public class FireWalls : MonoBehaviour
 
     private int triggerCount;
 
-
+    //TODO en kotu random bir şekilde wallı ayarlayaabilirsin
     private void Start()
     {
         transform.position = Vector3.zero;
@@ -20,8 +20,6 @@ public class FireWalls : MonoBehaviour
     public static event Action OnFireWallStopped;
     public static event Action OnFireWallFirstUsed;
     public static event Action OnFireWallSecondtUsed;
-    public static event Action OnStageChanged;
-
 
     public void OpenFireWalls()
     {
@@ -75,11 +73,6 @@ public class FireWalls : MonoBehaviour
         triggerCount++;
 
         if (triggerCount > 1)
-        {
-            // new stage alert
-            OnStageChanged?.Invoke();
-            Debug.Log("Next Stage Alert");
             triggerCount = 0;
-        }
     }
 }

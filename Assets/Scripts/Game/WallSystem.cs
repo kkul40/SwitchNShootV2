@@ -17,32 +17,25 @@ public class WallSystem : MonoBehaviour
     private void OnEnable()
     {
         Projectiles.OnLaserFired += StartFireWallSequence;
+        Projectiles.OnLaserStopped += StopFireWalls;
     }
 
     private void OnDisable()
     {
         Projectiles.OnLaserFired -= StartFireWallSequence;
-    }
-
-    private void OnDestroy()
-    {
-        Debug.LogError("wall system destroy");
+        Projectiles.OnLaserStopped += StopFireWalls;
     }
 
     private void StartFireWallSequence()
     {
-        if (isFireWallActive)
-            return;
+        if (isFireWallActive) return;
 
         Invoke("StartWarningBars", 0);
     }
 
-
     // fire wall stages 
     private void StartWarningBars()
     {
-        isFireWallActive = true;
-
         warningBar.OpenWarningBars();
 
         Invoke("StartFireWalls", warningBarDelay);
@@ -50,14 +43,17 @@ public class WallSystem : MonoBehaviour
 
     private void StartFireWalls()
     {
+        if (isFireWallActive) return;
+
+        isFireWallActive = true;
         warningBar.CloseWarningBars();
         //fades.CloseFades();
         fireWalls.OpenFireWalls();
 
+        //TODO Magic Number
         var laserFireDuration = 5;
         Invoke("StopFireWalls", laserFireDuration);
     }
-
 
     private void StopFireWalls()
     {

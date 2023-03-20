@@ -22,6 +22,8 @@ public class Projectiles : MonoBehaviour
     }
 
     public static event Action OnLaserFired;
+    public static event Action OnLaserStopped;
+
 
     public void ChooseProjectile()
     {
@@ -47,10 +49,11 @@ public class Projectiles : MonoBehaviour
         yield return new WaitForSeconds(laserDuration);
         isLaserFired = false;
         howManyTimeLaserFired++;
-
-        // add stage checks here do it later
-        SetProjectileIndex(2);
+        OnLaserStopped?.Invoke();
         laserTemp.GetComponent<Laser>().DestroyLaser();
+
+        //TODO add stage checks here do it later
+        SetProjectileIndex(2);
     }
 
     private void SetProjectileIndex(int index)

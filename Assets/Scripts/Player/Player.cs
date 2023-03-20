@@ -10,10 +10,13 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private Transform projectileSpawnPoint;
 
 
+    [SerializeField] private Vector2 playerStartPos;
     [SerializeField] private float speed;
     private Vector3 _direction;
 
     private float cornerOffsetX;
+
+    private bool isGameStarted;
     private Projectiles projectiles;
 
     private void Awake()
@@ -29,9 +32,59 @@ public class Player : MonoBehaviour, IDamagable
         projectiles = GetComponent<Projectiles>();
 
         cornerOffsetX = _boxCollider.bounds.extents.x;
+
+        transform.position = playerStartPos;
     }
 
     private void Update()
+    {
+        switch (GameManager.Instance.currentStage)
+        {
+            case Stages.Intro:
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerAnimation.PlayerTurnOn();
+                    OnGameStarted?.Invoke();
+                }
+
+                break;
+            case Stages.Game:
+                SwitchNShoot();
+                break;
+            case Stages.Outro:
+                //TODO Do Nothing for now
+                break;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        switch (GameManager.Instance.currentStage)
+        {
+            case Stages.Intro:
+                break;
+            case Stages.Game:
+                CheckCorner();
+                CheckCollisions();
+                transform.position += _direction * speed * Time.deltaTime;
+                break;
+            case Stages.Outro:
+                transform.position += Vector3.down * speed / 2 * Time.deltaTime;
+                break;
+        }
+    }
+
+    public void TakeDamage()
+    {
+        /*playerAnimation.PlayerTurnOff();
+        OnPlayerDeath?.Invoke();*/
+    }
+
+    public static event Action OnGameStarted;
+
+    public static event Action OnPlayerDeath;
+
+    private void SwitchNShoot()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -41,20 +94,7 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-    private void FixedUpdate()
-    {
-        CheckCorner();
-        CheckCollisions();
-        transform.position += _direction * speed * Time.deltaTime;
-    }
-
-    public void TakeDamage()
-    {
-        Debug.Log("Player Dead");
-    }
-
     public static event Action OnShoot;
-
 
     private void Switch()
     {
@@ -88,7 +128,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void CheckCorner()
     {
-        // Daha sonra left right border yerine sadece 1 de�i�ken kullanacak �ekilde de�i�tir
+        // TODO Daha sonra left right border yerine sadece 1 de�i�ken kullanacak �ekilde de�i�tir
         if (transform.position.x + cornerOffsetX <= CameraScr.Instance.cameraLeftCornerX.x)
             transform.position = new Vector3(CameraScr.Instance.cameraRightCornerX.x + cornerOffsetX,
                 transform.position.y, 0f);

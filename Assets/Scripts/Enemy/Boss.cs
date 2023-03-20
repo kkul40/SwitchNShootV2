@@ -49,8 +49,16 @@ public class Boss : MonoBehaviour, IDamagable
     private void FixedUpdate()
     {
         CheckCorners();
-        transform.position += direction * speed * Time.deltaTime;
-        transform.position += Vector3.down * speed / 2 * Time.deltaTime;
+
+        if (bossProjectiles.isAttacking)
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
+        }
+        else
+        {
+            transform.position += direction * speed * Time.deltaTime;
+            transform.position += Vector3.down * speed / 2 * Time.deltaTime;
+        }
     }
 
     public void TakeDamage()

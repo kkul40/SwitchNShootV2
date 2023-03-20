@@ -8,9 +8,9 @@ public class SpawnerBase : MonoBehaviour
     [SerializeField] protected float waitForSecToSpawn;
 
     // 3 çeşit sapwnoffset var ilki 1 ikinci 1.5 ve sonunucsu 2 firewalla göre ayarama yap
-    protected void Start()
+    protected virtual void Start()
     {
-        InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
+        //InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
     }
 
     protected virtual void OnEnable()

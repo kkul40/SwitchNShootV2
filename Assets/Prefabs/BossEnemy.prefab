@@ -11,9 +11,13 @@ PrefabInstance:
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2423022617658769760, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
+      propertyPath: bossEnemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2423022617658769761, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: BossEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2423022617658769762, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
       propertyPath: m_RootOrder

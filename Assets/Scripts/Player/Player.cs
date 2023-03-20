@@ -30,7 +30,7 @@ public class Player : MonoBehaviour, IDamagable
         _direction = Vector2.right;
         _boxCollider = GetComponent<BoxCollider2D>();
         projectiles = GetComponent<Projectiles>();
-
+        
         cornerOffsetX = _boxCollider.bounds.extents.x;
 
         transform.position = playerStartPos;
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour, IDamagable
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     playerAnimation.PlayerTurnOn();
-                    OnGameStarted?.Invoke();
+                    OnPlayerStarted?.Invoke();
                 }
 
                 break;
@@ -62,6 +62,7 @@ public class Player : MonoBehaviour, IDamagable
         switch (GameManager.Instance.currentStage)
         {
             case Stages.Intro:
+                // Do Nothing
                 break;
             case Stages.Game:
                 CheckCorner();
@@ -76,13 +77,13 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        /*playerAnimation.PlayerTurnOff();
-        OnPlayerDeath?.Invoke();*/
+        playerAnimation.PlayerTurnOff();
+        OnPlayerDeath?.Invoke();
     }
 
-    public static event Action OnGameStarted;
-
+    public static event Action OnPlayerStarted;
     public static event Action OnPlayerDeath;
+
 
     private void SwitchNShoot()
     {

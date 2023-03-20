@@ -759,7 +759,7 @@ MonoBehaviour:
   rightEye: {fileID: 8357689275789056208}
   eyeOpenDuration: 5
   bossProjectiles: {fileID: 8357689277000438674}
-  bossHealth: 10
+  bossHealth: 5
 --- !u!114 &8357689277000438674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +785,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   currentAttack: 4
   attackDuration: 2
+  isAttacking: 0
 --- !u!1 &8357689277026380517
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,10 @@ public class Projectiles : MonoBehaviour
     [SerializeField] private int projectileIndex;
     [SerializeField] private float laserDuration;
     [SerializeField] private bool isLaserFired;
-    private int howManyTimeLaserFired;
     private Transform laserTemp;
 
+    private int LaserFiredCount;
+    public int GetLaserFiredCount => LaserFiredCount;
     private void Start()
     {
         choosenProjectile = projectileList[projectileIndex];
@@ -24,6 +25,22 @@ public class Projectiles : MonoBehaviour
     public static event Action OnLaserFired;
     public static event Action OnLaserStopped;
 
+
+    private void OnEnable()
+    {
+        Player.OnPlayerDeath += DestroyLaser;
+    }
+
+    private void OnDisable()
+    {
+        Player.OnPlayerDeath -= DestroyLaser;
+    }
+
+    private void DestroyLaser()
+    {
+        if(isLaserFired) 
+            laserTemp.GetComponent<Laser>().DestroyLaser();;
+    }
 
     public void ChooseProjectile()
     {
@@ -40,6 +57,7 @@ public class Projectiles : MonoBehaviour
     {
         isLaserFired = true;
         laserTemp = Instantiate(laser, Player.Instance.GetFirePointPos(), Quaternion.identity);
+        LaserFiredCount++;
         OnLaserFired?.Invoke();
         StartCoroutine(ResetLaser());
     }
@@ -48,14 +66,13 @@ public class Projectiles : MonoBehaviour
     {
         yield return new WaitForSeconds(laserDuration);
         isLaserFired = false;
-        howManyTimeLaserFired++;
         OnLaserStopped?.Invoke();
         laserTemp.GetComponent<Laser>().DestroyLaser();
 
         //TODO add stage checks here do it later
         SetProjectileIndex(2);
     }
-
+    
     private void SetProjectileIndex(int index)
     {
         // for now

@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class WallSystem : MonoBehaviour
 {
+    [SerializeField] private StageSystem stageSystem;
+
     [SerializeField] private WarningBar warningBar;
     [SerializeField] private FireWalls fireWalls;
     [SerializeField] private Fades fades;
 
     [SerializeField] private float warningBarDelay;
     [SerializeField] private bool isFireWallActive;
-
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
 
     private void OnEnable()
     {
@@ -48,7 +45,10 @@ public class WallSystem : MonoBehaviour
         isFireWallActive = true;
         warningBar.CloseWarningBars();
         //fades.CloseFades();
-        fireWalls.OpenFireWalls();
+        if (stageSystem.GetLaserFireCount % 2 == 0)
+            fireWalls.OpenFireWalls(true);
+        else
+            fireWalls.OpenFireWalls(false);
 
         //TODO Magic Number
         var laserFireDuration = 5;

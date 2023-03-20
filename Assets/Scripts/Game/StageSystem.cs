@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StageSystem : MonoBehaviour
 {
+    [SerializeField] private Projectiles projectiles;
+    
     [SerializeField] private Transform bossPrefab;
     [SerializeField] private Transform bossSpawnPos;
 
@@ -11,8 +13,16 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private CoinSpawner coinSpawner;
 
     [SerializeField] private int stage;
+    public int GetStage => stage;
+
+    public int GetLaserFireCount => projectiles.GetLaserFiredCount;
+
+    [SerializeField] private AnimationCurve enemySpawnByStage;
 
     private bool isBossActive;
+
+    public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
+
 
     private void OnEnable()
     {
@@ -30,22 +40,25 @@ public class StageSystem : MonoBehaviour
 
     public static event Action OnStageChanged;
 
+
     private void AddStage()
     {
-        if (isBossActive)
-            return;
+        if (projectiles.GetLaserFiredCount % 2 != 0) return;
 
-        stage++;
-
-        if (stage % 2 == 0)
+        if (!isBossActive)
         {
-            enemySpawner.StopSpawning();
+            stage++;
+            if (stage % 4 == 0) // her 4 stagede bir boss cagır
+            {
+                enemySpawner.StopSpawning();
+                SpawnBoss();
+            }
+            else
+            {
+                StartCoroutine(StopSpawningForAWhileCo());
+            }
+
             OnStageChanged?.Invoke();
-            SpawnBoss();
-        }
-        else
-        {
-            StartCoroutine(StopSpawningForAWhileCo());
         }
     }
 

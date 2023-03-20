@@ -1,25 +1,35 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float speed;
+    public static event Action OnEnemyDeath;
 
-    private void Start()
-    {
-    }
+
+    [SerializeField] private float speed;
+    [SerializeField] private bool bossEnemy;
+
 
     private void FixedUpdate()
     {
         CheckCorner();
-        transform.position += Vector3.down * speed * Time.deltaTime;
+
+        Move();
     }
+
 
     public void TakeDamage()
     {
-        Destroy(gameObject);
         var duration = 0.1f;
         var magnitude = 0.2f;
         CameraScr.Instance.CameraShake(duration, magnitude);
+        OnEnemyDeath?.Invoke();
+        Destroy(gameObject);
+    }
+
+    private void Move()
+    {
+        transform.position += Vector3.down * speed * Time.deltaTime;
     }
 
     public void TakeDamage(float t)

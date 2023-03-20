@@ -5,37 +5,33 @@ using UnityEngine;
 
 public class Projectiles : MonoBehaviour
 {
-    public static event Action OnLaserFired;
-
-    [SerializeField] private List<Transform> projectileList = new List<Transform>();
+    [SerializeField] private List<Transform> projectileList = new();
     public Transform choosenProjectile;
 
     [SerializeField] private Transform laser;
-    private Transform laserTemp;
-    private int howManyTimeLaserFired = 0;
 
     [SerializeField] private int projectileIndex;
     [SerializeField] private float laserDuration;
     [SerializeField] private bool isLaserFired;
+    private int howManyTimeLaserFired;
+    private Transform laserTemp;
 
     private void Start()
     {
         choosenProjectile = projectileList[projectileIndex];
-
     }
+
+    public static event Action OnLaserFired;
+
     public void ChooseProjectile()
     {
         if (isLaserFired)
             return;
 
         if (projectileIndex < projectileList.Count)
-        {
             choosenProjectile = projectileList[projectileIndex];
-        }
         else
-        {
             choosenProjectile = null;
-        }
     }
 
     private void ShootLaser()
@@ -80,10 +76,7 @@ public class Projectiles : MonoBehaviour
             projectileIndex = projectileList.Count;
             choosenProjectile = null;
 
-            if (!isLaserFired)
-            {
-                ShootLaser();
-            }
+            if (!isLaserFired) ShootLaser();
         }
         else if (projectileIndex < projectileList.Count)
         {

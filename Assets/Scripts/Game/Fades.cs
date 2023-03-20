@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fades : MonoBehaviour
@@ -7,7 +5,7 @@ public class Fades : MonoBehaviour
     [SerializeField] private Transform LeftFade, RightFade;
     [SerializeField] private float fadePosX;
 
-    void Start()
+    private void Start()
     {
         transform.position = Vector3.zero;
         OpenFades();

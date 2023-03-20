@@ -1,25 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance;
 
-    public static event Action OnShoot;
-
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D _boxCollider;
     [SerializeField] private Transform projectileSpawnPoint;
-    private Projectiles projectiles;
 
 
     [SerializeField] private float speed;
     private Vector3 _direction;
 
     private float cornerOffsetX;
+    private Projectiles projectiles;
 
     private void Awake()
     {
@@ -53,6 +48,13 @@ public class Player : MonoBehaviour, IDamagable
         transform.position += _direction * speed * Time.deltaTime;
     }
 
+    public void TakeDamage()
+    {
+        Debug.Log("Player Dead");
+    }
+
+    public static event Action OnShoot;
+
 
     private void Switch()
     {
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Shoot()
     {
-        Transform projectile = projectiles.choosenProjectile;
+        var projectile = projectiles.choosenProjectile;
 
         if (projectile == null)
             return;
@@ -82,28 +84,25 @@ public class Player : MonoBehaviour, IDamagable
 
     private void ShootLaser()
     {
-
     }
 
     private void CheckCorner()
     {
-        // Daha sonra left right border yerine sadece 1 deðiþken kullanacak þekilde deðiþtir
+        // Daha sonra left right border yerine sadece 1 deï¿½iï¿½ken kullanacak ï¿½ekilde deï¿½iï¿½tir
         if (transform.position.x + cornerOffsetX <= CameraScr.Instance.cameraLeftCornerX.x)
-        {
-            transform.position = new Vector3(CameraScr.Instance.cameraRightCornerX.x + cornerOffsetX, transform.position.y, 0f);
-        }
+            transform.position = new Vector3(CameraScr.Instance.cameraRightCornerX.x + cornerOffsetX,
+                transform.position.y, 0f);
         else if (transform.position.x - cornerOffsetX >= CameraScr.Instance.cameraRightCornerX.x)
-        {
-            transform.position = new Vector3(CameraScr.Instance.cameraLeftCornerX.x - cornerOffsetX, transform.position.y, 0f);
-        }
+            transform.position = new Vector3(CameraScr.Instance.cameraLeftCornerX.x - cornerOffsetX,
+                transform.position.y, 0f);
     }
 
     private void CheckCollisions()
     {
-        RaycastHit2D[] colliderResults = Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
+        var colliderResults =
+            Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults)
-        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
             {
                 if (damagable != null)
@@ -120,12 +119,6 @@ public class Player : MonoBehaviour, IDamagable
                     projectiles.LevelUp();
                 }
             }
-        }
-    }
-
-    public void TakeDamage()
-    {
-        Debug.Log("Player Dead");
     }
 
     public Vector3 GetFirePointPos()
@@ -137,7 +130,6 @@ public class Player : MonoBehaviour, IDamagable
     {
         return transform.position.y;
     }
-
 
 
     /*public static PlayerScr Instance;
@@ -231,7 +223,7 @@ public class Player : MonoBehaviour, IDamagable
                     IntroCheckCornersNMove();
                 }
 
-                // eðer oyun start ekranýndaysa koþulunu ekle
+                // eï¿½er oyun start ekranï¿½ndaysa koï¿½ulunu ekle
                 if (characterInput.GetFireButton())
                 {
                     GameManager.Instance.SwitchGMState(new GMStartScreen());
@@ -391,7 +383,7 @@ public class Player : MonoBehaviour, IDamagable
             {
                 if (damagable != null)
                 {
-                    Debug.Log("player çarptý");
+                    Debug.Log("player ï¿½arptï¿½");
                     damagable.TakeDamage();
                     TakeDamage();
                 }

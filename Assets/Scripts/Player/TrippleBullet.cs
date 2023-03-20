@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrippleBullet : DoubleBullet
@@ -35,10 +32,7 @@ public class TrippleBullet : DoubleBullet
 
     private void CheckAllBulletIfNull()
     {
-        if (leftBulletPrefab == null && middleBulletPrefab == null && rightBulletPrefab == null)
-        {
-            Destroy(gameObject);
-        }
+        if (leftBulletPrefab == null && middleBulletPrefab == null && rightBulletPrefab == null) Destroy(gameObject);
     }
 
     private void MiddleBulletCheckCorner()
@@ -46,10 +40,7 @@ public class TrippleBullet : DoubleBullet
         if (middleBulletPrefab == null)
             return;
 
-        if (middleBulletPrefab.transform.position.y >= 9)
-        {
-            Destroy(middleBulletPrefab.transform.gameObject);
-        }
+        if (middleBulletPrefab.transform.position.y >= 9) Destroy(middleBulletPrefab.transform.gameObject);
     }
 
     private void MiddleBulletCheckCollisions()
@@ -58,19 +49,16 @@ public class TrippleBullet : DoubleBullet
             return;
 
 
-        RaycastHit2D[] colliderResults1 = Physics2D.BoxCastAll(middleBulletCollider.bounds.center, middleBulletCollider.bounds.extents * 2, 0, Vector2.zero);
+        var colliderResults1 = Physics2D.BoxCastAll(middleBulletCollider.bounds.center,
+            middleBulletCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults1)
-        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
-            {
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
                     InstantaiteBubble(item.transform.position);
                     Destroy(middleBulletCollider.transform.gameObject);
                 }
-            }
-        }
     }
 }

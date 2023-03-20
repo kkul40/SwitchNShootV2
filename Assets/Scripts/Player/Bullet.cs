@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] protected float speed;
 
-    protected BoxCollider2D _boxCollider;
+    [SerializeField] protected Transform Bubble;
 
-    [SerializeField]
-    protected Transform Bubble;
+    protected BoxCollider2D _boxCollider;
 
     protected void Start()
     {
@@ -25,28 +22,22 @@ public class Bullet : MonoBehaviour
 
     protected virtual void CheckCorner()
     {
-        if (transform.position.y >= 9)
-        {
-            Destroy(gameObject);
-        }
+        if (transform.position.y >= 9) Destroy(gameObject);
     }
 
     protected virtual void CheckCollisions()
     {
-        RaycastHit2D[] colliderResults = Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
+        var colliderResults =
+            Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults)
-        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
-            {
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
                     InstantaiteBubble(item.transform.position);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
-            }
-        }
     }
 
     protected void InstantaiteBubble(Vector2 pos)

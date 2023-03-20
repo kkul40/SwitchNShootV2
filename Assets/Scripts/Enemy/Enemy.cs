@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public enum EnemyState
 {
@@ -19,19 +16,6 @@ public class Enemy : MonoBehaviour, IDamagable
     {
     }
 
-    public void TakeDamage()
-    {
-        Destroy(gameObject);
-        float duration = 0.1f;
-        float magnitude = 0.2f;
-        CameraScr.Instance.CameraShake(duration, magnitude);
-    }
-
-    public void TakeDamage(float t)
-    {
-        Destroy(gameObject, t);
-    }
-
     private void FixedUpdate()
     {
         switch (currentState)
@@ -42,12 +26,22 @@ public class Enemy : MonoBehaviour, IDamagable
                 break;
             case EnemyState.BossEnemy:
                 CheckCorner();
-                transform.position += Vector3.down * (speed/2) * Time.deltaTime;
-                break;
-            default:
+                transform.position += Vector3.down * (speed / 2) * Time.deltaTime;
                 break;
         }
-        
+    }
+
+    public void TakeDamage()
+    {
+        Destroy(gameObject);
+        var duration = 0.1f;
+        var magnitude = 0.2f;
+        CameraScr.Instance.CameraShake(duration, magnitude);
+    }
+
+    public void TakeDamage(float t)
+    {
+        Destroy(gameObject, t);
     }
 
     private void CheckCorner()
@@ -59,10 +53,7 @@ public class Enemy : MonoBehaviour, IDamagable
             speed = 0;
         }
 
-        if (transform.position.y <= -10)
-        {
-            Destroy(gameObject);
-        }
+        if (transform.position.y <= -10) Destroy(gameObject);
     }
 
     public void SwitchState(EnemyState newState)

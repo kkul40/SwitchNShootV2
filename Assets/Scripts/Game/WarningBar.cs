@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WarningBar : MonoBehaviour
 {
-
     [SerializeField] private Transform leftWarningBar, rightWarningBar;
 
 
-    void Start()
+    private void Start()
     {
         transform.position = Vector3.zero;
 
         CloseWarningBars();
     }
-    
 
 
     public void OpenWarningBars()

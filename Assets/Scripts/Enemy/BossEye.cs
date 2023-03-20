@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossEye : MonoBehaviour, IDamagable
@@ -9,7 +7,7 @@ public class BossEye : MonoBehaviour, IDamagable
 
     public bool isEyeOpen;
 
-   
+
     private void Start()
     {
         /*eyeCollider = GetComponent<BoxCollider2D>();

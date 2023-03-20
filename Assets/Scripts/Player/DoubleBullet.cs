@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoubleBullet : Bullet
@@ -32,10 +30,7 @@ public class DoubleBullet : Bullet
 
     private void CheckAllBulletIfNull()
     {
-        if (leftBulletPrefab == null && rightBulletPrefab == null)
-        {
-            Destroy(gameObject);
-        }
+        if (leftBulletPrefab == null && rightBulletPrefab == null) Destroy(gameObject);
     }
 
     protected virtual void LeftBulletCheckCorner()
@@ -43,10 +38,7 @@ public class DoubleBullet : Bullet
         if (leftBulletPrefab == null)
             return;
 
-        if (leftBulletPrefab.transform.position.y >= 9)
-        {
-            Destroy(leftBulletPrefab.transform.gameObject);
-        }
+        if (leftBulletPrefab.transform.position.y >= 9) Destroy(leftBulletPrefab.transform.gameObject);
     }
 
     protected virtual void RightBulletCheckCorner()
@@ -54,10 +46,7 @@ public class DoubleBullet : Bullet
         if (rightBulletPrefab == null)
             return;
 
-        if (rightBulletPrefab.transform.position.y >= 9)
-        {
-            Destroy(rightBulletPrefab.transform.gameObject);
-        }
+        if (rightBulletPrefab.transform.position.y >= 9) Destroy(rightBulletPrefab.transform.gameObject);
     }
 
     protected virtual void LeftBulletCheckCollisions()
@@ -66,20 +55,17 @@ public class DoubleBullet : Bullet
             return;
 
 
-        RaycastHit2D[] colliderResults1 = Physics2D.BoxCastAll(leftBulletCollider.bounds.center, leftBulletCollider.bounds.extents * 2, 0, Vector2.zero);
+        var colliderResults1 = Physics2D.BoxCastAll(leftBulletCollider.bounds.center,
+            leftBulletCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults1)
-        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
-            {
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
                     InstantaiteBubble(item.transform.position);
                     Destroy(leftBulletPrefab.transform.gameObject);
                 }
-            }
-        }
     }
 
     protected virtual void RightBulletCheckCollisions()
@@ -87,19 +73,16 @@ public class DoubleBullet : Bullet
         if (rightBulletPrefab == null)
             return;
 
-        RaycastHit2D[] colliderResults2 = Physics2D.BoxCastAll(rightBulletCollider.bounds.center, rightBulletCollider.bounds.extents * 2, 0, Vector2.zero);
+        var colliderResults2 = Physics2D.BoxCastAll(rightBulletCollider.bounds.center,
+            rightBulletCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults2)
-        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
-            {
                 if (damagable != null)
                 {
                     damagable.TakeDamage();
                     InstantaiteBubble(item.transform.position);
                     Destroy(rightBulletPrefab.transform.gameObject);
                 }
-            }
-        }
     }
 }

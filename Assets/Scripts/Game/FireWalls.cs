@@ -1,15 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireWalls : MonoBehaviour
 {
-    public static event Action OnFireWallStopped;
-    public static event Action OnFireWallFirstUsed;
-    public static event Action OnFireWallSecondtUsed;
-    public static event Action OnStageChanged;
-
     [SerializeField] private Transform LeftFireWall, RightFireWall;
 
 
@@ -24,6 +17,11 @@ public class FireWalls : MonoBehaviour
         transform.position = Vector3.zero;
     }
 
+    public static event Action OnFireWallStopped;
+    public static event Action OnFireWallFirstUsed;
+    public static event Action OnFireWallSecondtUsed;
+    public static event Action OnStageChanged;
+
 
     public void OpenFireWalls()
     {
@@ -31,6 +29,7 @@ public class FireWalls : MonoBehaviour
         LeftFireWall.gameObject.SetActive(true);
         RightFireWall.gameObject.SetActive(true);
     }
+
     public void CloseFireWalls()
     {
         LeftFireWall.gameObject.SetActive(false);
@@ -51,8 +50,8 @@ public class FireWalls : MonoBehaviour
         switch (triggerCount)
         {
             case 0:
-                Vector3 leftWallFirstPos = new Vector3(-firstPosX, 0f, 0f);
-                Vector3 rightWallFirstPos = new Vector3(firstPosX, 0f, 0f);
+                var leftWallFirstPos = new Vector3(-firstPosX, 0f, 0f);
+                var rightWallFirstPos = new Vector3(firstPosX, 0f, 0f);
 
                 LeftFireWall.position = leftWallFirstPos;
                 RightFireWall.position = rightWallFirstPos;
@@ -60,19 +59,15 @@ public class FireWalls : MonoBehaviour
                 OnFireWallFirstUsed?.Invoke();
                 break;
             case 1:
-                Vector3 leftWallSecondPos = new Vector3(-secondPosX, 0f, 0f);
-                Vector3 rightWallSecondPos = new Vector3(secondPosX, 0f, 0f);
+                var leftWallSecondPos = new Vector3(-secondPosX, 0f, 0f);
+                var rightWallSecondPos = new Vector3(secondPosX, 0f, 0f);
 
                 LeftFireWall.position = leftWallSecondPos;
                 RightFireWall.position = rightWallSecondPos;
 
                 OnFireWallSecondtUsed?.Invoke();
                 break;
-
-            default:
-                break;
         }
-        
     }
 
     private void TriggerCount()

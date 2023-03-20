@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraScr : MonoBehaviour
@@ -8,9 +7,9 @@ public class CameraScr : MonoBehaviour
 
     [SerializeField] private BoxCollider2D boxCollider;
 
-    private Vector3 orignalPosition;
-
     public Vector3 cameraLeftCornerX, cameraRightCornerX;
+
+    private Vector3 orignalPosition;
 
 
     private void Awake()
@@ -39,19 +38,20 @@ public class CameraScr : MonoBehaviour
         StartCoroutine(Shake(duration, magnitude));
     }
 
-    IEnumerator Shake(float duration, float magnitude)
+    private IEnumerator Shake(float duration, float magnitude)
     {
-        float elapsed = 0f;
+        var elapsed = 0f;
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            var x = Random.Range(-1f, 1f) * magnitude;
+            var y = Random.Range(-1f, 1f) * magnitude;
 
             transform.position = new Vector3(x, y, -10f);
             elapsed += Time.deltaTime;
             yield return 0;
         }
+
         transform.position = orignalPosition;
     }
 }

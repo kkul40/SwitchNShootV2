@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -14,11 +12,12 @@ public class PlayerAnimation : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
-    
+
     public void FlipRight()
     {
         sprite.flipX = false;
     }
+
     public void FlipLeft()
     {
         sprite.flipX = true;

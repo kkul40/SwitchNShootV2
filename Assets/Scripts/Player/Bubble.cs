@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -27,11 +26,10 @@ public class Bubble : MonoBehaviour
         StartCoroutine(BubbleRoutine());
     }
 
-    IEnumerator BubbleRoutine()
+    private IEnumerator BubbleRoutine()
     {
         bubble.SetActive(true);
         yield return new WaitForSeconds(bubbleLifeTime);
         bubble.SetActive(false);
     }
-
 }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum States
@@ -13,12 +11,9 @@ public enum States
 
 public class Boss : MonoBehaviour, IDamagable
 {
-    public static event Action OnBossDeath;
-
     [SerializeField] private float speed;
     [SerializeField] private float offsetX;
     [SerializeField] private float pushForceOnY;
-    private Vector3 direction;
 
     [SerializeField] private BossEye leftEye;
     [SerializeField] private BossEye rightEye;
@@ -26,16 +21,17 @@ public class Boss : MonoBehaviour, IDamagable
 
     [SerializeField] private BossProjectiles bossProjectiles;
 
-    private bool isBothEyeOpen;
-
     [SerializeField] private int bossHealth;
 
     private States currentState;
-    
+    private Vector3 direction;
 
-    void Start()
+    private bool isBothEyeOpen;
+
+
+    private void Start()
     {
-        Debug.Log("boss doðdu");
+        Debug.Log("boss doÄŸdu");
         currentState = States.FirstApproach;
         direction = Vector3.right;
 
@@ -43,9 +39,9 @@ public class Boss : MonoBehaviour, IDamagable
         Invoke("OpenBothEyes", eyeOpenDuration);
     }
 
-    void Update()
+    private void Update()
     {
-        // surekli update ile kontrol etmek yerine eye classýndan burya sinyal gönderebilirsin
+        // surekli update ile kontrol etmek yerine eye classÄ±ndan burya sinyal gÃ¶nderebilirsin
         // daha sonra halledersin
         CheckIfBothEyesIsClosed();
     }
@@ -54,19 +50,25 @@ public class Boss : MonoBehaviour, IDamagable
     {
         CheckCorners();
         transform.position += direction * speed * Time.deltaTime;
-        transform.position += Vector3.down * speed/2 * Time.deltaTime;
+        transform.position += Vector3.down * speed / 2 * Time.deltaTime;
     }
+
+    public void TakeDamage()
+    {
+        Debug.Log("boss been atacked");
+        CalculteHealt();
+    }
+
+    public static event Action OnBossDeath;
 
     private void CheckIfBothEyesIsClosed()
     {
-        if (!isBothEyeOpen)
-        {
-            return;
-        }
+        if (!isBothEyeOpen) return;
 
         if (!leftEye.isEyeOpen && !rightEye.isEyeOpen)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + pushForceOnY, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + pushForceOnY,
+                transform.position.z);
 
             isBothEyeOpen = false;
             CalculteHealt();
@@ -92,26 +94,15 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void CheckCorners()
     {
-        float leftCorner = CameraScr.Instance.cameraLeftCornerX.x + offsetX;
-        float rightCorner = CameraScr.Instance.cameraRightCornerX.x - offsetX;
+        var leftCorner = CameraScr.Instance.cameraLeftCornerX.x + offsetX;
+        var rightCorner = CameraScr.Instance.cameraRightCornerX.x - offsetX;
 
         if (transform.position.x < leftCorner || transform.position.x > rightCorner)
         {
             if (direction == Vector3.left)
-            {
                 direction = Vector3.right;
-            }
-            else if (direction == Vector3.right)
-            {
-                direction = Vector3.left;
-            }
+            else if (direction == Vector3.right) direction = Vector3.left;
         }
-    }
-
-    public void TakeDamage()
-    {
-        Debug.Log("boss been atacked");
-        CalculteHealt();
     }
 
     private void CalculteHealt()
@@ -120,12 +111,9 @@ public class Boss : MonoBehaviour, IDamagable
         if (bossHealth <= 0)
         {
             OnBossDeath?.Invoke();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
-
-
-    
 
 
     //Attack Pattern

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WallSystem : MonoBehaviour
@@ -25,6 +22,11 @@ public class WallSystem : MonoBehaviour
     private void OnDisable()
     {
         Projectiles.OnLaserFired -= StartFireWallSequence;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.LogError("wall system destroy");
     }
 
     private void StartFireWallSequence()
@@ -52,7 +54,7 @@ public class WallSystem : MonoBehaviour
         //fades.CloseFades();
         fireWalls.OpenFireWalls();
 
-        int laserFireDuration = 5;
+        var laserFireDuration = 5;
         Invoke("StopFireWalls", laserFireDuration);
     }
 
@@ -64,10 +66,4 @@ public class WallSystem : MonoBehaviour
 
         isFireWallActive = false;
     }
-
-    private void OnDestroy()
-    {
-        Debug.LogError("wall system destroy");
-    }
-
 }

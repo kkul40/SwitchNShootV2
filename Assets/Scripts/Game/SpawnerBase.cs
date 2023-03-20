@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerBase : MonoBehaviour
@@ -9,7 +7,7 @@ public class SpawnerBase : MonoBehaviour
     [SerializeField] protected float spawnRate;
     [SerializeField] protected float waitForSecToSpawn;
 
-    // 3 çeþit sapwnoffset var ilki 1 ikinci 1.5 ve sonunucsu 2 firewalla göre ayarama yap
+    // 3 Ã§eÅŸit sapwnoffset var ilki 1 ikinci 1.5 ve sonunucsu 2 firewalla gÃ¶re ayarama yap
     protected void Start()
     {
         InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
@@ -33,10 +31,12 @@ public class SpawnerBase : MonoBehaviour
     {
         spawnPosOffsetX = 1;
     }
+
     protected virtual void SpawnPosXTo15()
     {
         spawnPosOffsetX = 1.5f;
     }
+
     protected virtual void SpawnPosXTo2()
     {
         spawnPosOffsetX = 2;
@@ -44,8 +44,9 @@ public class SpawnerBase : MonoBehaviour
 
     protected virtual void Spawn()
     {
-        float spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX, CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
-        Vector3 spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
+        var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
+            CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
+        var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
         Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
     }
 
@@ -61,5 +62,4 @@ public class SpawnerBase : MonoBehaviour
     {
         CancelInvoke("Spawn");
     }
-
 }

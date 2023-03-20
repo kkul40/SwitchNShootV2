@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StageSystem : MonoBehaviour
@@ -7,7 +5,7 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private Transform bossPrefab;
     [SerializeField] private Transform bossSpawnPos;
 
-    private bool isBossActive = false;
+    private bool isBossActive;
 
     private void OnEnable()
     {
@@ -30,6 +28,8 @@ public class StageSystem : MonoBehaviour
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }
 
-    private void SetBossActiveToFalse() => isBossActive = false;
-
+    private void SetBossActiveToFalse()
+    {
+        isBossActive = false;
+    }
 }

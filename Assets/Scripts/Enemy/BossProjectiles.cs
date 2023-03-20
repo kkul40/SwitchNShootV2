@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public enum Attacks
 {
@@ -12,6 +10,7 @@ public enum Attacks
     PentaLeftAttack,
     PentaRigthAttack
 }
+
 public class BossProjectiles : MonoBehaviour
 {
     [SerializeField] private Transform middle;
@@ -24,25 +23,25 @@ public class BossProjectiles : MonoBehaviour
     [SerializeField] private Transform right3;
     [SerializeField] private Transform right4;
 
-    [Header("Projectiles")]
-    [SerializeField] private Transform enemyPrefab;
+    [Header("Projectiles")] [SerializeField]
+    private Transform enemyPrefab;
+
     [SerializeField] private Transform laser;
 
-
-    private List<Transform> enemies = new List<Transform>();
-
     [SerializeField] private Attacks currentAttack;
-    private bool isAttacking;
     [SerializeField] private float attackDuration;
+
+
+    private readonly List<Transform> enemies = new();
+    private bool isAttacking;
     private float lastAttackTime;
 
 
-    void Start()
+    private void Start()
     {
-
     }
 
-    void Update()
+    private void Update()
     {
         if (!isAttacking)
         {
@@ -53,7 +52,6 @@ public class BossProjectiles : MonoBehaviour
                 lastAttackTime = 0;
             }
         }
-
     }
 
     private void ChooseAttack()
@@ -79,8 +77,6 @@ public class BossProjectiles : MonoBehaviour
             case Attacks.PentaRigthAttack:
                 StartCoroutine(RightPentaAttack());
                 break;
-            default:
-                break;
         }
     }
 
@@ -88,7 +84,7 @@ public class BossProjectiles : MonoBehaviour
     public IEnumerator PentaAttack()
     {
         enemies.Clear();
-        float delay = 0.3f;
+        var delay = 0.3f;
 
         InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
@@ -104,7 +100,7 @@ public class BossProjectiles : MonoBehaviour
     public IEnumerator LeftTriAttack()
     {
         enemies.Clear();
-        float delay = 0.3f;
+        var delay = 0.3f;
 
         InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
@@ -118,7 +114,7 @@ public class BossProjectiles : MonoBehaviour
     public IEnumerator RightTriAttack()
     {
         enemies.Clear();
-        float delay = 0.3f;
+        var delay = 0.3f;
 
         InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
@@ -132,7 +128,7 @@ public class BossProjectiles : MonoBehaviour
     public IEnumerator LeftPentaAttack()
     {
         enemies.Clear();
-        float delay = 0.3f;
+        var delay = 0.3f;
 
         InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
@@ -150,7 +146,7 @@ public class BossProjectiles : MonoBehaviour
     public IEnumerator RightPentaAttack()
     {
         enemies.Clear();
-        float delay = 0.3f;
+        var delay = 0.3f;
 
         InstantiateBossEnemy(middle);
         yield return new WaitForSeconds(delay);
@@ -170,11 +166,4 @@ public class BossProjectiles : MonoBehaviour
         var enemyPrefab = Instantiate(this.enemyPrefab, transform.position, Quaternion.identity);
         enemyPrefab.GetComponent<Enemy>().SwitchState(EnemyState.BossEnemy);
     }
-
-
-
-
-
-
-
 }

@@ -12,22 +12,28 @@ public enum States
 
 public class Boss : MonoBehaviour, IDamagable
 {
+    public static event Action OnBossDeath;
+    
     [SerializeField] private float speed;
-    [SerializeField] private float offsetX;
+    [SerializeField] private float offsetX; // For Corners
     [SerializeField] private float pushForceOnY;
+    [SerializeField] private Vector3 approachPos;
 
     [SerializeField] private BossEye leftEye;
     [SerializeField] private BossEye rightEye;
+    [SerializeField] private BossProjectiles bossProjectiles;
+    private bool isLeftEyeOpen;
+    private bool isRightEyeOpen;
     [SerializeField] private float eyeOpenDuration;
 
-    [SerializeField] private BossProjectiles bossProjectiles;
 
     [SerializeField] private int bossHealth;
 
-    [SerializeField] private Transform bossParticleSystem;
+    [SerializeField] private ParticleScr bossParticleSystem;
 
     private States currentState;
     private Vector3 direction;
+    private Vector3 lastDirection;
 
     private bool isBothEyeOpen;
 
@@ -37,40 +43,55 @@ public class Boss : MonoBehaviour, IDamagable
         Debug.Log("boss doğdu");
         currentState = States.FirstApproach;
         direction = Vector3.right;
-
+        lastDirection = direction;
+        
         CloseBothEyes();
-        Invoke("OpenBothEyes", eyeOpenDuration);
-    }
-
-    private void Update()
-    {
-        // surekli update ile kontrol etmek yerine eye classından burya sinyal gönderebilirsin
-        // daha sonra halledersin
-        CheckIfBothEyesIsClosed();
     }
 
     private void FixedUpdate()
     {
-        CheckCorners();
+        switch (currentState)
+        {
+            case States.FirstApproach:
+                transform.position = Vector3.Lerp(transform.position, approachPos, speed  * Time.deltaTime);
 
-        if (bossProjectiles.isAttacking)
-        {
-            //transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
+                if (Vector3.Distance(transform.position, approachPos) < .1f)
+                {
+                    Invoke(nameof(OpenBothEyes), eyeOpenDuration);
+                    currentState = States.Approach;
+                }
+                break;
+            case States.Approach:
+                CheckCorners();
+                
+                if (bossProjectiles.isAttacking)
+                {
+                    //TODO buraya birseyler ekle
+                    //transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
+                }
+                else
+                {
+                    transform.position += direction * (speed * Time.deltaTime);
+                    transform.position += Vector3.down * (speed / 2 * Time.deltaTime);
+                }
+                break;
+            case States.Dead:
+                transform.position += lastDirection * (speed * 3 * Time.deltaTime);
+                transform.position += Vector3.up * (speed / 2 * Time.deltaTime);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-        else
-        {
-            transform.position += direction * speed * Time.deltaTime;
-            transform.position += Vector3.down * speed / 2 * Time.deltaTime;
-        }
+
+        
     }
-
+    
     public void TakeDamage()
     {
         Debug.Log("boss been atacked");
         CalculteHealt();
     }
 
-    public static event Action OnBossDeath;
 
     private void CheckIfBothEyesIsClosed()
     {
@@ -78,12 +99,14 @@ public class Boss : MonoBehaviour, IDamagable
 
         if (!leftEye.isEyeOpen && !rightEye.isEyeOpen)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + pushForceOnY,
+            transform.position = new Vector3(
+                transform.position.x, 
+                transform.position.y + pushForceOnY,
                 transform.position.z);
-
+            
             isBothEyeOpen = false;
             CalculteHealt();
-            Invoke("OpenBothEyes", eyeOpenDuration);
+            Invoke(nameof(OpenBothEyes), eyeOpenDuration);
         }
     }
 
@@ -93,6 +116,18 @@ public class Boss : MonoBehaviour, IDamagable
         rightEye.SetEyeOpen();
 
         isBothEyeOpen = true;
+    }
+
+    public void IsLeftEyeOpen(bool leftEye)
+    {
+        isLeftEyeOpen = leftEye;
+        CheckIfBothEyesIsClosed();
+    }
+    
+    public void IsRightEyeOpen(bool rightEye)
+    {
+        isRightEyeOpen = rightEye;
+        CheckIfBothEyesIsClosed();
     }
 
     private void CloseBothEyes()
@@ -122,9 +157,10 @@ public class Boss : MonoBehaviour, IDamagable
         if (bossHealth <= 0)
         {
             OnBossDeath?.Invoke();
-            var bossParticle = Instantiate(bossParticleSystem, transform.position, quaternion.identity);
-            bossParticle.GetComponent<ParticleScr>().SelfDestroy(3f);
-            Destroy(gameObject);
+            bossParticleSystem.PlayParticleSystem();
+            lastDirection = direction;
+            currentState = States.Dead;
+            Destroy(gameObject, 5f);
         }
     }
 

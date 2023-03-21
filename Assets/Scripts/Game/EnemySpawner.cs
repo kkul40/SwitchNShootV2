@@ -10,6 +10,6 @@ public class EnemySpawner : SpawnerBase
 
     public override void StartSpawning()
     {
-        InvokeRepeating("Spawn", waitForSecToSpawn, stageSystem.GetEnemySpawnRate);
+        InvokeRepeating(nameof(Spawn), waitForSecToSpawn, stageSystem.GetEnemySpawnRate);
     }
 }

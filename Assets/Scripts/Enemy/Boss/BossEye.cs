@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
+
 
 public class BossEye : MonoBehaviour, IDamagable
 {
+    public enum WhichEye
+    {
+        LeftEye,
+        RightEye,
+    }
+
+    [SerializeField] private Boss boss;
     [SerializeField] private BoxCollider2D eyeCollider;
     [SerializeField] private Animator anim;
-
+    
+    public WhichEye whichEye;
     public bool isEyeOpen;
-
-
-    private void Start()
-    {
-        /*eyeCollider = GetComponent<BoxCollider2D>();
-        anim = GetComponent<Animator>();*/
-
-        //SetEyeClose();
-    }
 
     public void TakeDamage()
     {
@@ -28,6 +29,7 @@ public class BossEye : MonoBehaviour, IDamagable
 
         eyeCollider.enabled = true;
         isEyeOpen = true;
+        InformBoss(isEyeOpen);
         anim.SetBool("isEyeOpen", true);
     }
 
@@ -38,6 +40,20 @@ public class BossEye : MonoBehaviour, IDamagable
 
         eyeCollider.enabled = false;
         isEyeOpen = false;
+        InformBoss(isEyeOpen);
         anim.SetBool("isEyeOpen", false);
+    }
+
+    private void InformBoss(bool isEyeOpen)
+    {
+        switch (whichEye)
+        {
+            case WhichEye.LeftEye:
+                boss.IsLeftEyeOpen(isEyeOpen);
+                break;
+            case WhichEye.RightEye:
+                boss.IsRightEyeOpen(isEyeOpen);
+                break;
+        }
     }
 }

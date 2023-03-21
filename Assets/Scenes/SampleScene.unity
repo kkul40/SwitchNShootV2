@@ -1479,20 +1479,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.75
-      inSlope: -0.09996849
-      outSlope: -0.09996849
-      tangentMode: 0
+      inSlope: -0.086570695
+      outSlope: -0.13560118
+      tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06747405
+      outWeight: 0.084619485
     - serializedVersion: 3
       time: 10
       value: 0.05
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
+      inSlope: -0.0010998485
+      outSlope: -0.09118351
+      tangentMode: 1
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.8588847
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -7011,7 +7011,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518545640}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 9, z: 0}
+  m_LocalPosition: {x: -9, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7052,7 +7052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimation: {fileID: 683971238}
-  _boxCollider: {fileID: 0}
+  boxCollider: {fileID: 0}
   projectileSpawnPoint: {fileID: 1434898422}
   enemyParticlePrefab: {fileID: 3911225837492367784, guid: 45fc5cbba3ad0564ba629694e4424a8e, type: 3}
   playerStartPos: {x: -1.5, y: -5}

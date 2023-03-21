@@ -15,6 +15,7 @@ public class Projectiles : MonoBehaviour
     [SerializeField] private bool isLaserFired;
     private Transform laserTemp;
 
+    private int startingProjectileIndex;
     private int LaserFiredCount;
     public int GetLaserFiredCount => LaserFiredCount;
     private void Start()
@@ -70,7 +71,13 @@ public class Projectiles : MonoBehaviour
         laserTemp.GetComponent<Laser>().DestroyLaser();
 
         //TODO add stage checks here do it later
-        SetProjectileIndex(2);
+        SetProjectileIndex(++startingProjectileIndex);
+        
+        //TODO daha sonra incele
+        if (startingProjectileIndex > projectileList.Count - 1)
+        {
+            startingProjectileIndex = projectileList.Count - 1;
+        }
     }
     
     private void SetProjectileIndex(int index)

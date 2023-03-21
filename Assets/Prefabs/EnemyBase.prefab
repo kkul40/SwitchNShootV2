@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2423022617658769763}
   - component: {fileID: 2423022617658769760}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyBase
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +75,10 @@ MonoBehaviour:
   animator: {fileID: 2423022618718159261}
   speed: 8
   bossEnemy: 0
+  enemyBublePrefab: {fileID: 912306899832850265, guid: 6cc00851cfd77fb4d8061fd8c40d4d5d, type: 3}
+  bubbleLifeTime: 0.066
+  deathDelayOnLine: 1
+  enemyParticlePrefab: {fileID: 7685938297658144732, guid: 56663090a9d2f0c4f93c0598da356c0e, type: 3}
   hit: {fileID: 8300000, guid: 69e88f02985a97d4ca1969e23cde20eb, type: 3}
 --- !u!1 &2423022618718159259
 GameObject:

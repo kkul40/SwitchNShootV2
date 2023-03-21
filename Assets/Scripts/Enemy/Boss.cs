@@ -52,7 +52,7 @@ public class Boss : MonoBehaviour, IDamagable
 
         if (bossProjectiles.isAttacking)
         {
-            transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
+            //transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
         }
         else
         {

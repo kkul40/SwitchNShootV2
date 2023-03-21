@@ -1,8 +1,12 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Coin : MonoBehaviour, ICollectable
 {
+    [SerializeField] private Transform powerUpPrefab;
+    
     [SerializeField] private float speed;
+    
 
     private void FixedUpdate()
     {
@@ -12,6 +16,8 @@ public class Coin : MonoBehaviour, ICollectable
 
     public void Collect()
     {
+        var text = Instantiate(powerUpPrefab, transform.position, quaternion.identity);
+        Destroy(text.gameObject, 0.5f);
         Destroy(gameObject);
     }
 

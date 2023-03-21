@@ -27,15 +27,15 @@ public class StageSystem : MonoBehaviour
     private void OnEnable()
     {
         Projectiles.OnLaserStopped += AddStage;
-        Boss.OnBossDeath += SetBossActiveToFalse; // 1
-        Boss.OnBossDeath += AddStage; // 2
+        Boss.OnBossDeath += SetBossActiveToFalse;
+        Boss.OnBossDeath += RestartSpawnings;
     }
 
     private void OnDisable()
     {
         Projectiles.OnLaserStopped -= AddStage;
         Boss.OnBossDeath -= SetBossActiveToFalse;
-        Boss.OnBossDeath -= AddStage;
+        Boss.OnBossDeath -= RestartSpawnings;
     }
 
     public static event Action OnStageChanged;
@@ -48,7 +48,7 @@ public class StageSystem : MonoBehaviour
         if (!isBossActive)
         {
             stage++;
-            if (stage % 4 == 0) // her 4 stagede bir boss cagır
+            if (stage % 2 == 0) // her 4 stagede bir boss cagır
             {
                 enemySpawner.StopSpawning();
                 SpawnBoss();
@@ -60,6 +60,12 @@ public class StageSystem : MonoBehaviour
 
             OnStageChanged?.Invoke();
         }
+    }
+
+    private void RestartSpawnings()
+    {
+        stage++;
+        StartCoroutine(StopSpawningForAWhileCo());
     }
 
     private IEnumerator StopSpawningForAWhileCo()

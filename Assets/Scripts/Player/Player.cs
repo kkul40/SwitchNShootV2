@@ -4,10 +4,13 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance;
-
+    
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D _boxCollider;
     [SerializeField] private Transform projectileSpawnPoint;
+    
+    [Header("Particle Effect")] 
+    [SerializeField] private Transform enemyParticlePrefab;
 
 
     [SerializeField] private Vector2 playerStartPos;
@@ -78,6 +81,8 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage()
     {
         playerAnimation.PlayerTurnOff();
+        var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
+        particle.GetComponent<ParticleScr>().SelfDestroy(3f);
         OnPlayerDeath?.Invoke();
     }
 
@@ -146,19 +151,17 @@ public class Player : MonoBehaviour, IDamagable
         foreach (var item in colliderResults)
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
             {
-                if (damagable != null)
-                {
-                    damagable.TakeDamage();
-                    TakeDamage();
-                }
+                damagable.TakeDamage();
+                TakeDamage();
             }
             else if (item.transform.TryGetComponent(out ICollectable collectable))
             {
-                if (collectable != null)
-                {
-                    collectable.Collect();
-                    projectiles.LevelUp();
-                }
+                collectable.Collect();
+                projectiles.LevelUp();
+            }
+            else if (item.transform.TryGetComponent(out EnemyBubble enemyBubble))
+            {
+                TakeDamage();
             }
     }
 

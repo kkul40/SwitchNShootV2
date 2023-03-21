@@ -754,12 +754,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.75
   offsetX: 2.5
-  pushForceOnY: 1.5
+  pushForceOnY: 1
   leftEye: {fileID: 8357689276322855217}
   rightEye: {fileID: 8357689275789056208}
   eyeOpenDuration: 5
   bossProjectiles: {fileID: 8357689277000438674}
-  bossHealth: 5
+  bossHealth: 7
 --- !u!114 &8357689277000438674
 MonoBehaviour:
   m_ObjectHideFlags: 0

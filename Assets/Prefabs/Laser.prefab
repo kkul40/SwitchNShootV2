@@ -178,5 +178,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  Bubble: {fileID: 912306899832850265, guid: 6cc00851cfd77fb4d8061fd8c40d4d5d, type: 3}
+  Bubble: {fileID: 6491594132372649860, guid: acf87cbeebbe0594b9e4232c527e0980, type: 3}
   laserStartPosOffset: {x: 0, y: 6, z: 0}

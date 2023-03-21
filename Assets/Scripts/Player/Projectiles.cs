@@ -74,9 +74,9 @@ public class Projectiles : MonoBehaviour
         SetProjectileIndex(++startingProjectileIndex);
         
         //TODO daha sonra incele
-        if (startingProjectileIndex > projectileList.Count - 1)
+        if (startingProjectileIndex > projectileList.Count - 2)
         {
-            startingProjectileIndex = projectileList.Count - 1;
+            startingProjectileIndex = projectileList.Count - 2;
         }
     }
     

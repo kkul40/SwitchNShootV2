@@ -4,6 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance;
+
+    private Inputs inputs;
     
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D _boxCollider;
@@ -26,6 +28,8 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (Instance == null)
             Instance = this;
+
+        inputs = new Inputs();
     }
 
     private void Start()
@@ -39,12 +43,22 @@ public class Player : MonoBehaviour, IDamagable
         transform.position = playerStartPos;
     }
 
+    private void OnEnable()
+    {
+        inputs.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Disable();
+    }
+
     private void Update()
     {
         switch (GameManager.Instance.currentStage)
         {
             case Stages.Intro:
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (inputs.Player.Switch.WasPressedThisFrame())
                 {
                     playerAnimation.PlayerTurnOn();
                     OnPlayerStarted?.Invoke();
@@ -92,7 +106,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void SwitchNShoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inputs.Player.Switch.WasPressedThisFrame())
         {
             playerAnimation.PlayerTurnOn();
             Switch();

@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
 
     private void ScoreChanged()
     {
+        if (GameManager.Instance.currentStage != Stages.Game) return;
+        
         score++;
         scoreText.text = score.ToString();
     }

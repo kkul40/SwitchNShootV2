@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private int stage = 1;
 
     [SerializeField] private AnimationCurve enemySpawnByStage;
+    [FormerlySerializedAs("bossLaserChangeByStage")] [SerializeField] private AnimationCurve bossLaserChanceByStage;
 
     private bool isBossActive;
     public int GetStage => stage;
@@ -22,20 +24,19 @@ public class StageSystem : MonoBehaviour
     public int GetLaserFireCount => projectiles.GetLaserFiredCount;
 
     public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
+    public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(stage);
 
 
     private void OnEnable()
     {
         Projectiles.OnLaserStopped += AddStage;
-        Boss.OnBossDeath += SetBossActiveToFalse;
-        Boss.OnBossDeath += RestartSpawnings;
+        Boss.OnBossDeath += BossIsDead;
     }
 
     private void OnDisable()
     {
         Projectiles.OnLaserStopped -= AddStage;
-        Boss.OnBossDeath -= SetBossActiveToFalse;
-        Boss.OnBossDeath -= RestartSpawnings;
+        Boss.OnBossDeath -= BossIsDead;
     }
 
     public static event Action OnStageChanged;
@@ -73,7 +74,8 @@ public class StageSystem : MonoBehaviour
     {
         enemySpawner.StopSpawning();
         coinSpawner.StopSpawning();
-        yield return new WaitForSeconds(1);
+        // 5 saniye stage molası 4 saaniye burda 1 saniye spawn fonksiyonu içinde
+        yield return new WaitForSeconds(4);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
     }
@@ -87,8 +89,13 @@ public class StageSystem : MonoBehaviour
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }
 
-    private void SetBossActiveToFalse()
+    private void BossIsDead()
     {
         isBossActive = false;
+        Invoke(nameof(AddStage),0);
+        // Her stage arası 5 saniye beklenecek
+        // 1 saniye spawn süresinden geliyor
+        // 4 saniey coroutine de harcanıyor
+        // 0 saniye burada bekletiliyor
     }
 }

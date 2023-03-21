@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Attacks
 {
@@ -26,7 +27,10 @@ public class BossProjectiles : MonoBehaviour
     [Header("Projectiles")] [SerializeField]
     private Transform enemyPrefab;
 
-    [SerializeField] private Transform laser;
+    [SerializeField] private StageSystem stageSystem;
+
+    [FormerlySerializedAs("laser")] [SerializeField] private BossLaser bossLaser;
+    [SerializeField] private float laserDuration;
 
     [SerializeField] private Attacks currentAttack;
     [SerializeField] private float attackDuration;
@@ -39,6 +43,7 @@ public class BossProjectiles : MonoBehaviour
 
     private void Start()
     {
+        stageSystem = FindObjectOfType<StageSystem>();
     }
 
     private void Update()
@@ -57,6 +62,16 @@ public class BossProjectiles : MonoBehaviour
     private void ChooseAttack()
     {
         isAttacking = true;
+        
+        //TODO stage e gore bu ihtimali arttir
+        if (Random.value < stageSystem.GetBossLaserChance)
+        {
+            // Fire Laser 
+            ShootLaser();
+            return;
+        }
+        
+        
         currentAttack = (Attacks)Random.Range(0, 5);
 
         //currentAttack = Attacks.TripleLeftAttack;
@@ -79,6 +94,20 @@ public class BossProjectiles : MonoBehaviour
                 break;
         }
     }
+
+    private void ShootLaser()
+    {
+        Debug.Log("laser started");
+        bossLaser.StartLaser(laserDuration);
+        Invoke(nameof(StopLaser), laserDuration);
+    }
+
+    private void StopLaser()
+    {
+        bossLaser.StopLaser();
+        isAttacking = false;
+    }
+    
 
     //TODO daha sonra optimize et
     public IEnumerator PentaAttack()

@@ -163,10 +163,20 @@ public class Player : MonoBehaviour, IDamagable
             Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults)
-            if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
+            if (item.transform.TryGetComponent(out IDamagable damagable))
             {
-                damagable.TakeDamage();
-                TakeDamage();
+                if (item.transform.CompareTag("Enemy"))
+                {
+                    Debug.Log("Enemy Hit");
+                    damagable.TakeDamage();
+                    TakeDamage();
+                }
+                else if (item.transform.CompareTag("Boss"))
+                {
+                    Debug.Log("Boss Hit");
+                    TakeDamage();
+                }
+                
             }
             else if (item.transform.TryGetComponent(out ICollectable collectable))
             {

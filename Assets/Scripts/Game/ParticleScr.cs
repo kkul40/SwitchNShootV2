@@ -12,4 +12,9 @@ public class ParticleScr : MonoBehaviour
     {
         transform.GetComponent<ParticleSystem>().Play();
     }
+
+    public void StopParticleSystem()
+    {
+        transform.GetComponent<ParticleSystem>().Stop();
+    }
 }

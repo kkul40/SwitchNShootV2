@@ -13,7 +13,7 @@ public enum States
 public class Boss : MonoBehaviour, IDamagable
 {
     public static event Action OnBossDeath;
-    
+
     [SerializeField] private float speed;
     [SerializeField] private float offsetX; // For Corners
     [SerializeField] private float pushForceOnY;
@@ -40,7 +40,6 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        Debug.Log("boss doğdu");
         currentState = States.FirstApproach;
         direction = Vector3.right;
         lastDirection = direction;

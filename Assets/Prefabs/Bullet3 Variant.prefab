@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2741704109207229507, guid: 364e978728404514dbb4452020841e2f, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8786444057728983808, guid: 364e978728404514dbb4452020841e2f, type: 3}
       propertyPath: m_Size.x
       value: 1

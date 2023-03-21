@@ -37,7 +37,7 @@ public class CameraScr : MonoBehaviour
     {
         StartCoroutine(Shake(duration, magnitude));
     }
-    
+
     public void CameraShakeY(float duration, float magnitude)
     {
         StartCoroutine(ShakeY(duration, magnitude));
@@ -59,7 +59,7 @@ public class CameraScr : MonoBehaviour
 
         transform.position = orignalPosition;
     }
-    
+
     private IEnumerator ShakeY(float duration, float magnitude)
     {
         var elapsed = 0f;
@@ -75,6 +75,4 @@ public class CameraScr : MonoBehaviour
 
         transform.position = orignalPosition;
     }
-    
-    
 }

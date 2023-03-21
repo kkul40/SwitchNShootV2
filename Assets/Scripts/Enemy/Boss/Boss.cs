@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 public enum States
@@ -12,8 +11,6 @@ public enum States
 
 public class Boss : MonoBehaviour, IDamagable
 {
-    public static event Action OnBossDeath;
-
     [SerializeField] private float speed;
     [SerializeField] private float offsetX; // For Corners
     [SerializeField] private float pushForceOnY;
@@ -22,8 +19,6 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private BossEye leftEye;
     [SerializeField] private BossEye rightEye;
     [SerializeField] private BossProjectiles bossProjectiles;
-    private bool isLeftEyeOpen;
-    private bool isRightEyeOpen;
     [SerializeField] private float eyeOpenDuration;
 
 
@@ -33,9 +28,11 @@ public class Boss : MonoBehaviour, IDamagable
 
     private States currentState;
     private Vector3 direction;
-    private Vector3 lastDirection;
 
     private bool isBothEyeOpen;
+    private bool isLeftEyeOpen;
+    private bool isRightEyeOpen;
+    private Vector3 lastDirection;
 
 
     private void Start()
@@ -43,7 +40,7 @@ public class Boss : MonoBehaviour, IDamagable
         currentState = States.FirstApproach;
         direction = Vector3.right;
         lastDirection = direction;
-        
+
         CloseBothEyes();
     }
 
@@ -52,17 +49,18 @@ public class Boss : MonoBehaviour, IDamagable
         switch (currentState)
         {
             case States.FirstApproach:
-                transform.position = Vector3.Lerp(transform.position, approachPos, speed  * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, approachPos, speed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, approachPos) < .1f)
                 {
                     Invoke(nameof(OpenBothEyes), eyeOpenDuration);
                     currentState = States.Approach;
                 }
+
                 break;
             case States.Approach:
                 CheckCorners();
-                
+
                 if (bossProjectiles.isAttacking)
                 {
                     //TODO buraya birseyler ekle
@@ -73,6 +71,7 @@ public class Boss : MonoBehaviour, IDamagable
                     transform.position += direction * (speed * Time.deltaTime);
                     transform.position += Vector3.down * (speed / 2 * Time.deltaTime);
                 }
+
                 break;
             case States.Dead:
                 transform.position += lastDirection * (speed * 3 * Time.deltaTime);
@@ -81,15 +80,15 @@ public class Boss : MonoBehaviour, IDamagable
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        
     }
-    
+
     public void TakeDamage()
     {
         Debug.Log("boss been atacked");
         CalculteHealt();
     }
+
+    public static event Action OnBossDeath;
 
 
     private void CheckIfBothEyesIsClosed()
@@ -99,10 +98,10 @@ public class Boss : MonoBehaviour, IDamagable
         if (!leftEye.isEyeOpen && !rightEye.isEyeOpen)
         {
             transform.position = new Vector3(
-                transform.position.x, 
+                transform.position.x,
                 transform.position.y + pushForceOnY,
                 transform.position.z);
-            
+
             isBothEyeOpen = false;
             CalculteHealt();
             Invoke(nameof(OpenBothEyes), eyeOpenDuration);
@@ -122,7 +121,7 @@ public class Boss : MonoBehaviour, IDamagable
         isLeftEyeOpen = leftEye;
         CheckIfBothEyesIsClosed();
     }
-    
+
     public void IsRightEyeOpen(bool rightEye)
     {
         isRightEyeOpen = rightEye;

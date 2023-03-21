@@ -176,7 +176,6 @@ public class Player : MonoBehaviour, IDamagable
                     Debug.Log("Boss Hit");
                     TakeDamage();
                 }
-                
             }
             else if (item.transform.TryGetComponent(out ICollectable collectable))
             {

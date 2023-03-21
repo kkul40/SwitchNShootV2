@@ -29,7 +29,9 @@ public class BossProjectiles : MonoBehaviour
 
     [SerializeField] private StageSystem stageSystem;
 
-    [FormerlySerializedAs("laser")] [SerializeField] private BossLaser bossLaser;
+    [FormerlySerializedAs("laser")] [SerializeField]
+    private BossLaser bossLaser;
+
     [SerializeField] private float laserDuration;
 
     [SerializeField] private Attacks currentAttack;
@@ -62,7 +64,7 @@ public class BossProjectiles : MonoBehaviour
     private void ChooseAttack()
     {
         isAttacking = true;
-        
+
         //TODO stage e gore bu ihtimali arttir
         if (Random.value < stageSystem.GetBossLaserChance)
         {
@@ -70,8 +72,8 @@ public class BossProjectiles : MonoBehaviour
             ShootLaser();
             return;
         }
-        
-        
+
+
         currentAttack = (Attacks)Random.Range(0, 5);
 
         //currentAttack = Attacks.TripleLeftAttack;
@@ -107,7 +109,7 @@ public class BossProjectiles : MonoBehaviour
         bossLaser.StopLaser();
         isAttacking = false;
     }
-    
+
 
     //TODO daha sonra optimize et
     public IEnumerator PentaAttack()

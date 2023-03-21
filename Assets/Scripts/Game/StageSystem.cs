@@ -16,7 +16,9 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private int stage = 1;
 
     [SerializeField] private AnimationCurve enemySpawnByStage;
-    [FormerlySerializedAs("bossLaserChangeByStage")] [SerializeField] private AnimationCurve bossLaserChanceByStage;
+
+    [FormerlySerializedAs("bossLaserChangeByStage")] [SerializeField]
+    private AnimationCurve bossLaserChanceByStage;
 
     private bool isBossActive;
     public int GetStage => stage;
@@ -92,7 +94,7 @@ public class StageSystem : MonoBehaviour
     private void BossIsDead()
     {
         isBossActive = false;
-        Invoke(nameof(AddStage),0);
+        Invoke(nameof(AddStage), 0);
         // Her stage arası 5 saniye beklenecek
         // 1 saniye spawn süresinden geliyor
         // 4 saniey coroutine de harcanıyor

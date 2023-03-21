@@ -1,19 +1,17 @@
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 public class BossEye : MonoBehaviour, IDamagable
 {
     public enum WhichEye
     {
         LeftEye,
-        RightEye,
+        RightEye
     }
 
     [SerializeField] private Boss boss;
     [SerializeField] private BoxCollider2D eyeCollider;
     [SerializeField] private Animator anim;
-    
+
     public WhichEye whichEye;
     public bool isEyeOpen;
 

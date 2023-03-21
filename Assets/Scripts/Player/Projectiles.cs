@@ -16,15 +16,12 @@ public class Projectiles : MonoBehaviour
     private Transform laserTemp;
 
     private int startingProjectileIndex;
-    private int LaserFiredCount;
-    public int GetLaserFiredCount => LaserFiredCount;
+    public int GetLaserFiredCount { get; private set; }
+
     private void Start()
     {
         choosenProjectile = projectileList[projectileIndex];
     }
-
-    public static event Action OnLaserFired;
-    public static event Action OnLaserStopped;
 
 
     private void OnEnable()
@@ -37,10 +34,14 @@ public class Projectiles : MonoBehaviour
         Player.OnPlayerDeath -= DestroyLaser;
     }
 
+    public static event Action OnLaserFired;
+    public static event Action OnLaserStopped;
+
     private void DestroyLaser()
     {
-        if(isLaserFired) 
-            laserTemp.GetComponent<Laser>().DestroyLaser();;
+        if (isLaserFired)
+            laserTemp.GetComponent<Laser>().DestroyLaser();
+        ;
     }
 
     public void ChooseProjectile()
@@ -58,7 +59,7 @@ public class Projectiles : MonoBehaviour
     {
         isLaserFired = true;
         laserTemp = Instantiate(laser, Player.Instance.GetFirePointPos(), Quaternion.identity);
-        LaserFiredCount++;
+        GetLaserFiredCount++;
         OnLaserFired?.Invoke();
         StartCoroutine(ResetLaser());
     }
@@ -70,16 +71,11 @@ public class Projectiles : MonoBehaviour
         OnLaserStopped?.Invoke();
         laserTemp.GetComponent<Laser>().DestroyLaser();
 
-        //TODO add stage checks here do it later
-        SetProjectileIndex(++startingProjectileIndex);
-        
-        //TODO daha sonra incele
-        if (startingProjectileIndex > projectileList.Count - 2)
-        {
-            startingProjectileIndex = projectileList.Count - 2;
-        }
+        SetProjectileIndex(GetLaserFiredCount % 2 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
+
+        if (startingProjectileIndex > projectileList.Count - 2) startingProjectileIndex = projectileList.Count - 2;
     }
-    
+
     private void SetProjectileIndex(int index)
     {
         // for now

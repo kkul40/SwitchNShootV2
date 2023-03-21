@@ -1472,7 +1472,7 @@ MonoBehaviour:
   bossSpawnPos: {fileID: 1518545641}
   enemySpawner: {fileID: 1000103025}
   coinSpawner: {fileID: 1243751095}
-  stage: 0
+  stage: 1
   enemySpawnByStage:
     serializedVersion: 2
     m_Curve:

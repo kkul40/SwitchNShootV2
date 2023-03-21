@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class FireWalls : MonoBehaviour
 {
-    public static event Action OnFireWallStopped;
-    public static event Action OnFireWallFirstUsed;
-    public static event Action OnFireWallSecondtUsed;
-
     [SerializeField] private Transform LeftFireWall, RightFireWall;
 
 
@@ -15,11 +11,14 @@ public class FireWalls : MonoBehaviour
 
     private int triggerCount;
 
-    //TODO en kotu random bir şekilde wallı ayarlayaabilirsin
     private void Start()
     {
         transform.position = Vector3.zero;
     }
+
+    public static event Action OnFireWallStopped;
+    public static event Action OnFireWallFirstUsed;
+    public static event Action OnFireWallSecondtUsed;
 
     public void OpenFireWalls(bool secondUse)
     {
@@ -51,10 +50,10 @@ public class FireWalls : MonoBehaviour
 
     public void CloseFireWalls()
     {
-        if(LeftFireWall != null)
+        if (LeftFireWall != null)
             LeftFireWall.gameObject.SetActive(false);
-        
-        if(RightFireWall != null)
+
+        if (RightFireWall != null)
             RightFireWall.gameObject.SetActive(false);
 
         OnFireWallStopped?.Invoke();

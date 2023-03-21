@@ -1,25 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private StageSystem stageSystem;
-
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI stageText;
 
     private int score;
+    private StageSystem stageSystem;
 
     private void Start()
     {
-        scoreText.text = 0.ToString();
-        stageText.text = 0.ToString();
-
         stageSystem = FindObjectOfType<StageSystem>();
+
+        scoreText.text = 0.ToString();
+        stageText.text = stageSystem.GetStage.ToString();
     }
 
     private void OnEnable()

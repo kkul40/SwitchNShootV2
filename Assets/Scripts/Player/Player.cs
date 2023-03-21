@@ -1,18 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance;
 
-    private Inputs inputs;
-    
     [SerializeField] private PlayerAnimation playerAnimation;
-    [SerializeField] private BoxCollider2D _boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Transform projectileSpawnPoint;
-    
-    [Header("Particle Effect")] 
-    [SerializeField] private Transform enemyParticlePrefab;
+
+    [Header("Particle Effect")] [SerializeField]
+    private Transform enemyParticlePrefab;
 
 
     [SerializeField] private Vector2 playerStartPos;
@@ -20,6 +19,8 @@ public class Player : MonoBehaviour, IDamagable
     private Vector3 _direction;
 
     private float cornerOffsetX;
+
+    private Inputs inputs;
 
     private bool isGameStarted;
     private Projectiles projectiles;
@@ -35,22 +36,12 @@ public class Player : MonoBehaviour, IDamagable
     private void Start()
     {
         _direction = Vector2.right;
-        _boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         projectiles = GetComponent<Projectiles>();
-        
-        cornerOffsetX = _boxCollider.bounds.extents.x;
+
+        cornerOffsetX = boxCollider.bounds.extents.x;
 
         transform.position = playerStartPos;
-    }
-
-    private void OnEnable()
-    {
-        inputs.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputs.Disable();
     }
 
     private void Update()
@@ -84,12 +75,22 @@ public class Player : MonoBehaviour, IDamagable
             case Stages.Game:
                 CheckCorner();
                 CheckCollisions();
-                transform.position += _direction * speed * Time.deltaTime;
+                transform.position += _direction * (speed * Time.deltaTime);
                 break;
             case Stages.Outro:
                 transform.position += Vector3.down * speed / 2 * Time.deltaTime;
                 break;
         }
+    }
+
+    private void OnEnable()
+    {
+        inputs.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Disable();
     }
 
     public void TakeDamage()
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour, IDamagable
     private void CheckCollisions()
     {
         var colliderResults =
-            Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
+            Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults)
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))

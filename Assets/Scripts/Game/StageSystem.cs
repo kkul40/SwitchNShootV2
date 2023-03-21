@@ -5,21 +5,21 @@ using UnityEngine;
 public class StageSystem : MonoBehaviour
 {
     [SerializeField] private Projectiles projectiles;
-    
+
     [SerializeField] private Transform bossPrefab;
     [SerializeField] private Transform bossSpawnPos;
 
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private CoinSpawner coinSpawner;
 
-    [SerializeField] private int stage;
-    public int GetStage => stage;
-
-    public int GetLaserFireCount => projectiles.GetLaserFiredCount;
+    [SerializeField] private int stage = 1;
 
     [SerializeField] private AnimationCurve enemySpawnByStage;
 
     private bool isBossActive;
+    public int GetStage => stage;
+
+    public int GetLaserFireCount => projectiles.GetLaserFiredCount;
 
     public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
 
@@ -65,6 +65,7 @@ public class StageSystem : MonoBehaviour
     private void RestartSpawnings()
     {
         stage++;
+        OnStageChanged?.Invoke();
         StartCoroutine(StopSpawningForAWhileCo());
     }
 

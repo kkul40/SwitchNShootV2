@@ -50,7 +50,6 @@ public class WallSystem : MonoBehaviour
         else
             fireWalls.OpenFireWalls(false);
 
-        //TODO Magic Number
         var laserFireDuration = 5;
         Invoke("StopFireWalls", laserFireDuration);
     }

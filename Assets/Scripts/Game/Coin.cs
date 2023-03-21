@@ -4,9 +4,9 @@ using UnityEngine;
 public class Coin : MonoBehaviour, ICollectable
 {
     [SerializeField] private Transform powerUpPrefab;
-    
+
     [SerializeField] private float speed;
-    
+
 
     private void FixedUpdate()
     {

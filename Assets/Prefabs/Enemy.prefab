@@ -72,8 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020abf2e6c569bd44844c4c8a8c46de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2423022618718159261}
   speed: 8
-  currentState: 0
+  bossEnemy: 0
+  hit: {fileID: 8300000, guid: 69e88f02985a97d4ca1969e23cde20eb, type: 3}
 --- !u!1 &2423022618718159259
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +171,7 @@ Animator:
   m_GameObject: {fileID: 2423022618718159259}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ffad4d5d2864e0f49ab207237db1e40e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public enum States
@@ -22,6 +23,8 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private BossProjectiles bossProjectiles;
 
     [SerializeField] private int bossHealth;
+
+    [SerializeField] private Transform bossParticleSystem;
 
     private States currentState;
     private Vector3 direction;
@@ -119,6 +122,8 @@ public class Boss : MonoBehaviour, IDamagable
         if (bossHealth <= 0)
         {
             OnBossDeath?.Invoke();
+            var bossParticle = Instantiate(bossParticleSystem, transform.position, quaternion.identity);
+            bossParticle.GetComponent<ParticleScr>().SelfDestroy(3f);
             Destroy(gameObject);
         }
     }

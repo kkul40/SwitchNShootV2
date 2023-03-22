@@ -7424,7 +7424,7 @@ MonoBehaviour:
   - {fileID: 1241048163434404083, guid: 951c9e3ed28bbb34a90ca0727f6b0dc1, type: 3}
   choosenProjectile: {fileID: 0}
   laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
-  projectileIndex: 4
+  projectileIndex: 0
   laserDuration: 5
 --- !u!50 &1530119402
 Rigidbody2D:

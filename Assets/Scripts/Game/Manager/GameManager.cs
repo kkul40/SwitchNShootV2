@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentStage = Stages.Intro;
+
+        Application.targetFrameRate = 120;
     }
 
     private void OnEnable()

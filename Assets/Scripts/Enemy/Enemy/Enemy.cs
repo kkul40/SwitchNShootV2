@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
         var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(2f);
-
+        SoundManager.Instance.PlayOneShot(hit);
         Destroy(gameObject);
     }
 

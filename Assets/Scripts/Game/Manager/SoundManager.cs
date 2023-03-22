@@ -4,7 +4,8 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSourceForBackground;
+    [SerializeField] private AudioSource audioSourceForSoundEffects;
 
 
     private void Awake()
@@ -13,13 +14,8 @@ public class SoundManager : MonoBehaviour
         else Destroy(this);
     }
 
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
     public void PlayOneShot(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
+        audioSourceForSoundEffects.PlayOneShot(clip);
     }
 }

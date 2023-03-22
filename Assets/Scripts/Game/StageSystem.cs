@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
@@ -17,10 +16,10 @@ public class StageSystem : MonoBehaviour
 
     [SerializeField] private AnimationCurve enemySpawnByStage;
 
-    [FormerlySerializedAs("bossLaserChangeByStage")] [SerializeField]
-    private AnimationCurve bossLaserChanceByStage;
+    [SerializeField] private AnimationCurve bossLaserChanceByStage;
 
     private bool isBossActive;
+    private bool isStagePreparing;
     public int GetStage => stage;
 
     public int GetLaserFireCount => projectiles.GetLaserFiredCount;
@@ -32,12 +31,14 @@ public class StageSystem : MonoBehaviour
     private void OnEnable()
     {
         Projectiles.OnLaserStopped += AddStage;
+        Boss.OnBossLeave += StageReadyAfterBoss;
         Boss.OnBossDeath += BossIsDead;
     }
 
     private void OnDisable()
     {
         Projectiles.OnLaserStopped -= AddStage;
+        Boss.OnBossLeave -= StageReadyAfterBoss;
         Boss.OnBossDeath -= BossIsDead;
     }
 
@@ -46,40 +47,36 @@ public class StageSystem : MonoBehaviour
 
     private void AddStage()
     {
-        if (projectiles.GetLaserFiredCount % 2 != 0) return;
+        //if (projectiles.GetLaserFiredCount % 2 != 0) return;
 
-        if (!isBossActive)
-        {
-            stage++;
-            if (stage % 2 == 0) // her 4 stagede bir boss cagır
-            {
-                enemySpawner.StopSpawning();
-                SpawnBoss();
-            }
-            else
-            {
-                StartCoroutine(StopSpawningForAWhileCo());
-            }
+        if (isBossActive || isStagePreparing) return;
 
-            OnStageChanged?.Invoke();
-        }
-    }
-
-    private void RestartSpawnings()
-    {
         stage++;
+        if (stage % 3 == 0) // her 4 stagede bir boss cagır
+        {
+            enemySpawner.StopSpawning();
+            coinSpawner.StopSpawning();
+            Invoke(nameof(SpawnBoss), 3f);
+        }
+        else
+        {
+            StartCoroutine(StopSpawningForAWhileCo());
+        }
+
+        isStagePreparing = true;
         OnStageChanged?.Invoke();
-        StartCoroutine(StopSpawningForAWhileCo());
     }
 
     private IEnumerator StopSpawningForAWhileCo()
     {
         enemySpawner.StopSpawning();
         coinSpawner.StopSpawning();
-        // 5 saniye stage molası 4 saaniye burda 1 saniye spawn fonksiyonu içinde
-        yield return new WaitForSeconds(4);
+        // 3 saniye stage molası 2 saaniye burda 1 saniye spawn fonksiyonu içinde
+        yield return new WaitForSeconds(2);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
+
+        isStagePreparing = false;
     }
 
     private void SpawnBoss()
@@ -88,16 +85,33 @@ public class StageSystem : MonoBehaviour
             return;
 
         isBossActive = true;
+        coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
+    }
+
+    private void StageReadyAfterBoss()
+    {
+        isStagePreparing = false;
     }
 
     private void BossIsDead()
     {
         isBossActive = false;
-        Invoke(nameof(AddStage), 0);
-        // Her stage arası 5 saniye beklenecek
+        AddStage();
+
+        // Her stage arası 3 saniye beklenecek
         // 1 saniye spawn süresinden geliyor
-        // 4 saniey coroutine de harcanıyor
+        // 2 saniey coroutine de harcanıyor
         // 0 saniye burada bekletiliyor
     }
+
+
+    /* TODO
+     1 - Laser Atışı yaşandığında stage atlanıcak
+     2 - boss öldüğünde stage atlanıcak
+     
+     
+     
+     
+     */
 }

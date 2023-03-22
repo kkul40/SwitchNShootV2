@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLaser: {fileID: 2144650679596215957}
   laserPartical: {fileID: 1126899691}
+  bossLaserSoundEffect: {fileID: 8300000, guid: 87fa47db3820d1440a225d11b55ffd73, type: 3}
 --- !u!1 &1126899687
 GameObject:
   m_ObjectHideFlags: 0

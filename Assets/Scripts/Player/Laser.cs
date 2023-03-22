@@ -1,9 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class Laser : Bullet
 {
     [SerializeField] private Vector3 laserStartPosOffset;
 
+    protected override void Start()
+    {
+        base.Start();
+        InvokeRepeating(nameof(PlaySound), 0, 0.1f);
+    }
 
     private void Update()
     {
@@ -21,7 +27,13 @@ public class Laser : Bullet
 
     public void DestroyLaser()
     {
+        CancelInvoke(nameof(PlaySound));
         Destroy(gameObject);
+    }
+
+    private void PlaySound()
+    {
+        SoundManager.Instance.PlayOneShot(fireSoundEffect);
     }
 
     protected override void CheckCollisions()
@@ -30,11 +42,12 @@ public class Laser : Bullet
             Physics2D.BoxCastAll(_boxCollider.bounds.center, _boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
         foreach (var item in colliderResults)
+        {
             if (item.transform.TryGetComponent(out IDamagable damagable) && !item.transform.CompareTag("Player"))
-                if (damagable != null)
-                {
+            {
                     damagable.TakeDamage();
                     InstantaiteBubble(item.transform.position);
-                }
+            }
+        }
     }
 }

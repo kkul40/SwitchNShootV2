@@ -29,7 +29,7 @@ public class BossProjectiles : MonoBehaviour
 
     [SerializeField] private StageSystem stageSystem;
 
-    [FormerlySerializedAs("laser")] [SerializeField]
+    [SerializeField]
     private BossLaser bossLaser;
 
     [SerializeField] private float laserDuration;
@@ -41,7 +41,7 @@ public class BossProjectiles : MonoBehaviour
 
     private readonly List<Transform> enemies = new();
     private float lastAttackTime;
-
+    private bool bossDeath;
 
     private void Start()
     {
@@ -50,7 +50,7 @@ public class BossProjectiles : MonoBehaviour
 
     private void Update()
     {
-        if (!isAttacking)
+        if (!isAttacking && !bossDeath)
         {
             lastAttackTime += Time.deltaTime;
             if (lastAttackTime >= attackDuration)
@@ -61,8 +61,26 @@ public class BossProjectiles : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Boss.OnBossLeave += StopLaserNow;
+        Boss.OnBossLeave += BossIsDead;
+    }
+
+    private void OnDisable()
+    {
+        Boss.OnBossLeave -= StopLaserNow;
+        Boss.OnBossLeave -= BossIsDead;
+    }
+
+    private void BossIsDead()
+    {
+        bossDeath = true;
+    }
+
     private void ChooseAttack()
     {
+        
         isAttacking = true;
 
         //TODO stage e gore bu ihtimali arttir
@@ -99,7 +117,6 @@ public class BossProjectiles : MonoBehaviour
 
     private void ShootLaser()
     {
-        Debug.Log("laser started");
         bossLaser.StartLaser(laserDuration);
         Invoke(nameof(StopLaser), laserDuration);
     }
@@ -109,6 +126,14 @@ public class BossProjectiles : MonoBehaviour
         bossLaser.StopLaser();
         isAttacking = false;
     }
+
+    private void StopLaserNow()
+    {
+        bossLaser.StoplaserNow();
+        isAttacking = false;
+    }
+    
+    
 
 
     //TODO daha sonra optimize et

@@ -38,6 +38,11 @@ public class CameraScr : MonoBehaviour
         StartCoroutine(Shake(duration, magnitude));
     }
 
+    public void StopCameraShakeY()
+    {
+        StopCoroutine(ShakeY(0, 0));
+    }
+
     public void CameraShakeY(float duration, float magnitude)
     {
         StartCoroutine(ShakeY(duration, magnitude));

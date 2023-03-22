@@ -79,7 +79,7 @@ MonoBehaviour:
   bubbleLifeTime: 0.066
   deathDelayOnLine: 1
   enemyParticlePrefab: {fileID: 7685938297658144732, guid: 56663090a9d2f0c4f93c0598da356c0e, type: 3}
-  hit: {fileID: 8300000, guid: 69e88f02985a97d4ca1969e23cde20eb, type: 3}
+  hit: {fileID: 8300000, guid: 94812fcd196072446b64f7dd236f79cc, type: 3}
 --- !u!1 &2423022618718159259
 GameObject:
   m_ObjectHideFlags: 0

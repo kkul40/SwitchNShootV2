@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private AudioClip deadSoundEffect;
 
     [Header("Particle Effect")] [SerializeField]
     private Transform enemyParticlePrefab;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour, IDamagable
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);
+        SoundManager.Instance.PlayOneShot(deadSoundEffect);
         OnPlayerDeath?.Invoke();
     }
 

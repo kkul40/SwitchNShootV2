@@ -6,11 +6,14 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] protected Transform Bubble;
 
+    [SerializeField] protected AudioClip fireSoundEffect;
+
     protected BoxCollider2D _boxCollider;
 
-    protected void Start()
+    protected virtual void Start()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
+        SoundManager.Instance.PlayOneShot(fireSoundEffect);
     }
 
     protected virtual void FixedUpdate()

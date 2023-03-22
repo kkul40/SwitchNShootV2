@@ -12,7 +12,7 @@ public class Projectiles : MonoBehaviour
 
     [SerializeField] private int projectileIndex;
     [SerializeField] private float laserDuration;
-    [SerializeField] private bool isLaserFired;
+    private bool isLaserFired;
     private Transform laserTemp;
 
     private int startingProjectileIndex;
@@ -23,15 +23,16 @@ public class Projectiles : MonoBehaviour
         choosenProjectile = projectileList[projectileIndex];
     }
 
-
     private void OnEnable()
     {
         Player.OnPlayerDeath += DestroyLaser;
+        Boss.OnBossDeath += ResetLaserNow;
     }
 
     private void OnDisable()
     {
         Player.OnPlayerDeath -= DestroyLaser;
+        Boss.OnBossDeath -= ResetLaserNow;
     }
 
     public static event Action OnLaserFired;
@@ -61,17 +62,25 @@ public class Projectiles : MonoBehaviour
         laserTemp = Instantiate(laser, Player.Instance.GetFirePointPos(), Quaternion.identity);
         GetLaserFiredCount++;
         OnLaserFired?.Invoke();
-        StartCoroutine(ResetLaser());
+        Invoke(nameof(ResetLaser), laserDuration);
     }
 
-    private IEnumerator ResetLaser()
+    private void ResetLaserNow()
     {
-        yield return new WaitForSeconds(laserDuration);
+        CancelInvoke(nameof(ResetLaser));
+        ResetLaser();
+    }
+   
+    private void ResetLaser()
+    {
         isLaserFired = false;
         OnLaserStopped?.Invoke();
-        laserTemp.GetComponent<Laser>().DestroyLaser();
-
-        SetProjectileIndex(GetLaserFiredCount % 2 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
+        
+        if(laserTemp.TryGetComponent(out Laser laser))
+            laser.DestroyLaser();
+        
+        //TODO daha sorna buradaki +1 olayını incele
+        SetProjectileIndex(GetLaserFiredCount + 1 % 3 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
 
         if (startingProjectileIndex > projectileList.Count - 2) startingProjectileIndex = projectileList.Count - 2;
     }

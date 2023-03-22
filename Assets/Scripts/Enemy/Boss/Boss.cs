@@ -77,8 +77,6 @@ public class Boss : MonoBehaviour, IDamagable
                 transform.position += lastDirection * (speed * 3 * Time.deltaTime);
                 transform.position += Vector3.up * (speed / 2 * Time.deltaTime);
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -89,6 +87,7 @@ public class Boss : MonoBehaviour, IDamagable
     }
 
     public static event Action OnBossDeath;
+    public static event Action OnBossLeave;
 
 
     private void CheckIfBothEyesIsClosed()
@@ -154,12 +153,18 @@ public class Boss : MonoBehaviour, IDamagable
         bossHealth--;
         if (bossHealth <= 0)
         {
-            OnBossDeath?.Invoke();
             bossParticleSystem.PlayParticleSystem();
             lastDirection = direction;
             currentState = States.Dead;
-            Destroy(gameObject, 5f);
+            OnBossLeave?.Invoke();
+            Invoke(nameof(SelftDestroy), 5f);
         }
+    }
+
+    private void SelftDestroy()
+    {
+        OnBossDeath?.Invoke();
+        Destroy(gameObject);
     }
 
 

@@ -1,10 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossLaser : MonoBehaviour, IDamagable
 {
     [SerializeField] private Transform enemyLaser;
     [SerializeField] private ParticleScr laserPartical;
-
+    
+    [SerializeField] private AudioClip bossLaserSoundEffect;
 
     public void TakeDamage()
     {
@@ -27,11 +29,27 @@ public class BossLaser : MonoBehaviour, IDamagable
 
         CameraScr.Instance.CameraShakeY(duration, magnitute);
         enemyLaser.gameObject.SetActive(true);
+        InvokeRepeating(nameof(PlaySound),0,0.1f);
+
     }
 
     public void StopLaser()
     {
+        CancelInvoke(nameof(PlaySound));
         laserPartical.StopParticleSystem();
         enemyLaser.gameObject.SetActive(false);
+    }
+
+    public void StoplaserNow()
+    {
+        CancelInvoke(nameof(PlaySound));
+        CameraScr.Instance.StopCameraShakeY();
+        laserPartical.StopParticleSystem();
+        enemyLaser.gameObject.SetActive(false);
+    }
+    
+    private void PlaySound()
+    {
+        SoundManager.Instance.PlayOneShot(bossLaserSoundEffect);
     }
 }

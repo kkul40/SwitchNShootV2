@@ -7,6 +7,8 @@ public class Coin : MonoBehaviour, ICollectable
 
     [SerializeField] private float speed;
 
+    [SerializeField] private AudioClip soundEffect;
+
 
     private void FixedUpdate()
     {
@@ -18,6 +20,7 @@ public class Coin : MonoBehaviour, ICollectable
     {
         var text = Instantiate(powerUpPrefab, transform.position, quaternion.identity);
         Destroy(text.gameObject, 0.5f);
+        SoundManager.Instance.PlayOneShot(soundEffect);
         Destroy(gameObject);
     }
 

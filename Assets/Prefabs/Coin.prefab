@@ -179,3 +179,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpPrefab: {fileID: 1173731068035697389, guid: 54fe4ebac63fff24494e58df4be85c45, type: 3}
   speed: 10
+  soundEffect: {fileID: 8300000, guid: a5d71e06b3bf5814d94571e602f18cb4, type: 3}

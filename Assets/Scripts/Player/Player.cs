@@ -95,6 +95,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
+        return;
+        
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);
@@ -169,15 +171,14 @@ public class Player : MonoBehaviour, IDamagable
             {
                 if (item.transform.CompareTag("Enemy"))
                 {
-                    Debug.Log("Enemy Hit");
                     damagable.TakeDamage();
                     TakeDamage();
                 }
                 else if (item.transform.CompareTag("Boss"))
                 {
-                    Debug.Log("Boss Hit");
                     TakeDamage();
                 }
+                // TODO FireWall check
             }
             else if (item.transform.TryGetComponent(out ICollectable collectable))
             {

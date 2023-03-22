@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
     [SerializeField] private AudioClip hit;
 
-
     private bool isDead;
 
     private void Start()
@@ -36,6 +35,15 @@ public class Enemy : MonoBehaviour, IDamagable
         Move();
     }
 
+    private void OnEnable()
+    {
+        isDead = false;
+    }
+
+    private void OnDisable()
+    {
+        isDead = true;
+    }
 
     public void TakeDamage()
     {
@@ -49,10 +57,12 @@ public class Enemy : MonoBehaviour, IDamagable
 
         SoundManager.Instance.PlayOneShot(hit);
 
-        var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
-        particle.GetComponent<ParticleScr>().SelfDestroy(2f);
-
-        Destroy(gameObject);
+        var bubble = SpawnBuble();
+        bubble.SelfDestroy();
+    
+        
+        this.gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
     public static event Action OnEnemyDeath;
@@ -71,14 +81,32 @@ public class Enemy : MonoBehaviour, IDamagable
         var bubbleSpawnTimeCalculate = deathDelayOnLine - bubbleLifeTime;
 
         yield return new WaitForSeconds(bubbleSpawnTimeCalculate);
-        var buble = Instantiate(enemyBublePrefab, transform.position, quaternion.identity);
+        var buble = SpawnBuble();
         yield return new WaitForSeconds(bubbleLifeTime);
-        buble.GetComponent<EnemyBubble>().SelfDestroy();
+        buble.SelfDestroy();
 
-        var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
-        particle.GetComponent<ParticleScr>().SelfDestroy(2f);
+        var particle = SpawnParticle();
+        
+        particle.SelfDestroy(2f);
         SoundManager.Instance.PlayOneShot(hit);
-        Destroy(gameObject);
+        
+        this.gameObject.SetActive(false);
+        //Destroy(gameObject);
+    }
+
+    private EnemyBubble SpawnBuble()
+    {
+        var buble = Instantiate(enemyBublePrefab, transform.position, quaternion.identity);
+        buble.transform.parent = this.transform;
+
+        return buble.GetComponent<EnemyBubble>();
+    }
+
+    private ParticleScr SpawnParticle()
+    {
+        var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
+
+        return particle.GetComponent<ParticleScr>();
     }
 
     private void CheckCorner()
@@ -92,6 +120,6 @@ public class Enemy : MonoBehaviour, IDamagable
             transform.position = tempPos;
         }
 
-        if (transform.position.y <= -10) Destroy(gameObject);
+        if (transform.position.y <= -10) this.gameObject.SetActive(false);
     }
 }

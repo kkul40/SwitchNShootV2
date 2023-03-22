@@ -1,4 +1,6 @@
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnerBase : MonoBehaviour
 {
@@ -46,7 +48,16 @@ public class SpawnerBase : MonoBehaviour
     {
         var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
             CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
+        
         var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
+        /*
+        GameObject enemy = EnemyPool.SharedInstance.GetPooledEnemyObject(); 
+        if (enemy != null) {
+            enemy.transform.position = spawnPos;
+            enemy.transform.rotation = quaternion.identity;
+            enemy.SetActive(true);
+        }*/
+        
         Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
     }
 

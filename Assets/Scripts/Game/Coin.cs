@@ -9,6 +9,7 @@ public class Coin : MonoBehaviour, ICollectable
 
     [SerializeField] private AudioClip soundEffect;
 
+    private bool isDestroyed;
 
     private void FixedUpdate()
     {
@@ -18,14 +19,27 @@ public class Coin : MonoBehaviour, ICollectable
 
     public void Collect()
     {
-        var text = Instantiate(powerUpPrefab, transform.position, quaternion.identity);
-        Destroy(text.gameObject, 0.5f);
+        SpawnText("POWER-UP");
         SoundManager.Instance.PlayOneShot(soundEffect);
         Destroy(gameObject);
     }
 
     private void CheckCorner()
     {
-        if (transform.position.y <= -10) Destroy(gameObject);
+        if (isDestroyed) return;
+        
+        if (transform.position.y <= -7.5)
+        {
+            isDestroyed = true;
+            SpawnText("MISSED");
+            Destroy(gameObject,2);
+        }
+    }
+
+    private void SpawnText(string message)
+    {
+        var text = Instantiate(powerUpPrefab, transform.position, quaternion.identity);
+        text.GetComponent<PopupText>().SetText(message);
+        Destroy(text.gameObject, 0.5f);
     }
 }

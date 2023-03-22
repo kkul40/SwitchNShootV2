@@ -219,6 +219,10 @@ public class BossProjectiles : MonoBehaviour
 
     private void InstantiateBossEnemy(Transform transform)
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        var enemyBoss = EnemyPool.SharedInstance.GetPooledBossEnemyObject();
+        enemyBoss.transform.position = transform.position;
+        enemyBoss.gameObject.SetActive(true);
+        
+        //Instantiate(enemyPrefab, transform.position, Quaternion.identity);
     }
 }

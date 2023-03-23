@@ -58,7 +58,9 @@ public class Enemy : MonoBehaviour, IDamagable
         OnEnemyDeath?.Invoke();
 
         SoundManager.Instance.PlayOneShot(hit);
-
+        
+        SpawnParticle();
+        
         SpawnBuble();
         StopBubble();
         

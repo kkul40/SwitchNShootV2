@@ -40,11 +40,13 @@ public class Projectiles : MonoBehaviour
 
     private void DestroyLaser()
     {
+        isLaserFired = false;
+        
         if (isLaserFired)
             laserTemp.GetComponent<Laser>().DestroyLaser();
-        ;
     }
 
+    /*
     public void ChooseProjectile()
     {
         if (isLaserFired)
@@ -55,6 +57,8 @@ public class Projectiles : MonoBehaviour
         else
             choosenProjectile = null;
     }
+    
+    */
 
     private void ShootLaser()
     {
@@ -80,7 +84,8 @@ public class Projectiles : MonoBehaviour
             laser.DestroyLaser();
         
         //TODO daha sorna buradaki +1 olayını incele
-        SetProjectileIndex(GetLaserFiredCount + 1 % 3 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
+        //SetProjectileIndex(GetLaserFiredCount + 1 % 3 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
+        SetProjectileIndex(startingProjectileIndex);
 
         if (startingProjectileIndex > projectileList.Count - 2) startingProjectileIndex = projectileList.Count - 2;
     }
@@ -101,16 +106,18 @@ public class Projectiles : MonoBehaviour
 
     public void LevelUp()
     {
+        if (isLaserFired) return;
+        
         projectileIndex++;
 
-        if (projectileIndex >= projectileList.Count)
+        if (projectileIndex > projectileList.Count - 1)
         {
-            projectileIndex = projectileList.Count;
+            projectileIndex = projectileList.Count - 1;
             choosenProjectile = null;
-
+            Debug.Log("shoot Laser");
             if (!isLaserFired) ShootLaser();
         }
-        else if (projectileIndex < projectileList.Count)
+        else
         {
             choosenProjectile = projectileList[projectileIndex];
         }

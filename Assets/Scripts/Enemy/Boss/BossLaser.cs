@@ -12,8 +12,6 @@ public class BossLaser : MonoBehaviour, IDamagable
     {
         // Do Nothing Just Sit Here
     }
-
-
     public void StartLaser(float laserDuration)
     {
         laserPartical.PlayParticleSystem();

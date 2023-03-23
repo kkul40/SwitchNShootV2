@@ -95,8 +95,6 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        return;
-        
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);
@@ -178,7 +176,6 @@ public class Player : MonoBehaviour, IDamagable
                 {
                     TakeDamage();
                 }
-                // TODO FireWall check
             }
             else if (item.transform.TryGetComponent(out ICollectable collectable))
             {
@@ -186,6 +183,10 @@ public class Player : MonoBehaviour, IDamagable
                 projectiles.LevelUp();
             }
             else if (item.transform.TryGetComponent(out EnemyBubble enemyBubble))
+            {
+                TakeDamage();
+            }
+            else if (item.transform.CompareTag("FireWall"))
             {
                 TakeDamage();
             }

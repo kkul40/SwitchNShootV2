@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
@@ -10,8 +11,8 @@ public class Enemy : MonoBehaviour, IDamagable
     [SerializeField] private bool bossEnemy;
 
 
-    [Header("BubbleSettings")] [SerializeField]
-    private Transform enemyBublePrefab;
+    [FormerlySerializedAs("enemyBublePrefab")] [Header("BubbleSettings")] [SerializeField]
+    private Transform enemyBubble;
 
     [SerializeField] private float bubbleLifeTime;
     [SerializeField] private float deathDelayOnLine;
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private void OnEnable()
     {
         isDead = false;
+        StopBubble();
     }
 
     private void OnDisable()
@@ -57,13 +59,13 @@ public class Enemy : MonoBehaviour, IDamagable
 
         SoundManager.Instance.PlayOneShot(hit);
 
-        var bubble = SpawnBuble();
-        bubble.SelfDestroy();
-    
+        SpawnBuble();
+        StopBubble();
         
         this.gameObject.SetActive(false);
         //Destroy(gameObject);
     }
+
 
     public static event Action OnEnemyDeath;
 
@@ -81,9 +83,9 @@ public class Enemy : MonoBehaviour, IDamagable
         var bubbleSpawnTimeCalculate = deathDelayOnLine - bubbleLifeTime;
 
         yield return new WaitForSeconds(bubbleSpawnTimeCalculate);
-        var buble = SpawnBuble();
+        SpawnBuble();
         yield return new WaitForSeconds(bubbleLifeTime);
-        buble.SelfDestroy();
+        StopBubble();
 
         var particle = SpawnParticle();
         
@@ -94,12 +96,13 @@ public class Enemy : MonoBehaviour, IDamagable
         //Destroy(gameObject);
     }
 
-    private EnemyBubble SpawnBuble()
+    private void SpawnBuble()
     {
-        var buble = Instantiate(enemyBublePrefab, transform.position, quaternion.identity);
-        buble.transform.parent = this.transform;
-
-        return buble.GetComponent<EnemyBubble>();
+        enemyBubble.gameObject.SetActive(true);
+    }
+    private void StopBubble()
+    {
+        enemyBubble.gameObject.SetActive(false);
     }
 
     private ParticleScr SpawnParticle()

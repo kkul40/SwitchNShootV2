@@ -21,7 +21,8 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private BossProjectiles bossProjectiles;
     [SerializeField] private float eyeOpenDuration;
 
-
+    
+    
     [SerializeField] private int bossHealth;
 
     [SerializeField] private ParticleScr bossParticleSystem;
@@ -82,8 +83,7 @@ public class Boss : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        Debug.Log("boss been atacked");
-        CalculteHealt();
+        // Do Nothing
     }
 
     public static event Action OnBossDeath;

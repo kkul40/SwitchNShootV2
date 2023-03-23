@@ -510,7 +510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &305102778
 Transform:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &328138930
 Transform:
   m_ObjectHideFlags: 0
@@ -1640,11 +1640,11 @@ GameObject:
   - component: {fileID: 964587295}
   m_Layer: 0
   m_Name: RightFireWall
-  m_TagString: Untagged
+  m_TagString: FireWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &964587294
 Transform:
   m_ObjectHideFlags: 0
@@ -1670,7 +1670,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
@@ -1925,7 +1925,7 @@ MonoBehaviour:
   spawnPrefab: {fileID: 2423022617658769762, guid: 7c746cf6708bd9f4791e775c21dcaf01, type: 3}
   spawnPosOffsetX: 1
   spawnRate: 1
-  waitForSecToSpawn: 0
+  waitForSecToSpawn: 1
 --- !u!4 &1000103026
 Transform:
   m_ObjectHideFlags: 0
@@ -7591,11 +7591,11 @@ GameObject:
   - component: {fileID: 1650212623}
   m_Layer: 0
   m_Name: LeftFireWall
-  m_TagString: Untagged
+  m_TagString: FireWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1650212622
 Transform:
   m_ObjectHideFlags: 0
@@ -7621,7 +7621,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.5, y: 0}

@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Coin : MonoBehaviour, ICollectable
 {
@@ -7,7 +8,8 @@ public class Coin : MonoBehaviour, ICollectable
 
     [SerializeField] private float speed;
 
-    [SerializeField] private AudioClip soundEffect;
+    [FormerlySerializedAs("soundEffect")] [SerializeField] private AudioClip CoinCollected;
+    [FormerlySerializedAs("soundEffect")] [SerializeField] private AudioClip coinMissed;
 
     private bool isDestroyed;
 
@@ -20,7 +22,7 @@ public class Coin : MonoBehaviour, ICollectable
     public void Collect()
     {
         SpawnText("POWER-UP");
-        SoundManager.Instance.PlayOneShot(soundEffect);
+        SoundManager.Instance.PlayOneShot(CoinCollected);
         Destroy(gameObject);
     }
 
@@ -32,6 +34,7 @@ public class Coin : MonoBehaviour, ICollectable
         {
             isDestroyed = true;
             SpawnText("MISSED");
+            SoundManager.Instance.PlayOneShot(coinMissed);
             Destroy(gameObject,2);
         }
     }

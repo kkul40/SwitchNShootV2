@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum States
+public enum BossStates
 {
     FirstApproach,
     Approach,
@@ -27,7 +27,7 @@ public class Boss : MonoBehaviour, IDamagable
 
     [SerializeField] private ParticleScr bossParticleSystem;
 
-    private States currentState;
+    private BossStates currentBossState;
     private Vector3 direction;
 
     private bool isBothEyeOpen;
@@ -38,7 +38,7 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        currentState = States.FirstApproach;
+        currentBossState = BossStates.FirstApproach;
         direction = Vector3.right;
         lastDirection = direction;
 
@@ -47,19 +47,19 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void FixedUpdate()
     {
-        switch (currentState)
+        switch (currentBossState)
         {
-            case States.FirstApproach:
+            case BossStates.FirstApproach:
                 transform.position = Vector3.Lerp(transform.position, approachPos, speed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, approachPos) < .1f)
                 {
                     Invoke(nameof(OpenBothEyes), eyeOpenDuration);
-                    currentState = States.Approach;
+                    currentBossState = BossStates.Approach;
                 }
 
                 break;
-            case States.Approach:
+            case BossStates.Approach:
                 CheckCorners();
 
                 if (bossProjectiles.isAttacking)
@@ -74,7 +74,7 @@ public class Boss : MonoBehaviour, IDamagable
                 }
 
                 break;
-            case States.Dead:
+            case BossStates.Dead:
                 transform.position += lastDirection * (speed * 3 * Time.deltaTime);
                 transform.position += Vector3.up * (speed / 2 * Time.deltaTime);
                 break;
@@ -102,7 +102,7 @@ public class Boss : MonoBehaviour, IDamagable
                 transform.position.z);
 
             isBothEyeOpen = false;
-            CalculteHealt();
+            CalculateHealth();
             Invoke(nameof(OpenBothEyes), eyeOpenDuration);
         }
     }
@@ -148,20 +148,20 @@ public class Boss : MonoBehaviour, IDamagable
         }
     }
 
-    private void CalculteHealt()
+    private void CalculateHealth()
     {
         bossHealth--;
         if (bossHealth <= 0)
         {
             bossParticleSystem.PlayParticleSystem();
             lastDirection = direction;
-            currentState = States.Dead;
+            currentBossState = BossStates.Dead;
             OnBossLeave?.Invoke();
-            Invoke(nameof(SelftDestroy), 5f);
+            Invoke(nameof(SelfDestroy), 5f);
         }
     }
 
-    private void SelftDestroy()
+    private void SelfDestroy()
     {
         OnBossDeath?.Invoke();
         Destroy(gameObject);

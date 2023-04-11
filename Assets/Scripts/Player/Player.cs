@@ -54,7 +54,6 @@ public class Player : MonoBehaviour, IDamagable
                     playerAnimation.PlayerTurnOn();
                     OnPlayerStarted?.Invoke();
                 }
-
                 break;
             case Stages.Game:
                 SwitchNShoot();

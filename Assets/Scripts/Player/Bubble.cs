@@ -1,35 +1,38 @@
 using System.Collections;
 using UnityEngine;
 
-public class Bubble : MonoBehaviour
+namespace PlayerNS
 {
-    [SerializeField] private GameObject bubble;
-    [SerializeField] private float bubbleLifeTime;
-
-    private void Start()
+    public class Bubble : MonoBehaviour
     {
-        bubble.SetActive(false);
-    }
+        [SerializeField] private GameObject bubble;
+        [SerializeField] private float bubbleLifeTime;
 
-    private void OnEnable()
-    {
-        Player.OnShoot += StartBubble;
-    }
+        private void Start()
+        {
+            bubble.SetActive(false);
+        }
 
-    private void OnDisable()
-    {
-        Player.OnShoot -= StartBubble;
-    }
+        private void OnEnable()
+        {
+            Player.OnShoot += StartBubble;
+        }
 
-    private void StartBubble()
-    {
-        StartCoroutine(BubbleRoutine());
-    }
+        private void OnDisable()
+        {
+            Player.OnShoot -= StartBubble;
+        }
 
-    private IEnumerator BubbleRoutine()
-    {
-        bubble.SetActive(true);
-        yield return new WaitForSeconds(bubbleLifeTime);
-        bubble.SetActive(false);
+        private void StartBubble()
+        {
+            StartCoroutine(BubbleRoutine());
+        }
+
+        private IEnumerator BubbleRoutine()
+        {
+            bubble.SetActive(true);
+            yield return new WaitForSeconds(bubbleLifeTime);
+            bubble.SetActive(false);
+        }
     }
 }

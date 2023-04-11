@@ -80,10 +80,8 @@ public class BossProjectiles : MonoBehaviour
 
     private void ChooseAttack()
     {
-        
         isAttacking = true;
 
-        //TODO stage e gore bu ihtimali arttir
         if (Random.value < stageSystem.GetBossLaserChance)
         {
             // Fire Laser 

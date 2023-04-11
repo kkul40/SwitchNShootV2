@@ -44,11 +44,9 @@ public class StageSystem : MonoBehaviour
 
     public static event Action OnStageChanged;
 
-
     private void AddStage()
     {
         //if (projectiles.GetLaserFiredCount % 2 != 0) return;
-
         if (isBossActive || isStagePreparing) return;
 
         stage++;
@@ -75,7 +73,7 @@ public class StageSystem : MonoBehaviour
         yield return new WaitForSeconds(2);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
-
+    
         isStagePreparing = false;
     }
 
@@ -83,7 +81,7 @@ public class StageSystem : MonoBehaviour
     {
         if (isBossActive)
             return;
-
+        
         isBossActive = true;
         coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);

@@ -6288,7 +6288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fc42f4609d5b34ab3a4081a94f34da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStage: 0
+  currentStage: 1
   enemySpawner: {fileID: 1000103025}
   coinSpawner: {fileID: 1243751095}
 --- !u!4 &828540994

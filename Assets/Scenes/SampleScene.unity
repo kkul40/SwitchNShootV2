@@ -6335,7 +6335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1f231dbd83df9469df8a6796342c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectiles: {fileID: 1530119401}
+  projectileManager: {fileID: 1530119401}
   bossPrefab: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
   bossSpawnPos: {fileID: 1518545641}
   enemySpawner: {fileID: 1000103025}
@@ -12262,6 +12262,10 @@ GameObject:
   - component: {fileID: 1530119398}
   - component: {fileID: 1530119401}
   - component: {fileID: 1530119403}
+  - component: {fileID: 1530119405}
+  - component: {fileID: 1530119404}
+  - component: {fileID: 1530119406}
+  - component: {fileID: 1530119407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12281,13 +12285,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1fdc3bfebfd5e9408d430a3806866b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerCollision: {fileID: 0}
   playerAnimation: {fileID: 683971238}
-  boxCollider: {fileID: 0}
-  projectileSpawnPoint: {fileID: 1434898422}
-  deadSoundEffect: {fileID: 8300000, guid: 4391d36625b5cdf4ea81940fc7b75a25, type: 3}
+  playerSound: {fileID: 0}
+  projectileManager: {fileID: 0}
   enemyParticlePrefab: {fileID: 3911225837492367784, guid: 45fc5cbba3ad0564ba629694e4424a8e, type: 3}
-  playerStartPos: {x: -1.5, y: -5}
-  speed: 8
 --- !u!4 &1530119399
 Transform:
   m_ObjectHideFlags: 0
@@ -12355,6 +12359,7 @@ MonoBehaviour:
   laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
   projectileIndex: 0
   laserDuration: 5
+  projectileSpawnPoint: {fileID: 1434898422}
 --- !u!50 &1530119402
 Rigidbody2D:
   serializedVersion: 4
@@ -12390,6 +12395,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubble: {fileID: 4288782023640056480}
   bubbleLifeTime: 0.033
+--- !u!114 &1530119404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530119397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1b70482be147928e37c5f11d65e970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStartPos: {x: -1.5, y: -5}
+  speed: 8
+  direction: {x: 0, y: 0, z: 0}
+--- !u!114 &1530119405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530119397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8ac8f36c944d25a4719a3588e909f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1530119406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530119397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dd9d7effdc47668492ce07c9668408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadSoundEffect: {fileID: 8300000, guid: 4391d36625b5cdf4ea81940fc7b75a25, type: 3}
+--- !u!114 &1530119407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530119397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6748e9d42a84430e88cba0a138ae6bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &1650212621
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectiles : MonoBehaviour
+public class ProjectileManager : MonoBehaviour
 {
     [SerializeField] private List<Transform> projectileList = new();
     public Transform choosenProjectile;
@@ -14,9 +14,14 @@ public class Projectiles : MonoBehaviour
     [SerializeField] private float laserDuration;
     private bool isLaserFired;
     private Transform laserTemp;
+    
 
     private int startingProjectileIndex;
     public int GetLaserFiredCount { get; private set; }
+    
+    [SerializeField] public Transform projectileSpawnPoint;
+    
+    public static event Action OnShoot;
 
     private void Start()
     {
@@ -25,13 +30,13 @@ public class Projectiles : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.OnPlayerDeath += DestroyLaser;
+        PlayerManager.OnPlayerDeath += DestroyLaser;
         Boss.OnBossDeath += ResetLaserNow;
     }
 
     private void OnDisable()
     {
-        Player.OnPlayerDeath -= DestroyLaser;
+        PlayerManager.OnPlayerDeath -= DestroyLaser;
         Boss.OnBossDeath -= ResetLaserNow;
     }
 
@@ -59,11 +64,22 @@ public class Projectiles : MonoBehaviour
     }
     
     */
+    
+    public void Shoot()
+    {
+        var projectile = choosenProjectile;
+
+        if (projectile == null)
+            return;
+
+        Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+        OnShoot?.Invoke();
+    }
 
     private void ShootLaser()
     {
         isLaserFired = true;
-        laserTemp = Instantiate(laser, Player.Instance.GetFirePointPos(), Quaternion.identity);
+        laserTemp = Instantiate(laser, PlayerManager.Instance.GetFirePointPos(), Quaternion.identity);
         GetLaserFiredCount++;
         OnLaserFired?.Invoke();
         Invoke(nameof(ResetLaser), laserDuration);

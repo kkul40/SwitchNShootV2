@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
-    [SerializeField] private Projectiles projectiles;
+    [FormerlySerializedAs("projectiles")] [SerializeField] private ProjectileManager projectileManager;
 
     [SerializeField] private Transform bossPrefab;
     [SerializeField] private Transform bossSpawnPos;
@@ -22,7 +23,7 @@ public class StageSystem : MonoBehaviour
     private bool isStagePreparing;
     public int GetStage => stage;
 
-    public int GetLaserFireCount => projectiles.GetLaserFiredCount;
+    public int GetLaserFireCount => projectileManager.GetLaserFiredCount;
 
     public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
     public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(stage);
@@ -30,14 +31,14 @@ public class StageSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        Projectiles.OnLaserStopped += AddStage;
+        ProjectileManager.OnLaserStopped += AddStage;
         Boss.OnBossLeave += StageReadyAfterBoss;
         Boss.OnBossDeath += BossIsDead;
     }
 
     private void OnDisable()
     {
-        Projectiles.OnLaserStopped -= AddStage;
+        ProjectileManager.OnLaserStopped -= AddStage;
         Boss.OnBossLeave -= StageReadyAfterBoss;
         Boss.OnBossDeath -= BossIsDead;
     }

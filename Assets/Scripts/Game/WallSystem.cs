@@ -13,14 +13,14 @@ public class WallSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        Projectiles.OnLaserFired += StartFireWallSequence;
-        Projectiles.OnLaserStopped += StopFireWalls;
+        ProjectileManager.OnLaserFired += StartFireWallSequence;
+        ProjectileManager.OnLaserStopped += StopFireWalls;
     }
 
     private void OnDisable()
     {
-        Projectiles.OnLaserFired -= StartFireWallSequence;
-        Projectiles.OnLaserStopped += StopFireWalls;
+        ProjectileManager.OnLaserFired -= StartFireWallSequence;
+        ProjectileManager.OnLaserStopped += StopFireWalls;
     }
 
     private void StartFireWallSequence()

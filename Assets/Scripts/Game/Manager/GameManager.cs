@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.OnPlayerDeath += PlayerIsDead;
-        Player.OnPlayerStarted += SetStageToGame;
+        PlayerManager.OnPlayerDeath += PlayerIsDead;
+        PlayerManager.OnPlayerStarted += SetStageToGame;
     }
 
     private void OnDisable()
     {
-        Player.OnPlayerDeath -= PlayerIsDead;
-        Player.OnPlayerStarted -= SetStageToGame;
+        PlayerManager.OnPlayerDeath -= PlayerIsDead;
+        PlayerManager.OnPlayerStarted -= SetStageToGame;
     }
 
     private void PlayerIsDead()

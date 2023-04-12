@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 28540360631855895}
   - component: {fileID: 8786444057728983808}
-  - component: {fileID: 28540360631855894}
+  - component: {fileID: 9184658058145352853}
+  - component: {fileID: 4510681804073923740}
+  - component: {fileID: 1563490913868286628}
+  - component: {fileID: 5639171618515243954}
   m_Layer: 0
   m_Name: Bullet1
   m_TagString: Untagged
@@ -61,7 +64,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.75}
   m_EdgeRadius: 0
---- !u!114 &28540360631855894
+--- !u!114 &9184658058145352853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,12 +73,134 @@ MonoBehaviour:
   m_GameObject: {fileID: 28540360631855892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4603b8e956109e488e34f85a3b297f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 51b09c6fdb6f41fd85f2d40e4327121e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 16
-  Bubble: {fileID: 6491594132372649860, guid: acf87cbeebbe0594b9e4232c527e0980, type: 3}
-  fireSoundEffect: {fileID: 8300000, guid: 593b5a6ffe811b4468c2d97962d3650b, type: 3}
+--- !u!82 &4510681804073923740
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28540360631855892}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1563490913868286628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28540360631855892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91f6808ddf54fc68da2993e48b160fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSoruce: {fileID: 0}
+  sound: {fileID: 8300000, guid: 593b5a6ffe811b4468c2d97962d3650b, type: 3}
+--- !u!114 &5639171618515243954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28540360631855892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ef0966960447d0b9e68b78172edada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble: {fileID: 3024644539170466425, guid: acf87cbeebbe0594b9e4232c527e0980, type: 3}
+  bubbleLifeTime: 0.033
 --- !u!1 &28540361196401615
 GameObject:
   m_ObjectHideFlags: 0

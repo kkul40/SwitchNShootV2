@@ -48,7 +48,7 @@ public class ProjectileManager : MonoBehaviour
         isLaserFired = false;
         
         if (isLaserFired)
-            laserTemp.GetComponent<Laser>().DestroyLaser();
+            laserTemp.GetComponent<LaserManager>().DestroyLaser();
     }
 
     
@@ -83,7 +83,7 @@ public class ProjectileManager : MonoBehaviour
         isLaserFired = false;
         OnLaserStopped?.Invoke();
         
-        if(laserTemp.TryGetComponent(out Laser laser))
+        if(laserTemp.TryGetComponent(out LaserManager laser))
             laser.DestroyLaser();
         
         //TODO daha sorna buradaki +1 olayını incele

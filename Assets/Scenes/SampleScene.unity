@@ -6335,7 +6335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1f231dbd83df9469df8a6796342c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileManager: {fileID: 1530119401}
+  projectileManager: {fileID: 0}
   bossPrefab: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
   bossSpawnPos: {fileID: 1518545641}
   enemySpawner: {fileID: 1000103025}
@@ -12096,6 +12096,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1434898422}
+  - component: {fileID: 1434898423}
   m_Layer: 0
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
@@ -12118,6 +12119,29 @@ Transform:
   m_Father: {fileID: 1530119399}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1434898423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434898421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68923ffc78f53f40a33319cc83a30e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileList:
+  - {fileID: 28540360631855895, guid: 364e978728404514dbb4452020841e2f, type: 3}
+  - {fileID: 687946443612851224, guid: 56f8ee788415b6443971c83b96061b28, type: 3}
+  - {fileID: 159958753014401223, guid: 2c2d367a717f2b94d941c1a6a23def04, type: 3}
+  - {fileID: 2786546049085948004, guid: c6fe9a606c3351042a53aa930976af3d, type: 3}
+  - {fileID: 1241048163434404083, guid: 951c9e3ed28bbb34a90ca0727f6b0dc1, type: 3}
+  choosenProjectile: {fileID: 0}
+  laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
+  projectileIndex: 0
+  laserDuration: 0
+  projectileSpawnPoint: {fileID: 1434898422}
 --- !u!1 &1459342464
 GameObject:
   m_ObjectHideFlags: 3
@@ -12260,7 +12284,6 @@ GameObject:
   - component: {fileID: 1530119402}
   - component: {fileID: 1530119400}
   - component: {fileID: 1530119398}
-  - component: {fileID: 1530119401}
   - component: {fileID: 1530119403}
   - component: {fileID: 1530119405}
   - component: {fileID: 1530119404}
@@ -12337,29 +12360,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1530119401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530119397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c68923ffc78f53f40a33319cc83a30e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileList:
-  - {fileID: 28540360631855895, guid: 364e978728404514dbb4452020841e2f, type: 3}
-  - {fileID: 687946443612851224, guid: 56f8ee788415b6443971c83b96061b28, type: 3}
-  - {fileID: 159958753014401223, guid: 2c2d367a717f2b94d941c1a6a23def04, type: 3}
-  - {fileID: 2786546049085948004, guid: c6fe9a606c3351042a53aa930976af3d, type: 3}
-  - {fileID: 1241048163434404083, guid: 951c9e3ed28bbb34a90ca0727f6b0dc1, type: 3}
-  choosenProjectile: {fileID: 0}
-  laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
-  projectileIndex: 0
-  laserDuration: 0
-  projectileSpawnPoint: {fileID: 1434898422}
 --- !u!50 &1530119402
 Rigidbody2D:
   serializedVersion: 4

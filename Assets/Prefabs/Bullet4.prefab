@@ -183,9 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bca42040bf477d86950c736d1b6748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 16
+  speed: 15
   direction: 0
-  horizontalSpeed: 1
 --- !u!82 &4377483249677455598
 AudioSource:
   m_ObjectHideFlags: 0
@@ -438,9 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bca42040bf477d86950c736d1b6748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 16
+  speed: 15
   direction: 1
-  horizontalSpeed: 1
 --- !u!114 &6950844790763944945
 MonoBehaviour:
   m_ObjectHideFlags: 0

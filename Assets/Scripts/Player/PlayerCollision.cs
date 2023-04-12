@@ -19,7 +19,7 @@ namespace PlayerNS
         {
             var colliderResults =
                 Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.extents * 2, 0, Vector2.zero);
-
+        
             foreach (var item in colliderResults)
                 if (item.transform.TryGetComponent(out IDamagable damagable))
                 {

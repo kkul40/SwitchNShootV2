@@ -40,8 +40,6 @@ public class EnemyPool : MonoBehaviour
             tmp.SetActive(false);
             bossEnemyObjects.Add(tmp);
         }
-        
-        
     }
 
     private GameObject AddEnemyToPool()

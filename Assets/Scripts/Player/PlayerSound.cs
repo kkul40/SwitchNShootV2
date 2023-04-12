@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace PlayerNS
 {
+    [RequireComponent(typeof(AudioSource))]
     public class PlayerSound : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSoruce;

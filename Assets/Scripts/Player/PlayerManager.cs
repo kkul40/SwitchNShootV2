@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);
         playerSound.PlaySound();
-        OnPlayerDeath?.Invoke();
+        //OnPlayerDeath?.Invoke();
     }
 
     public static event Action OnPlayerStarted;

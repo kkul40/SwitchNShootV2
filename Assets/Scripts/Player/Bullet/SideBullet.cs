@@ -10,7 +10,7 @@ namespace PlayerNS.Bullet
     public class SideBullet : BulletBase
     {
         public Directions direction;
-        private float horizontalSpeed = 1.5f;
+        private float horizontalSpeed = 1f;
         
         protected override void Move()
         {

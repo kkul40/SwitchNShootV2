@@ -8,12 +8,12 @@ public class PlayerManager : MonoBehaviour, IDamagable
 {
     public static PlayerManager Instance;
 
-    public PlayerInputs playerInput;
-    public PlayerMovement playerMovement;
-    public PlayerCollision playerCollision;
-    public PlayerAnimation playerAnimation;
-    public PlayerSound playerSound;
-    public ProjectileManager projectileManager;
+    [SerializeField] private PlayerInputs playerInput;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerCollision playerCollision;
+    [SerializeField] private PlayerAnimation playerAnimation;
+    [SerializeField] private PlayerSound playerSound;
+    [SerializeField] public ProjectileManager projectileManager;
     
     //**********************
 

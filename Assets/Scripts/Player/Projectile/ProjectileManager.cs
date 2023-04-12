@@ -51,19 +51,6 @@ public class ProjectileManager : MonoBehaviour
             laserTemp.GetComponent<Laser>().DestroyLaser();
     }
 
-    /*
-    public void ChooseProjectile()
-    {
-        if (isLaserFired)
-            return;
-
-        if (projectileIndex < projectileList.Count)
-            choosenProjectile = projectileList[projectileIndex];
-        else
-            choosenProjectile = null;
-    }
-    
-    */
     
     public void Shoot()
     {

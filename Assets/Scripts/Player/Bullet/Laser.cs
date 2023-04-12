@@ -5,6 +5,7 @@ public class Laser : Bullet
 {
     [SerializeField] private Vector3 laserStartPosOffset;
 
+    
     protected override void Start()
     {
         base.Start();

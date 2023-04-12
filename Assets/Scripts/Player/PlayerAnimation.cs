@@ -23,18 +23,6 @@ public class PlayerAnimation : MonoBehaviour
         sprite.flipX = true;
     }
 
-    public void FlipX(Vector3 direction)
-    {
-        if (direction == Vector3.right)
-        {
-            FlipRight();
-        }
-        else if (direction == Vector3.left)
-        {
-            FlipLeft();
-        }
-    }
-
     public void PlayerTurnOn()
     {
         animator.SetBool("isTurnOn", true);

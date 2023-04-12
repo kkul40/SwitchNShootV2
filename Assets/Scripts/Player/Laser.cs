@@ -13,7 +13,7 @@ public class Laser : Bullet
 
     private void Update()
     {
-        var firePoint = PlayerManager.Instance.GetFirePointPos();
+        var firePoint = Player.Instance.GetFirePointPos();
         firePoint = firePoint + laserStartPosOffset;
         transform.position = firePoint;
 

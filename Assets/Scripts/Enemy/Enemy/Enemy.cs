@@ -118,10 +118,10 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         if (isDead) return;
 
-        if (transform.position.y < PlayerManager.Instance.GetPlayerPosY())
+        if (transform.position.y < Player.Instance.GetPlayerPosY())
         {
             StartCoroutine(DeadSequenceCo());
-            var tempPos = new Vector2(transform.position.x, PlayerManager.Instance.GetPlayerPosY());
+            var tempPos = new Vector2(transform.position.x, Player.Instance.GetPlayerPosY());
             transform.position = tempPos;
         }
 

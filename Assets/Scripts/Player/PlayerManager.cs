@@ -33,9 +33,9 @@ public class PlayerManager : MonoBehaviour, IDamagable
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
         playerSound = GetComponent<PlayerSound>();
+        projectileManager = GetComponent<ProjectileManager>();
         
         ////////////////////////
-        projectileManager = GetComponent<ProjectileManager>();
     }
 
     private void Update()

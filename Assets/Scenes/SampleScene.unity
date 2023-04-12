@@ -12346,7 +12346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1530119397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f385aa88cdc6ca43bd5220910ac2422, type: 3}
+  m_Script: {fileID: 11500000, guid: c68923ffc78f53f40a33319cc83a30e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileList:
@@ -12358,7 +12358,7 @@ MonoBehaviour:
   choosenProjectile: {fileID: 0}
   laser: {fileID: 3399648252973989360, guid: 78fd8e7bb6d190e48b94332d3277ec40, type: 3}
   projectileIndex: 0
-  laserDuration: 5
+  laserDuration: 0
   projectileSpawnPoint: {fileID: 1434898422}
 --- !u!50 &1530119402
 Rigidbody2D:
@@ -12434,6 +12434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dd9d7effdc47668492ce07c9668408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSoruce: {fileID: 0}
   deadSoundEffect: {fileID: 8300000, guid: 4391d36625b5cdf4ea81940fc7b75a25, type: 3}
 --- !u!114 &1530119407
 MonoBehaviour:

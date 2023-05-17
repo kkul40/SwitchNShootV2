@@ -13,12 +13,12 @@ public class PowerBarManager : MonoBehaviour
     private void OnEnable()
     {
         UpdateBars();
-        ProjectileManager.OnLevelUp += UpdateBars;
+        ProjectileManager.OnIndexChange += UpdateBars;
     }
 
     private void OnDisable()
     {
-        ProjectileManager.OnLevelUp -= UpdateBars;
+        ProjectileManager.OnIndexChange -= UpdateBars;
 
     }
 

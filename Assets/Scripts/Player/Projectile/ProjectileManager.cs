@@ -25,7 +25,7 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] public Transform projectileSpawnPoint;
     
     public static event Action OnShoot;
-    public static event Action OnLevelUp;
+    public static event Action OnIndexChange;
 
     private void Start()
     {
@@ -100,15 +100,18 @@ public class ProjectileManager : MonoBehaviour
 
     private void SetProjectileIndex(int index)
     {
-        // for now
+        // TODO for now
         if (index < 0 || index >= projectileList.Count)
         {
             Debug.LogError("Projectile Index Incorrect");
+            OnIndexChange?.Invoke();
             return;
         }
 
         projectileIndex = index;
         choosenProjectile = projectileList[projectileIndex];
+        
+        OnIndexChange?.Invoke();
     }
 
 
@@ -130,6 +133,6 @@ public class ProjectileManager : MonoBehaviour
             choosenProjectile = projectileList[projectileIndex];
         }
         
-        OnLevelUp?.Invoke();
+        OnIndexChange?.Invoke();
     }
 }

@@ -7825,7 +7825,7 @@ MonoBehaviour:
   spawnPrefab: {fileID: 3282136405728853971, guid: f9be0853cac4b69438671671b1470dfd, type: 3}
   spawnPosOffsetX: 1
   spawnRate: 10
-  waitForSecToSpawn: 0
+  waitForSecToSpawn: 10
 --- !u!1 &1250120252
 GameObject:
   m_ObjectHideFlags: 0

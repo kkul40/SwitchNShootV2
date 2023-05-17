@@ -27,7 +27,7 @@ namespace PlayerNS
         }
         public void MoveVertical()
         {
-            transform.position += Vector3.down * speed / 2 * Time.deltaTime;
+            transform.position += Vector3.down * speed / 5 * Time.deltaTime;
         }
 
         public void Switch()

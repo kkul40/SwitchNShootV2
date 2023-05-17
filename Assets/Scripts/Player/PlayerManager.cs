@@ -50,7 +50,10 @@ public class PlayerManager : MonoBehaviour, IDamagable
                 }
                 break;
             case Stages.Game:
-                SwitchNShoot();
+                if (playerInput.IsSwitchPressed())
+                {
+                    SwitchNShoot();
+                }
                 break;
             case Stages.Outro:
                 //TODO Do Nothing for now
@@ -81,7 +84,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);
         playerSound.PlaySound();
-        //OnPlayerDeath?.Invoke();
+        OnPlayerDeath?.Invoke();
     }
 
     public static event Action OnPlayerStarted;
@@ -90,13 +93,11 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     private void SwitchNShoot()
     {
-        if (playerInput.IsSwitchPressed())
-        {
-            playerAnimation.PlayerTurnOn();
-            playerMovement.Switch();
-            playerAnimation.FlipX(playerMovement.direction);
-            projectileManager.Shoot();  
-        }
+        
+        playerAnimation.PlayerTurnOn();
+        playerMovement.Switch();
+        playerAnimation.FlipX(playerMovement.direction);
+        projectileManager.Shoot();  
     }
 
     public Vector3 GetFirePointPos()

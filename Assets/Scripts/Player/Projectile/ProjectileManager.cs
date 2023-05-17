@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
+    public GameObject BulletContainer;
+    
+    
     [SerializeField] private List<Transform> projectileList = new();
     public Transform choosenProjectile;
 
     [SerializeField] private Transform laser;
 
-    [SerializeField] private int projectileIndex;
+    public int projectileIndex;
     [SerializeField] private float laserDuration;
     private bool isLaserFired;
     private Transform laserTemp;
@@ -22,6 +25,7 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] public Transform projectileSpawnPoint;
     
     public static event Action OnShoot;
+    public static event Action OnLevelUp;
 
     private void Start()
     {
@@ -59,7 +63,8 @@ public class ProjectileManager : MonoBehaviour
         if (projectile == null)
             return;
 
-        Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+        var temp = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+        temp.transform.parent = BulletContainer.transform;
         OnShoot?.Invoke();
     }
 
@@ -124,5 +129,7 @@ public class ProjectileManager : MonoBehaviour
         {
             choosenProjectile = projectileList[projectileIndex];
         }
+        
+        OnLevelUp?.Invoke();
     }
 }

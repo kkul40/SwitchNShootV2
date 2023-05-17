@@ -89,9 +89,8 @@ public class Enemy : MonoBehaviour, IDamagable
         yield return new WaitForSeconds(bubbleLifeTime);
         StopBubble();
 
-        var particle = SpawnParticle();
+        SpawnParticle();
         
-        particle.SelfDestroy(2f);
         SoundManager.Instance.PlayOneShot(hit);
         
         this.gameObject.SetActive(false);
@@ -107,21 +106,21 @@ public class Enemy : MonoBehaviour, IDamagable
         enemyBubble.gameObject.SetActive(false);
     }
 
-    private ParticleScr SpawnParticle()
+    private void SpawnParticle()
     {
         var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
 
-        return particle.GetComponent<ParticleScr>();
+        particle.GetComponent<ParticleScr>().SelfDestroy(2f);
     }
 
     private void CheckCorner()
     {
         if (isDead) return;
 
-        if (transform.position.y < PlayerManager.Instance.GetPlayerPosY())
+        if (transform.position.y < -5)
         {
             StartCoroutine(DeadSequenceCo());
-            var tempPos = new Vector2(transform.position.x, PlayerManager.Instance.GetPlayerPosY());
+            var tempPos = new Vector2(transform.position.x, -5);
             transform.position = tempPos;
         }
 

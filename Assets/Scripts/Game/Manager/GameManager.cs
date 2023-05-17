@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentStage = Stages.Intro;
+        UIManager.Instance.OpenStartScreen();
 
         Application.targetFrameRate = 120;
     }
@@ -47,25 +48,19 @@ public class GameManager : MonoBehaviour
         currentStage = Stages.Outro;
         enemySpawner.StopSpawning();
         coinSpawner.StopSpawning();
-        ResetScene();
+        UIManager.Instance.OpenEndGameScreen();
     }
 
     private void SetStageToGame()
     {
+        UIManager.Instance.OpenGameScreen();
         currentStage = Stages.Game;
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
     }
 
-    private void ResetScene()
+    public void ResetScene()
     {
-        StartCoroutine(ResetSceneCO());
-    }
-
-
-    private IEnumerator ResetSceneCO()
-    {
-        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
     }
 }

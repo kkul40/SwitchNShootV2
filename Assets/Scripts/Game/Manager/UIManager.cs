@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
     
     [Header("StartScreen")]
     [SerializeField] private GameObject StartScreen;
+    [SerializeField] private TextMeshProUGUI startHighScoreText;
+
 
     
     [Header("GameScreen")]
@@ -18,7 +21,8 @@ public class UIManager : MonoBehaviour
     
     [Header("EndGameScreen")]
     [SerializeField] private GameObject EndGameScreen;
-    [SerializeField] private TextMeshProUGUI endSoreText;
+    [SerializeField] private TextMeshProUGUI endScoreText;
+    [SerializeField] private TextMeshProUGUI endHighScoreText;
 
 
     
@@ -69,6 +73,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAllScreen();
         StartScreen.SetActive(true);
+        startHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
     }
     public void OpenGameScreen()
     {
@@ -78,8 +83,13 @@ public class UIManager : MonoBehaviour
     public void OpenEndGameScreen()
     {
         CloseAllScreen();
-        endSoreText.text = score.ToString();
+        endScoreText.text = score.ToString();
         EndGameScreen.SetActive(true);
+
+        // Save And Load At the End
+        HighScoreData highScoreData = new HighScoreData(score, 0);
+        SaveSystem.Instance.SaveToJson(highScoreData);
+        endHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
     }
 
     private void CloseAllScreen()

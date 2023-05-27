@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace PlayerNS.Bullet
@@ -18,6 +17,7 @@ namespace PlayerNS.Bullet
         {
             StartCoroutine(BubbleRoutine(pos));
         }
+
         private IEnumerator BubbleRoutine(Vector2 pos)
         {
             bubble.SetActive(true);

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class BossEye : MonoBehaviour, IDamagable
@@ -19,7 +18,7 @@ public class BossEye : MonoBehaviour, IDamagable
     public void TakeDamage()
     {
         if (!isEyeOpen) return;
-        
+
         SetEyeClose();
     }
 

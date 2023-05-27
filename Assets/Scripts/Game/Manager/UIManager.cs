@@ -1,31 +1,30 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    
-    [Header("StartScreen")]
-    [SerializeField] private GameObject StartScreen;
+
+    [Header("StartScreen")] [SerializeField]
+    private GameObject StartScreen;
+
     [SerializeField] private TextMeshProUGUI startHighScoreText;
 
 
-    
-    [Header("GameScreen")]
-    [SerializeField] private GameObject GameScreen;
+    [Header("GameScreen")] [SerializeField]
+    private GameObject GameScreen;
+
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI stageText;
 
-    
-    [Header("EndGameScreen")]
-    [SerializeField] private GameObject EndGameScreen;
+
+    [Header("EndGameScreen")] [SerializeField]
+    private GameObject EndGameScreen;
+
     [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI endHighScoreText;
 
 
-    
     private int score;
     private StageSystem stageSystem;
 
@@ -75,11 +74,13 @@ public class UIManager : MonoBehaviour
         StartScreen.SetActive(true);
         startHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
     }
+
     public void OpenGameScreen()
     {
         CloseAllScreen();
         GameScreen.SetActive(true);
     }
+
     public void OpenEndGameScreen()
     {
         CloseAllScreen();
@@ -87,7 +88,7 @@ public class UIManager : MonoBehaviour
         EndGameScreen.SetActive(true);
 
         // Save And Load At the End
-        HighScoreData highScoreData = new HighScoreData(score, 0);
+        var highScoreData = new HighScoreData(score, 0);
         SaveSystem.Instance.SaveToJson(highScoreData);
         endHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +8,6 @@ public class PopupText : MonoBehaviour
 
     public void SetText(string message)
     {
-        text.text = message.ToString();
+        text.text = message;
     }
 }

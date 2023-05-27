@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public enum Attacks
 {
@@ -29,8 +28,7 @@ public class BossProjectiles : MonoBehaviour
 
     [SerializeField] private StageSystem stageSystem;
 
-    [SerializeField]
-    private BossLaser bossLaser;
+    [SerializeField] private BossLaser bossLaser;
 
     [SerializeField] private float laserDuration;
 
@@ -40,8 +38,8 @@ public class BossProjectiles : MonoBehaviour
 
 
     private readonly List<Transform> enemies = new();
-    private float lastAttackTime;
     private bool bossDeath;
+    private float lastAttackTime;
 
     private void Start()
     {
@@ -130,8 +128,6 @@ public class BossProjectiles : MonoBehaviour
         bossLaser.StoplaserNow();
         isAttacking = false;
     }
-    
-    
 
 
     //TODO daha sonra optimize et
@@ -220,7 +216,7 @@ public class BossProjectiles : MonoBehaviour
         var enemyBoss = EnemyPool.SharedInstance.GetPooledBossEnemyObject();
         enemyBoss.transform.position = transform.position;
         enemyBoss.gameObject.SetActive(true);
-        
+
         //Instantiate(enemyPrefab, transform.position, Quaternion.identity);
     }
 }

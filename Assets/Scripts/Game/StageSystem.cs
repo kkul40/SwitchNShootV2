@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
-    [FormerlySerializedAs("projectiles")] [SerializeField] private ProjectileManager projectileManager;
+    [FormerlySerializedAs("projectiles")] [SerializeField]
+    private ProjectileManager projectileManager;
 
     [SerializeField] private Transform bossPrefab;
     [SerializeField] private Transform bossSpawnPos;
@@ -20,7 +21,6 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private AnimationCurve bossLaserChanceByStage;
 
     private bool isBossActive;
-    private bool isStagePreparing;
     public int GetStage => stage;
 
     public int GetLaserFireCount => projectileManager.GetLaserFiredCount;
@@ -32,15 +32,13 @@ public class StageSystem : MonoBehaviour
     private void OnEnable()
     {
         ProjectileManager.OnLaserStopped += AddStage;
-        Boss.OnBossLeave += StageReadyAfterBoss;
-        Boss.OnBossDeath += BossIsDead;
+        Boss.OnBossLeave += BossIsDead;
     }
 
     private void OnDisable()
     {
         ProjectileManager.OnLaserStopped -= AddStage;
-        Boss.OnBossLeave -= StageReadyAfterBoss;
-        Boss.OnBossDeath -= BossIsDead;
+        Boss.OnBossLeave -= BossIsDead;
     }
 
     public static event Action OnStageChanged;
@@ -48,7 +46,7 @@ public class StageSystem : MonoBehaviour
     private void AddStage()
     {
         //if (projectiles.GetLaserFiredCount % 2 != 0) return;
-        if (isBossActive || isStagePreparing) return;
+        if (isBossActive) return;
 
         stage++;
         if (stage % 3 == 0) // her 4 stagede bir boss cagır
@@ -62,7 +60,6 @@ public class StageSystem : MonoBehaviour
             StartCoroutine(StopSpawningForAWhileCo());
         }
 
-        isStagePreparing = true;
         OnStageChanged?.Invoke();
     }
 
@@ -71,31 +68,33 @@ public class StageSystem : MonoBehaviour
         enemySpawner.StopSpawning();
         coinSpawner.StopSpawning();
         // 3 saniye stage molası 2 saaniye burda 1 saniye spawn fonksiyonu içinde
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
-    
-        isStagePreparing = false;
     }
 
     private void SpawnBoss()
     {
         if (isBossActive)
             return;
-        
+
         isBossActive = true;
         coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }
 
-    private void StageReadyAfterBoss()
-    {
-        isStagePreparing = false;
-    }
 
     private void BossIsDead()
     {
-        isBossActive = false;
+         isBossActive = false;
+        // if (stage < 1)
+        // {
+        //     projectileManager.SetProjectileIndex(0);
+        // }
+        // else
+        // {
+        //     projectileManager.SetProjectileIndex(stage - 1);
+        // }
         AddStage();
 
         // Her stage arası 3 saniye beklenecek

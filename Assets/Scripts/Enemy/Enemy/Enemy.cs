@@ -52,19 +52,19 @@ public class Enemy : MonoBehaviour, IDamagable
         isDead = true;
 
         var duration = 0.15f;
-        var magnitude = 0.25f;
+        var magnitude = 0.20f;
         CameraScr.Instance.CameraShake(duration, magnitude);
 
         OnEnemyDeath?.Invoke();
 
         SoundManager.Instance.PlayOneShot(hit);
-        
+
         SpawnParticle();
-        
+
         SpawnBuble();
         StopBubble();
-        
-        this.gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
         //Destroy(gameObject);
     }
 
@@ -90,10 +90,10 @@ public class Enemy : MonoBehaviour, IDamagable
         StopBubble();
 
         SpawnParticle();
-        
+
         SoundManager.Instance.PlayOneShot(hit);
-        
-        this.gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
         //Destroy(gameObject);
     }
 
@@ -101,6 +101,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         enemyBubble.gameObject.SetActive(true);
     }
+
     private void StopBubble()
     {
         enemyBubble.gameObject.SetActive(false);
@@ -124,6 +125,6 @@ public class Enemy : MonoBehaviour, IDamagable
             transform.position = tempPos;
         }
 
-        if (transform.position.y <= -10) this.gameObject.SetActive(false);
+        if (transform.position.y <= -10) gameObject.SetActive(false);
     }
 }

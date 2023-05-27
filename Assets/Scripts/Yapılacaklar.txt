@@ -1,0 +1,10 @@
+﻿// TODO
++ Boss öldüğünde zamanda karakterin lazeri biterse 2 stage atlama sorunu
++ Shild veren düşman eklenicek
++ Düşman karkatere carpıp öldüğünde score kazandırıyor bunu düzelt
++ Her stage değiştiğinde kısa süreliğine ara sahne ekle
++ coin yakalanamzsa atış sistemini düşür
++ Fire wall sadece stage değişiminde kapatılacak eğer 2. fire wall açılırsa bir süre sonra 1. duruma dönücek
+
++ laser kullanımı süresiz olucak ve her açılıdığında fire wall yaklaşıcak. eğer coin yakalayamazsan laser kapatılacak ama fire wall kalmaya devam edicek.
++ Her stage de düşman hıları giderek artıcak stage atlandıkca düşman hızlanma hızı artacak

@@ -1,64 +1,120 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
-    public GameObject BulletContainer;
-    
-    
     [SerializeField] private List<Transform> projectileList = new();
-    public Transform choosenProjectile;
-
     [SerializeField] private Transform laser;
 
-    public int projectileIndex;
-    [SerializeField] private float laserDuration;
-    private bool isLaserFired;
-    private Transform laserTemp;
-    
-
-    private int startingProjectileIndex;
-    public int GetLaserFiredCount { get; private set; }
+    public int currentProjectileIndex { get; private set; }
+    private Transform currentProjectile;
+    public GameObject BulletContainer;
     
     [SerializeField] public Transform projectileSpawnPoint;
+
+    private void SwichtToNextProjectile()
+    {
+        currentProjectileIndex++;
+        
+        if(currentProjectileIndex > projectileList.Count - 1)
+        {
+            currentProjectileIndex = projectileList.Count - 1;
+            
+            if (!isLaserFired) ShootLaser(); // Stage atla
+        }
+        
+        OnIndexChange?.Invoke();
+
+        currentProjectile = projectileList[currentProjectileIndex];
+        ChooseProjectile(currentProjectileIndex);
+    }
+
+    private void SwitchTooPreviousProjectile()
+    {
+        currentProjectileIndex--;
+        
+        if(currentProjectileIndex < 0)
+        {
+            currentProjectileIndex = 0;
+        }
+        
+        OnIndexChange?.Invoke();
+
+        currentProjectile = projectileList[currentProjectileIndex];
+        ChooseProjectile(currentProjectileIndex);
+    }
     
-    public static event Action OnShoot;
-    public static event Action OnIndexChange;
+    private void ChooseProjectile(int index)
+    {
+        if(index < 0 || index > projectileList.Count -1)
+            Debug.LogError("Projectile index is incorrect : index = "+ index );
+        
+        currentProjectile = projectileList[index];
+        
+    }
+    
+    
+    
+    
+    
+    
+
+
+    [SerializeField] private float laserDuration;
+
+    private bool isLaserFired;
+    private Transform laserTemp;
+
+
+    // private int startingProjectileIndex;
+    public int GetLaserFiredCount { get; private set; }
 
     private void Start()
     {
-        choosenProjectile = projectileList[projectileIndex];
+        currentProjectileIndex = 0;
+        
+        currentProjectile = projectileList[currentProjectileIndex];
     }
 
     private void OnEnable()
     {
+        Coin.OnCoinCollected += SwichtToNextProjectile;
+        Coin.OnCoinMissed += SwitchTooPreviousProjectile;
         PlayerManager.OnPlayerDeath += DestroyLaser;
         Boss.OnBossDeath += ResetLaserNow;
     }
 
     private void OnDisable()
     {
+        Coin.OnCoinCollected -= SwichtToNextProjectile;
+        Coin.OnCoinMissed -= SwitchTooPreviousProjectile;
         PlayerManager.OnPlayerDeath -= DestroyLaser;
         Boss.OnBossDeath -= ResetLaserNow;
     }
+
+    public static event Action OnShoot;
+    public static event Action OnIndexChange;
 
     public static event Action OnLaserFired;
     public static event Action OnLaserStopped;
 
     private void DestroyLaser()
     {
-        isLaserFired = false;
-        
         if (isLaserFired)
+        {
             laserTemp.GetComponent<LaserManager>().DestroyLaser();
+            isLaserFired = false;
+        }
     }
 
-    
+
     public void Shoot()
     {
-        var projectile = choosenProjectile;
+        if (isLaserFired) return;
+        
+        var projectile = currentProjectile;
 
         if (projectile == null)
             return;
@@ -82,57 +138,20 @@ public class ProjectileManager : MonoBehaviour
         CancelInvoke(nameof(ResetLaser));
         ResetLaser();
     }
-   
+
     private void ResetLaser()
     {
         isLaserFired = false;
         OnLaserStopped?.Invoke();
-        
-        if(laserTemp.TryGetComponent(out LaserManager laser))
+        ChooseProjectile(0);
+
+        if (laserTemp.TryGetComponent(out LaserManager laser))
             laser.DestroyLaser();
-        
+
         //TODO daha sorna buradaki +1 olayını incele
         //SetProjectileIndex(GetLaserFiredCount + 1 % 3 == 0 ? startingProjectileIndex : ++startingProjectileIndex);
-        SetProjectileIndex(startingProjectileIndex);
+        ChooseProjectile(0);
 
-        if (startingProjectileIndex > projectileList.Count - 2) startingProjectileIndex = projectileList.Count - 2;
-    }
-
-    private void SetProjectileIndex(int index)
-    {
-        // TODO for now
-        if (index < 0 || index >= projectileList.Count)
-        {
-            Debug.LogError("Projectile Index Incorrect");
-            OnIndexChange?.Invoke();
-            return;
-        }
-
-        projectileIndex = index;
-        choosenProjectile = projectileList[projectileIndex];
-        
-        OnIndexChange?.Invoke();
-    }
-
-
-    public void LevelUp()
-    {
-        if (isLaserFired) return;
-        
-        projectileIndex++;
-
-        if (projectileIndex > projectileList.Count - 1)
-        {
-            projectileIndex = projectileList.Count - 1;
-            choosenProjectile = null;
-            Debug.Log("shoot Laser");
-            if (!isLaserFired) ShootLaser();
-        }
-        else
-        {
-            choosenProjectile = projectileList[projectileIndex];
-        }
-        
-        OnIndexChange?.Invoke();
+        // if (projectileIndex > projectileList.Count - 2) projectileIndex = projectileList.Count - 2;
     }
 }

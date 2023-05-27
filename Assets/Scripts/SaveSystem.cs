@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
@@ -18,13 +14,13 @@ public class SaveSystem : MonoBehaviour
     public void SaveToJson(HighScoreData highScore)
     {
         if (LoadFromJson().score > highScore.score) return;
-        
+
         PlayerPrefs.SetInt("HighScore", highScore.score);
     }
 
     public HighScoreData LoadFromJson()
     {
-        HighScoreData loadData = new HighScoreData(PlayerPrefs.GetInt("HighScore"), 0);
+        var loadData = new HighScoreData(PlayerPrefs.GetInt("HighScore"), 0);
 
         return loadData;
     }
@@ -34,5 +30,4 @@ public class SaveSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt("HighScore", 0);
     }
-    
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PlayerNS
 {
@@ -11,7 +10,7 @@ namespace PlayerNS
         {
             inputs = new Inputs();
         }
-        
+
         private void OnEnable()
         {
             inputs.Enable();
@@ -27,5 +26,4 @@ namespace PlayerNS
             return inputs.Player.Switch.triggered;
         }
     }
-
 }

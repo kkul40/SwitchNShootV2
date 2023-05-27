@@ -31,7 +31,7 @@ public class CameraScr : MonoBehaviour
     {
         Gizmos.DrawLine(cameraLeftCornerX, cameraRightCornerX);
     }
-    
+
     public void StopCameraShake()
     {
         StopCoroutine(Shake(0, 0));

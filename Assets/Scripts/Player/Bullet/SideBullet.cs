@@ -5,13 +5,14 @@ namespace PlayerNS.Bullet
     public enum Directions
     {
         Left,
-        Right,
+        Right
     }
+
     public class SideBullet : BulletBase
     {
         public Directions direction;
-        private float horizontalSpeed = 1f;
-        
+        private readonly float horizontalSpeed = 1f;
+
         protected override void Move()
         {
             base.Move();

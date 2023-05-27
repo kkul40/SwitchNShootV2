@@ -21,8 +21,7 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private BossProjectiles bossProjectiles;
     [SerializeField] private float eyeOpenDuration;
 
-    
-    
+
     [SerializeField] private int bossHealth;
 
     [SerializeField] private ParticleScr bossParticleSystem;

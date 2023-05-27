@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : SpawnerBase
@@ -13,22 +11,23 @@ public class EnemySpawner : SpawnerBase
         base.Start();
         stageSystem = FindObjectOfType<StageSystem>();
     }
-    
+
     public override void Spawn()
     {
         var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
             CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
-        
+
         var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
-        
-        
-        GameObject enemy = EnemyPool.SharedInstance.GetPooledEnemyObject(); 
-        if (enemy != null) {
+
+
+        var enemy = EnemyPool.SharedInstance.GetPooledEnemyObject();
+        if (enemy != null)
+        {
             enemy.transform.position = spawnPos;
             enemy.transform.rotation = quaternion.identity;
             enemy.SetActive(true);
         }
-        
+
         //Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
     }
 
@@ -36,6 +35,4 @@ public class EnemySpawner : SpawnerBase
     {
         InvokeRepeating(nameof(Spawn), waitForSecToSpawn, stageSystem.GetEnemySpawnRate);
     }
-    
-    
 }

@@ -1,8 +1,6 @@
 using System;
 using PlayerNS;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerManager : MonoBehaviour, IDamagable
 {
@@ -14,13 +12,14 @@ public class PlayerManager : MonoBehaviour, IDamagable
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private PlayerSound playerSound;
     [SerializeField] public ProjectileManager projectileManager;
-    
+
     //**********************
 
     [Header("Particle Effect")] [SerializeField]
     private Transform enemyParticlePrefab;
 
     private bool isGameStarted;
+
     private void Awake()
     {
         if (Instance == null)
@@ -34,7 +33,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
         playerCollision = GetComponent<PlayerCollision>();
         playerSound = GetComponent<PlayerSound>();
         projectileManager = GetComponentInChildren<ProjectileManager>();
-        
+
         ////////////////////////
     }
 
@@ -48,12 +47,10 @@ public class PlayerManager : MonoBehaviour, IDamagable
                     playerAnimation.PlayerTurnOn();
                     OnPlayerStarted?.Invoke();
                 }
+
                 break;
             case Stages.Game:
-                if (playerInput.IsSwitchPressed())
-                {
-                    SwitchNShoot();
-                }
+                if (playerInput.IsSwitchPressed()) SwitchNShoot();
                 break;
             case Stages.Outro:
                 //TODO Do Nothing for now
@@ -77,7 +74,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
                 break;
         }
     }
-    
+
     public void TakeDamage()
     {
         playerAnimation.PlayerTurnOff();
@@ -93,11 +90,10 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     private void SwitchNShoot()
     {
-        
         playerAnimation.PlayerTurnOn();
         playerMovement.Switch();
         playerAnimation.FlipX(playerMovement.direction);
-        projectileManager.Shoot();  
+        projectileManager.Shoot();
     }
 
     public Vector3 GetFirePointPos()

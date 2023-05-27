@@ -1,7 +1,7 @@
 ﻿public class HighScoreData
 {
-    public int score;
     public float playTime;
+    public int score;
 
     public HighScoreData(int score, float playTime)
     {

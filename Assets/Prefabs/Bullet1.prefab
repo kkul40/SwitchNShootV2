@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ef0966960447d0b9e68b78172edada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubble: {fileID: 3024644539170466425, guid: acf87cbeebbe0594b9e4232c527e0980, type: 3}
+  bubble: {fileID: 4115203438418218218, guid: dbdb7691f390e5a4b81cb9db332d4104, type: 3}
   bubbleLifeTime: 0.033
 --- !u!1 &28540361196401615
 GameObject:

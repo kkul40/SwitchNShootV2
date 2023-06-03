@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,27 +13,35 @@ public class EnemySpawner : SpawnerBase
         stageSystem = FindObjectOfType<StageSystem>();
     }
 
-    public override void Spawn()
+    private IEnumerator SpawnCo()
     {
-        var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
-            CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
-
-        var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
-
-
-        var enemy = EnemyPool.SharedInstance.GetPooledEnemyObject();
-        if (enemy != null)
+        while (true)
         {
-            enemy.transform.position = spawnPos;
-            enemy.transform.rotation = quaternion.identity;
-            enemy.SetActive(true);
-        }
+            var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
+                CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
 
-        //Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
+            var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
+
+
+            var enemy = EnemyPool.SharedInstance.GetPooledEnemyObject();
+            if (enemy != null)
+            {
+                enemy.transform.position = spawnPos;
+                enemy.transform.rotation = quaternion.identity;
+                enemy.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(stageSystem.GetEnemySpawnRate);
+        }
     }
 
     public override void StartSpawning()
     {
-        InvokeRepeating(nameof(Spawn), waitForSecToSpawn, stageSystem.GetEnemySpawnRate);
+        StartCoroutine(nameof(SpawnCo));
+    }
+
+    public override void StopSpawning()
+    {
+        StopAllCoroutines();
     }
 }

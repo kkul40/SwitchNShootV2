@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnerBase : MonoBehaviour
+public abstract class SpawnerBase : MonoBehaviour
 {
     [SerializeField] protected Transform spawnPrefab;
     [SerializeField] protected float spawnPosOffsetX;
@@ -66,9 +66,6 @@ public class SpawnerBase : MonoBehaviour
         InvokeRepeating("Spawn", waitForSecToSpawn, spawnRate);
     }
 
-    [ContextMenu("StopSpawning")]
-    public virtual void StopSpawning()
-    {
-        CancelInvoke("Spawn");
-    }
+    public abstract void StopSpawning();
+    
 }

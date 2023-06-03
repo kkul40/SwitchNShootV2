@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour
 
     [Header("GameScreen")] [SerializeField]
     private GameObject GameScreen;
+    [SerializeField] private GameObject stageTextHolder;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI stageText;
@@ -24,7 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI endHighScoreText;
 
-
+    //TODO daha sonra score systemi oluştur
     private int score;
     private StageSystem stageSystem;
 
@@ -40,6 +42,7 @@ public class UIManager : MonoBehaviour
 
         scoreText.text = 0.ToString();
         stageText.text = stageSystem.GetStage.ToString();
+        stageTextHolder.SetActive(false);
     }
 
     private void OnEnable()
@@ -66,6 +69,7 @@ public class UIManager : MonoBehaviour
     private void StageChanges()
     {
         stageText.text = stageSystem.GetStage.ToString();
+        OpenStageTextHolder();
     }
 
     public void OpenStartScreen()
@@ -80,17 +84,19 @@ public class UIManager : MonoBehaviour
         CloseAllScreen();
         GameScreen.SetActive(true);
     }
+    private void OpenStageTextHolder()
+    {
+        if(stageSystem.GetStage != 0)
+            stageTextHolder.SetActive(true);
+        else
+            stageTextHolder.SetActive(false);
+    }
 
     public void OpenEndGameScreen()
     {
         CloseAllScreen();
-        endScoreText.text = score.ToString();
+        endScoreText.text = CalculateScore().ToString();
         EndGameScreen.SetActive(true);
-
-        // Save And Load At the End
-        var highScoreData = new HighScoreData(score, 0);
-        SaveSystem.Instance.SaveToJson(highScoreData);
-        endHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
     }
 
     private void CloseAllScreen()
@@ -98,5 +104,19 @@ public class UIManager : MonoBehaviour
         StartScreen.SetActive(false);
         GameScreen.SetActive(false);
         EndGameScreen.SetActive(false);
+    }
+
+    private int CalculateScore()
+    {
+        // Save And Load At the End
+        double tempScore = 0;
+        tempScore = score * (stageSystem.GetStage * 12.50/100);
+        int finalScore = (int)(score + tempScore);
+        
+        var highScoreData = new HighScoreData(finalScore, 0);
+        SaveSystem.Instance.SaveToJson(highScoreData);
+        endHighScoreText.text = SaveSystem.Instance.LoadFromJson().score.ToString();
+
+        return finalScore;
     }
 }

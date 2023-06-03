@@ -56,8 +56,7 @@ public class LaserManager : MonoBehaviour
             {
                 damagable.TakeDamage();
                 // Create Bubble
-                if (Random.value < 0.5f)
-                    bubbleCreater.StartBubble(col.transform.position);
+                bubbleCreater.StartBubble(col.transform.position);
             }
     }
 }

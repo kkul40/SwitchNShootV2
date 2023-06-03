@@ -8,10 +8,8 @@ public class WarningBar : MonoBehaviour
     private void Start()
     {
         transform.position = Vector3.zero;
-
         CloseWarningBars();
     }
-
 
     public void OpenWarningBars()
     {

@@ -48,6 +48,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -186,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSoruce: {fileID: 0}
-  sound: {fileID: 8300000, guid: 593b5a6ffe811b4468c2d97962d3650b, type: 3}
+  sound: {fileID: 8300000, guid: 573ab653845e26740ad5e49ea864a3ac, type: 3}
 --- !u!114 &5639171618515243954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,6 +309,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 28540360631855895}
     m_Modifications:
     - target: {fileID: 6849926482799543062, guid: bb31b50bef8bc404591e330f42196509, type: 3}
@@ -341,6 +361,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb31b50bef8bc404591e330f42196509, type: 3}
 --- !u!4 &2637849584358904142 stripped
 Transform:

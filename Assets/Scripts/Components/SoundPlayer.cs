@@ -11,6 +11,7 @@ namespace PlayerNS.Components
         private void Start()
         {
             audioSoruce = GetComponent<AudioSource>();
+            PlaySound();
         }
 
         public void PlaySound()

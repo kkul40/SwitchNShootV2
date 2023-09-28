@@ -5,8 +5,6 @@ using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
-    
-    
     [FormerlySerializedAs("projectiles")] [SerializeField]
     private ProjectileManager projectileManager;
 
@@ -17,7 +15,7 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private CoinSpawner coinSpawner;
 
-    [SerializeField] private int stage = 1;
+    [SerializeField] private int stage;
     public int Stage => stage;
 
     private float enemySpawnTimer = 0;
@@ -31,7 +29,7 @@ public class StageSystem : MonoBehaviour
     private bool isBossActive;
     public int GetStage => stage;
 
-    public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(enemySpawnTimer);
+    public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
     public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(stage);
 
 

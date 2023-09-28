@@ -21,6 +21,7 @@ namespace PlayerNS.Bullet
         private IEnumerator BubbleRoutine(Vector2 pos)
         {
             bubble.SetActive(true);
+            bubble.transform.position = pos;
             yield return new WaitForSeconds(bubbleLifeTime);
             bubble.SetActive(false);
         }

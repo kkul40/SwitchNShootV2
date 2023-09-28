@@ -18,7 +18,6 @@ public class WallSystem : MonoBehaviour
     private void OnDisable()
     {
         ProjectileManager.OnLaserFired -= StartFireWallSequence;
-
     }
 
     private void StartFireWallSequence()

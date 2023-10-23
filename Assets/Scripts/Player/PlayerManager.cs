@@ -76,7 +76,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        return;
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);

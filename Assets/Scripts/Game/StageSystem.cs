@@ -82,7 +82,6 @@ public class StageSystem : MonoBehaviour
 
         EndStage();
 
-
         yield return new WaitForSeconds(1);
 
         if (stage % 3 == 0) // Boss Çağırma Kodu

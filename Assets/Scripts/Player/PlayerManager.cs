@@ -47,7 +47,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
                     playerAnimation.PlayerTurnOn();
                     OnPlayerStarted?.Invoke();
                 }
-
                 break;
             case Stages.Game:
                 if (playerInput.IsSwitchPressed()) SwitchNShoot();
@@ -77,6 +76,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
+        return;
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);

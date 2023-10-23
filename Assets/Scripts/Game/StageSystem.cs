@@ -66,6 +66,8 @@ public class StageSystem : MonoBehaviour
 
     private void StartNextStage()
     {
+        if (isBossActive) return;
+
         StartCoroutine(NextStageCo());
     }
 
@@ -78,29 +80,59 @@ public class StageSystem : MonoBehaviour
         // 1 saniye sonra yeni stage geç
             // boss stage ini daha sonra koyarsın
 
-        wallSystem.StopFireWalls();
-        projectileManager.ChooseProjectile(0);
-        
-        enemySpawner.StopSpawning();
-        coinSpawner.StopSpawning();
-        
-        stage++;
-        
-        HyperDriveScreen.Play();
+        EndStage();
+
+
+        yield return new WaitForSeconds(1);
+
+        if (stage % 3 == 0) // Boss Çağırma Kodu
+            StartBossStage();
+        else
+        {
+            StartNormalStage();
+            stage++;    
+        }
+
+        OnStageChanged?.Invoke();
+    }
+
+    private void KillAllTheCoinsOnTheScene()
+    {
+        var coins = GameObject.FindObjectsOfType<Coin>();
+
+        foreach (var coin in coins)
+            coin.SelfDestroy();
+    }
+
+    private static void KillAllTheEnemiesOnTheScene()
+    {
         var enemies = GameObject.FindObjectsOfType<Enemy>();
 
         foreach (var enemy in enemies)
             enemy.TakeDamage();
+    }
 
-        yield return new WaitForSeconds(1);
-        
-        HyperDriveScreen.Stop();
-
+    private void StartNormalStage()
+    {
         enemySpawnTimer = 0;
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
         
-        OnStageChanged?.Invoke();
+        HyperDriveScreen.Stop();
+    }
+
+    protected void EndStage()
+    {
+        wallSystem.ResetEverything();
+        projectileManager.ChooseProjectile(0);
+
+        enemySpawner.StopSpawning();
+        coinSpawner.StopSpawning();
+        
+        KillAllTheEnemiesOnTheScene();
+        KillAllTheCoinsOnTheScene();
+        
+        HyperDriveScreen.Play();
     }
 
     private IEnumerator StopSpawningForAWhileCo()
@@ -113,7 +145,8 @@ public class StageSystem : MonoBehaviour
         coinSpawner.StartSpawning();
     }
 
-    private void SpawnBoss()
+
+    private void StartBossStage()
     {
         if (isBossActive)
             return;
@@ -121,22 +154,16 @@ public class StageSystem : MonoBehaviour
         isBossActive = true;
         coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
+        
+        HyperDriveScreen.Stop();
     }
 
 
     private void BossIsDead()
     {
          isBossActive = false;
-        // if (stage < 1)
-        // {
-        //     projectileManager.SetProjectileIndex(0);
-        // }
-        // else
-        // {
-        //     projectileManager.SetProjectileIndex(stage - 1);
-        // }
-        NextStageCo();
-
+        
+        StartNextStage();
         // Her stage arası 3 saniye beklenecek
         // 1 saniye spawn süresinden geliyor
         // 2 saniey coroutine de harcanıyor

@@ -8,7 +8,7 @@ public enum BossStates
     Dead
 }
 
-
+[SelectionBase]
 public class Boss : MonoBehaviour, IDamagable
 {
     [SerializeField] private float speed;

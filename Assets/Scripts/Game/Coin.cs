@@ -35,6 +35,12 @@ public class Coin : MonoBehaviour, ICollectable
         Destroy(gameObject);
     }
 
+    public void SelfDestroy()
+    {
+        SpawnText("REMOVED");
+        Destroy(gameObject);
+    }
+
     private void CheckCorner()
     {
         if (isDestroyed) return;

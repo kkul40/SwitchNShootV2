@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [Header("GameScreen")] [SerializeField]
     private GameObject GameScreen;
     [SerializeField] private GameObject stageTextHolder;
+    [SerializeField] private Animator scoreTextAnimator;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI stageText;
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
 
         score++;
         scoreText.text = score.ToString();
+        scoreTextAnimator.SetTrigger("scoreUpdate");
     }
 
     private void StageChanges()

@@ -43,4 +43,11 @@ public class WallSystem : MonoBehaviour
     {
         fireWalls.ResetFireWalls();
     }
+
+    public void ResetEverything()
+    {
+        CancelInvoke();
+        StopFireWalls();
+        warningBar.CloseWarningBars();
+    }
 }

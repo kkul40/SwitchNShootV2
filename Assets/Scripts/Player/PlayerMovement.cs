@@ -19,6 +19,12 @@ namespace PlayerNS
             cornerOffsetX = GetComponent<BoxCollider2D>().bounds.extents.x;
         }
 
+        public void SetPlayerStartPos()
+        {
+            direction = Vector2.right;
+            transform.position = playerStartPos;
+        }
+
         public void MoveHorizontal()
         {
             transform.position += direction * (speed * Time.deltaTime);

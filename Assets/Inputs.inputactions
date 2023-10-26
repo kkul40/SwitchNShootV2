@@ -116,6 +116,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "944b4249-af1f-4211-abc0-1b5a9f577dfa",
+            "actions": [
+                {
+                    "name": "RestartButton",
+                    "type": "Button",
+                    "id": "be7087a0-eb14-4c37-be23-3e93b15d30f9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2beb21fe-0a0f-40c6-9813-987ba13a655e",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RestartButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

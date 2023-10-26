@@ -1,6 +1,6 @@
+using PlayerNS.Game.Manager;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
 
     [Header("EndGameScreen")] [SerializeField]
     private GameObject EndGameScreen;
+    private UiInput uiInput;
 
     [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI endHighScoreText;
@@ -40,10 +41,19 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         stageSystem = FindObjectOfType<StageSystem>();
+        uiInput = new UiInput();
 
         scoreText.text = 0.ToString();
         stageText.text = stageSystem.GetStage.ToString();
         stageTextHolder.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.currentStage != Stages.Outro) return;
+        
+        if (uiInput.IsRestartPressed())
+            GameManager.Instance.ResetScene();
     }
 
     private void OnEnable()
@@ -57,7 +67,6 @@ public class UIManager : MonoBehaviour
         Enemy.OnEnemyDeath -= ScoreChanged;
         StageSystem.OnStageChanged -= StageChanges;
     }
-
 
     private void ScoreChanged()
     {

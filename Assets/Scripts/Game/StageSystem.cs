@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
+using PlayerNS.Bullet;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class StageSystem : MonoBehaviour
 {
-    [FormerlySerializedAs("projectiles")] [SerializeField]
-    private ProjectileManager projectileManager;
+    [SerializeField] private ProjectileManager projectileManager;
 
     [SerializeField] private WallSystem wallSystem;
     [SerializeField] private Transform bossPrefab;
@@ -17,8 +16,6 @@ public class StageSystem : MonoBehaviour
 
     [SerializeField] private int stage;
     public int Stage => stage;
-
-    private float enemySpawnTimer = 0;
 
     [SerializeField] private AnimationCurve enemySpawnByStage;
 
@@ -43,23 +40,20 @@ public class StageSystem : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerManager.OnPlayerStarted += KillAllTheBulletsOnTheScene;
+        PlayerManager.OnPlayerStarted += StartNextStage;
+        
         ProjectileManager.OnHyperDrived += StartNextStage;
         Boss.OnBossLeave += BossIsDead;
     }
 
     private void OnDisable()
     {
+        PlayerManager.OnPlayerStarted -= KillAllTheBulletsOnTheScene;
+        PlayerManager.OnPlayerStarted -= StartNextStage;
+
         ProjectileManager.OnHyperDrived -= StartNextStage;
         Boss.OnBossLeave -= BossIsDead;
-    }
-
-    private void FixedUpdate()
-    {
-        if (GameManager.Instance.currentStage == Stages.Game)
-        {
-            enemySpawnTimer += Time.deltaTime * stage/30;
-            Debug.Log(enemySpawnTimer);
-        }
     }
 
     public static event Action OnStageChanged;
@@ -68,10 +62,12 @@ public class StageSystem : MonoBehaviour
     {
         if (isBossActive) return;
 
+        Debug.Log("Test");
         StartCoroutine(NextStageCo());
     }
+    
 
-    IEnumerator NextStageCo()
+    IEnumerator NextStageCo(float timeToSpawn = 1)
     {
         // Hper driveları aktif et
         // FireWallı kapat
@@ -79,18 +75,22 @@ public class StageSystem : MonoBehaviour
         // Ekrana uyarı yazısı bastır
         // 1 saniye sonra yeni stage geç
             // boss stage ini daha sonra koyarsın
+        stage++;
 
         EndStage();
+        if(stage != 0)
+            HyperDriveScreen.Play();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(timeToSpawn);
+        
+        HyperDriveScreen.Stop();
 
-        if (stage % 3 == 0) // Boss Çağırma Kodu
+
+        if (stage % 3 == 0 && stage != 0) // Boss Çağırma Kodu
             StartBossStage();
         else
-        {
             StartNormalStage();
-            stage++;    
-        }
+        
 
         OnStageChanged?.Invoke();
     }
@@ -110,14 +110,19 @@ public class StageSystem : MonoBehaviour
         foreach (var enemy in enemies)
             enemy.TakeDamage();
     }
+    
+    private static void KillAllTheBulletsOnTheScene()
+    {
+        var bullets = GameObject.FindObjectsOfType<BulletBase>();
+
+        foreach (var bullet in bullets)
+            bullet.SelfDestroy();
+    }
 
     private void StartNormalStage()
     {
-        enemySpawnTimer = 0;
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
-        
-        HyperDriveScreen.Stop();
     }
 
     protected void EndStage()
@@ -130,8 +135,6 @@ public class StageSystem : MonoBehaviour
         
         KillAllTheEnemiesOnTheScene();
         KillAllTheCoinsOnTheScene();
-        
-        HyperDriveScreen.Play();
     }
 
     private IEnumerator StopSpawningForAWhileCo()
@@ -153,8 +156,6 @@ public class StageSystem : MonoBehaviour
         isBossActive = true;
         coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
-        
-        HyperDriveScreen.Stop();
     }
 
 

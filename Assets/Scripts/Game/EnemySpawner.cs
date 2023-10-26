@@ -31,6 +31,7 @@ public class EnemySpawner : SpawnerBase
                 enemy.SetActive(true);
             }
 
+            Debug.Log(stageSystem.GetEnemySpawnRate);
             yield return new WaitForSeconds(stageSystem.GetEnemySpawnRate);
         }
     }

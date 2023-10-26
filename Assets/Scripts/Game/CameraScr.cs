@@ -63,7 +63,7 @@ public class CameraScr : MonoBehaviour
 
             transform.position = new Vector3(x, y, -10f);
             elapsed += Time.deltaTime;
-            yield return 0;
+            yield return new WaitForEndOfFrame();
         }
 
         transform.position = orignalPosition;

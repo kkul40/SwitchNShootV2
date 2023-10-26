@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using PlayerNS;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour, IDamagable
 {
@@ -44,6 +46,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
             case Stages.Intro:
                 if (playerInput.IsSwitchPressed())
                 {
+                    playerMovement.SetPlayerStartPos();
                     playerAnimation.PlayerTurnOn();
                     OnPlayerStarted?.Invoke();
                 }
@@ -56,13 +59,29 @@ public class PlayerManager : MonoBehaviour, IDamagable
                 break;
         }
     }
+    // Variables For PlayerIntro Movement
+    private float time = 3;
+    private float timer = 0;
+    private bool wait = true;
 
     private void FixedUpdate()
     {
         switch (GameManager.Instance.currentStage)
         {
             case Stages.Intro:
-                // Do Nothing
+                timer += Time.deltaTime;
+
+                if (timer > time)
+                {
+                    SwitchNShoot();
+                    timer = 0;
+                    time = Random.Range(0f, 1f);
+                    wait = false;
+                }
+                
+                if(!wait)
+                    playerMovement.MoveHorizontal();
+                
                 break;
             case Stages.Game:
                 playerCollision.CheckCollisions();
@@ -85,7 +104,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     public static event Action OnPlayerStarted;
     public static event Action OnPlayerDeath;
-
 
     private void SwitchNShoot()
     {

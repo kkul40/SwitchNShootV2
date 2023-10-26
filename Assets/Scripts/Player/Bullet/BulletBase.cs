@@ -55,5 +55,10 @@ namespace PlayerNS.Bullet
                         Destroy(gameObject);
                     }
         }
+
+        public void SelfDestroy()
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

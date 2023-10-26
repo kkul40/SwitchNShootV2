@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
 {
     public Stages currentStage;
 
-    [SerializeField] private EnemySpawner enemySpawner;
-    [SerializeField] private CoinSpawner coinSpawner;
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -45,8 +43,6 @@ public class GameManager : MonoBehaviour
     private void PlayerIsDead()
     {
         currentStage = Stages.Outro;
-        enemySpawner.StopSpawning();
-        coinSpawner.StopSpawning();
         UIManager.Instance.OpenEndGameScreen();
     }
 
@@ -54,8 +50,6 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.OpenGameScreen();
         currentStage = Stages.Game;
-        enemySpawner.StartSpawning();
-        coinSpawner.StartSpawning();
     }
 
     public void ResetScene()

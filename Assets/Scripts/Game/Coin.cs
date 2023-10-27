@@ -1,6 +1,5 @@
 using System;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -58,7 +57,7 @@ public class Coin : MonoBehaviour, ICollectable
     private void SpawnText(string message)
     {
         var text = Instantiate(powerUpPrefab, transform.position, quaternion.identity);
-        text.GetComponent<PopupText>().SetText(message);
+        text.GetComponent<PopupText>().Instantiate(message, Color.yellow);
         Destroy(text.gameObject, 0.5f);
     }
 }

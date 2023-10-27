@@ -4,6 +4,10 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator animator;
+    
+    [Header("Shield")]
+    [SerializeField] private SpriteRenderer shieldSprite;
+    [SerializeField] private Animator shieldAnimator;
 
     private bool isTurnOn;
 
@@ -38,5 +42,10 @@ public class PlayerAnimation : MonoBehaviour
     public void PlayerTurnOff()
     {
         animator.SetBool("isTurnOn", false);
+    }
+
+    public void ToggleShieldAnimation(bool toggle)
+    {
+        
     }
 }

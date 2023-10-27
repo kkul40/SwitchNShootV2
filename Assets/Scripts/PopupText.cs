@@ -5,9 +5,9 @@ public class PopupText : MonoBehaviour
 {
     [SerializeField] private TextMeshPro text;
 
-
-    public void SetText(string message)
+    public void Instantiate(string message, Color? color = null)
     {
         text.text = message;
+        text.color = color ?? Color.white;
     }
 }

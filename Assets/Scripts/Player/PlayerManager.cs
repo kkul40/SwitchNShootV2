@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
     [SerializeField] private PlayerInputs playerInput;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerCollision playerCollision;
+    [SerializeField] private PlayerShield playerShield;
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private PlayerSound playerSound;
     [SerializeField] public ProjectileManager projectileManager;
@@ -28,11 +29,23 @@ public class PlayerManager : MonoBehaviour, IDamagable
             Instance = this;
     }
 
+    private void OnEnable()
+    {
+        Shield.OnShieldCollected += ActivateShield;
+    }
+
+    private void ActivateShield()
+    {
+        playerShield.HasShield = true;
+        playerAnimation.ToggleShieldAnimation(true);
+    }
+
     private void Start()
     {
         playerInput = GetComponent<PlayerInputs>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
+        playerShield = GetComponent<PlayerShield>();
         playerSound = GetComponent<PlayerSound>();
         projectileManager = GetComponentInChildren<ProjectileManager>();
 
@@ -95,6 +108,13 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
+        if (playerShield.HasShield)
+        {
+            playerShield.HasShield = false;
+            playerAnimation.ToggleShieldAnimation(false);
+            return;
+        }
+        
         playerAnimation.PlayerTurnOff();
         var particle = Instantiate(enemyParticlePrefab, transform.position, Quaternion.identity);
         particle.GetComponent<ParticleScr>().SelfDestroy(3f);

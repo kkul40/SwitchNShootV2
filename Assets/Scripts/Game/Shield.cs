@@ -36,7 +36,7 @@ public class Shield : MonoBehaviour, ICollectable
     public void SelfDestroy()
     {
         SpawnText("REMOVED");
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
     
     private void SpawnText(string message)
@@ -52,6 +52,6 @@ public class Shield : MonoBehaviour, ICollectable
         OnShieldCollected?.Invoke();
         SpawnText("SHIELD-UP");
         // SoundManager.Instance.PlayOneShot(CoinCollected);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }

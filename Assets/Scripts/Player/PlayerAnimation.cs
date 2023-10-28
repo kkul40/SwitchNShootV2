@@ -1,3 +1,4 @@
+using PlayerNS;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -10,12 +11,6 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator shieldAnimator;
 
     private bool isTurnOn;
-
-    private void Start()
-    {
-        sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-    }
 
     public void FlipRight()
     {
@@ -46,6 +41,6 @@ public class PlayerAnimation : MonoBehaviour
 
     public void ToggleShieldAnimation(bool toggle)
     {
-        
+        shieldAnimator.SetBool("hasShield", toggle);
     }
 }

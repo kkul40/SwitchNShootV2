@@ -61,9 +61,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
         SpawnParticle();
 
-        SpawnBuble();
-        StopBubble();
-
         gameObject.SetActive(false);
         //Destroy(gameObject);
     }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using PlayerNS;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -34,6 +33,11 @@ public class PlayerManager : MonoBehaviour, IDamagable
         Shield.OnShieldCollected += ActivateShield;
     }
 
+    private void OnDisable()
+    {
+        Shield.OnShieldCollected -= ActivateShield;
+    }
+
     private void ActivateShield()
     {
         playerShield.HasShield = true;
@@ -45,11 +49,14 @@ public class PlayerManager : MonoBehaviour, IDamagable
         playerInput = GetComponent<PlayerInputs>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
+        playerAnimation = GetComponent<PlayerAnimation>();
         playerShield = GetComponent<PlayerShield>();
         playerSound = GetComponent<PlayerSound>();
         projectileManager = GetComponentInChildren<ProjectileManager>();
 
         ////////////////////////
+        
+        playerAnimation.ToggleShieldAnimation(playerShield.HasShield);
     }
 
     private void Update()

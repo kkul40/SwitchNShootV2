@@ -1,6 +1,8 @@
 ﻿using System;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace PlayerNS.Game
 {
@@ -8,6 +10,7 @@ namespace PlayerNS.Game
     {
         [SerializeField] private Transform shieldPrefab;
         [SerializeField] private float speed;
+        [SerializeField] private GameObject enemyParticlePrefab;
 
         private void FixedUpdate()
         {
@@ -28,6 +31,15 @@ namespace PlayerNS.Game
         public void TakeDamage()
         {
             Instantiate(shieldPrefab, transform.position, quaternion.identity);
+            SpawnParticle();
+            Destroy(this.gameObject);
+        }
+        
+        private void SpawnParticle()
+        {
+            var particle = Instantiate(enemyParticlePrefab, transform.position, quaternion.identity);
+
+            particle.GetComponent<ParticleScr>().SelfDestroy(2f);
         }
     }
 }

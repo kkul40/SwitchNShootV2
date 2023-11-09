@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Attacks
 {
@@ -26,7 +27,7 @@ public class BossProjectiles : MonoBehaviour
     [Header("Projectiles")] [SerializeField]
     private Transform enemyPrefab;
 
-    [SerializeField] private StageSystem stageSystem;
+    [FormerlySerializedAs("stageSystem")] [SerializeField] private StageManager stageManager;
 
     [SerializeField] private BossLaser bossLaser;
 
@@ -43,7 +44,7 @@ public class BossProjectiles : MonoBehaviour
 
     private void Start()
     {
-        stageSystem = FindObjectOfType<StageSystem>();
+        stageManager = FindObjectOfType<StageManager>();
     }
 
     private void Update()
@@ -80,7 +81,7 @@ public class BossProjectiles : MonoBehaviour
     {
         isAttacking = true;
 
-        if (Random.value < stageSystem.GetBossLaserChance)
+        if (Random.value < stageManager.GetBossLaserChance)
         {
             // Fire Laser 
             ShootLaser();

@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WallSystem : MonoBehaviour
 {
-    [SerializeField] private StageSystem stageSystem;
+    [FormerlySerializedAs("stageSystem")] [SerializeField] private StageManager stageManager;
 
     [SerializeField] private WarningBar warningBar;
     [SerializeField] private FireWalls fireWalls;

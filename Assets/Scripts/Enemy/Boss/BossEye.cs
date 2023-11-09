@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BossEye : MonoBehaviour, IDamagable
@@ -14,6 +15,11 @@ public class BossEye : MonoBehaviour, IDamagable
 
     public WhichEye whichEye;
     public bool isEyeOpen;
+
+    private void Start()
+    {
+        Debug.Log(transform.position);
+    }
 
     public void TakeDamage()
     {

@@ -1,4 +1,6 @@
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class SpawnerBase : MonoBehaviour
 {
@@ -57,6 +59,16 @@ public abstract class SpawnerBase : MonoBehaviour
         }*/
 
         Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
+    }
+
+    public void Spawn(Vector3 pos)
+    {
+        Debug.Log("Coin Spawner Cam " + pos);
+        var spawnPos = pos;
+        var coin = Instantiate(spawnPrefab, spawnPos, quaternion.identity);
+        Coin coinScr = coin.GetComponent<Coin>();
+        coinScr.moveSpeed = 0f;
+        coinScr.SetGravity(1);
     }
 
 

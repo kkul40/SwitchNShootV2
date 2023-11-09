@@ -14,7 +14,7 @@ public class PowerBarManager : MonoBehaviour
         ProjectileManager.OnIndexChange += UpdateBars;
         ProjectileManager.OnLaserFired += StartBlinking;
         ProjectileManager.OnLaserStopped += StopBlinking;
-        StageSystem.OnStageChanged += UpdateBars;
+        StageManager.OnStageChanged += UpdateBars;
     }
 
     private void OnDisable()
@@ -22,7 +22,7 @@ public class PowerBarManager : MonoBehaviour
         ProjectileManager.OnIndexChange -= UpdateBars;
         ProjectileManager.OnLaserFired -= StartBlinking;
         ProjectileManager.OnLaserStopped -= StopBlinking;
-        StageSystem.OnStageChanged -= UpdateBars;
+        StageManager.OnStageChanged -= UpdateBars;
     }
 
     private void UpdateBars()

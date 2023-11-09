@@ -1,16 +1,17 @@
 using System.Collections;
+using Game.Manager;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : SpawnerBase
 {
-    private StageSystem stageSystem;
+    private StageManager stageManager;
 
     protected override void Start()
     {
         base.Start();
-        stageSystem = FindObjectOfType<StageSystem>();
+        stageManager = FindObjectOfType<StageManager>();
     }
 
     private IEnumerator SpawnCo()
@@ -31,8 +32,8 @@ public class EnemySpawner : SpawnerBase
                 enemy.SetActive(true);
             }
 
-            Debug.Log(stageSystem.GetEnemySpawnRate);
-            yield return new WaitForSeconds(stageSystem.GetEnemySpawnRate);
+            Debug.Log(EnemySpawnRateManager.instance.enemySpawnRate);
+            yield return new WaitForSeconds(EnemySpawnRateManager.instance.enemySpawnRate);
         }
     }
 

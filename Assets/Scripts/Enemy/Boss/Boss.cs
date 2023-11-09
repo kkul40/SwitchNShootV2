@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum BossStates
 {
@@ -16,14 +17,14 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private float pushForceOnY;
     [SerializeField] private Vector3 approachPos;
 
-    [SerializeField] private BossEye leftEye;
-    [SerializeField] private BossEye rightEye;
+    [SerializeField] private BossEye leftBossEye;
+    [SerializeField] private BossEye rightBossEye;
     [SerializeField] private BossProjectiles bossProjectiles;
     [SerializeField] private float eyeOpenDuration;
 
-
     [SerializeField] private int bossHealth;
 
+    [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private ParticleScr bossParticleSystem;
 
     private BossStates currentBossState;
@@ -40,6 +41,8 @@ public class Boss : MonoBehaviour, IDamagable
         currentBossState = BossStates.FirstApproach;
         direction = Vector3.right;
         lastDirection = direction;
+
+        coinSpawner = FindObjectOfType<CoinSpawner>();
 
         CloseBothEyes();
     }
@@ -89,11 +92,11 @@ public class Boss : MonoBehaviour, IDamagable
     public static event Action OnBossLeave;
 
 
-    private void CheckIfBothEyesIsClosed()
+    private bool CheckIfBothEyesIsClosed()
     {
-        if (!isBothEyeOpen) return;
+        if (!isBothEyeOpen) return false;
 
-        if (!leftEye.isEyeOpen && !rightEye.isEyeOpen)
+        if (!leftBossEye.isEyeOpen && !rightBossEye.isEyeOpen)
         {
             transform.position = new Vector3(
                 transform.position.x,
@@ -104,12 +107,19 @@ public class Boss : MonoBehaviour, IDamagable
             CalculateHealth();
             Invoke(nameof(OpenBothEyes), eyeOpenDuration);
         }
+
+        return true;
+    }
+
+    private void SpawnCoin(Vector3 pos)
+    {
+        coinSpawner.Spawn(pos);
     }
 
     private void OpenBothEyes()
     {
-        leftEye.SetEyeOpen();
-        rightEye.SetEyeOpen();
+        leftBossEye.SetEyeOpen();
+        rightBossEye.SetEyeOpen();
 
         isBothEyeOpen = true;
     }
@@ -117,19 +127,21 @@ public class Boss : MonoBehaviour, IDamagable
     public void IsLeftEyeOpen(bool leftEye)
     {
         isLeftEyeOpen = leftEye;
-        CheckIfBothEyesIsClosed();
+        if (CheckIfBothEyesIsClosed())
+            SpawnCoin(leftBossEye.transform.position);
     }
 
     public void IsRightEyeOpen(bool rightEye)
     {
         isRightEyeOpen = rightEye;
-        CheckIfBothEyesIsClosed();
+        if (CheckIfBothEyesIsClosed())
+            SpawnCoin(rightBossEye.transform.position);
     }
 
     private void CloseBothEyes()
     {
-        leftEye.SetEyeClose();
-        rightEye.SetEyeClose();
+        leftBossEye.SetEyeClose();
+        rightBossEye.SetEyeClose();
 
         isBothEyeOpen = false;
     }

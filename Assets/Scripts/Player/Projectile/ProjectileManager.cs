@@ -33,7 +33,7 @@ public class ProjectileManager : MonoBehaviour
     private void OnEnable()
     {
         Coin.OnCoinCollected += SwichtToNextProjectile;
-        Coin.OnCoinMissed += SwitchTooPreviousProjectile;
+        Coin.OnCoinMissed += SwitchToPreviousProjectile;
         // PlayerManager.OnPlayerDeath += DestroyLaser;
         // Boss.OnBossDeath += ResetLaserNow;
     }
@@ -41,7 +41,7 @@ public class ProjectileManager : MonoBehaviour
     private void OnDisable()
     {
         Coin.OnCoinCollected -= SwichtToNextProjectile;
-        Coin.OnCoinMissed -= SwitchTooPreviousProjectile;
+        Coin.OnCoinMissed -= SwitchToPreviousProjectile;
         // PlayerManager.OnPlayerDeath -= DestroyLaser;
         // Boss.OnBossDeath -= ResetLaserNow;
     }
@@ -68,7 +68,7 @@ public class ProjectileManager : MonoBehaviour
         }
     }
 
-    private void SwitchTooPreviousProjectile()
+    private void SwitchToPreviousProjectile()
     {
         currentProjectileIndex--;
         OnIndexChange?.Invoke();

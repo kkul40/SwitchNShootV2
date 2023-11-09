@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using PlayerNS.Bullet;
 using UnityEngine;
+using Game.Manager;
 
-public class StageSystem : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
     [SerializeField] private ProjectileManager projectileManager;
 
@@ -15,23 +16,27 @@ public class StageSystem : MonoBehaviour
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private DialogueManager dialogueManager;
 
-    [SerializeField] private int stage;
-    public int Stage => stage;
+    private int stage;
 
-    [SerializeField] private AnimationCurve enemySpawnByStage;
+    public int Stage
+    {
+        get { return stage;}
+        private set
+        {
+            stage = value; 
+            EnemySpawnRateManager.instance.SetSpawnRate(stage);
+        }
+    }
 
     [SerializeField] private AnimationCurve bossLaserChanceByStage;
 
     [SerializeField] private ParticleSystem HyperDriveScreen;
 
     private bool isBossActive;
-    public int GetStage => stage;
-
-    public float GetEnemySpawnRate => enemySpawnByStage.Evaluate(stage);
-    public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(stage);
+    public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(Stage);
 
 
-    public static StageSystem Instance;
+    public static StageManager Instance;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -40,6 +45,10 @@ public class StageSystem : MonoBehaviour
         dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
+    private void Start()
+    {
+        Stage = -1;
+    }
 
     private void OnEnable()
     {
@@ -64,8 +73,6 @@ public class StageSystem : MonoBehaviour
     private void StartNextStage()
     {
         if (isBossActive) return;
-
-        Debug.Log("Test");
         StartCoroutine(NextStageCo());
     }
     
@@ -78,15 +85,14 @@ public class StageSystem : MonoBehaviour
         // Ekrana uyarı yazısı bastır
         // 1 saniye sonra yeni stage geç
             // boss stage ini daha sonra koyarsın
-        stage++;
+        Stage++;
 
         EndStage();
-        if(stage != 0)
+        if(Stage != 0)
             HyperDriveScreen.Play();
 
         yield return new WaitForSeconds(timeToSpawn);
         
-        HyperDriveScreen.Stop();
         
         // Dialoge Handler
         dialogueManager.StartDialogue(Stage);
@@ -96,8 +102,10 @@ public class StageSystem : MonoBehaviour
             yield return new WaitUntil(() => dialogueManager.dialgoueActive == false);
             yield return new WaitForSeconds(1f);
         }
+        
+        HyperDriveScreen.Stop();
 
-        if (stage % 3 == 0 && stage != 0) // Boss Çağırma Kodu
+        if (Stage % 1 == 0 && Stage != 0) // Boss Çağırma Kodu
             StartBossStage();
         else
             StartNormalStage();
@@ -165,7 +173,6 @@ public class StageSystem : MonoBehaviour
             return;
 
         isBossActive = true;
-        coinSpawner.StartSpawning();
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }
 

@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
 
     //TODO daha sonra score systemi oluştur
     private int score;
-    private StageSystem stageSystem;
+    private StageManager stageManager;
 
     private void Awake()
     {
@@ -40,11 +40,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        stageSystem = FindObjectOfType<StageSystem>();
+        stageManager = FindObjectOfType<StageManager>();
         uiInput = new UiInput();
 
         scoreText.text = 0.ToString();
-        stageText.text = stageSystem.GetStage.ToString();
+        stageText.text = stageManager.Stage.ToString();
         stageTextHolder.SetActive(false);
     }
 
@@ -59,13 +59,13 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         Enemy.OnEnemyDeath += ScoreChanged;
-        StageSystem.OnStageChanged += StageChanges;
+        StageManager.OnStageChanged += StageChanges;
     }
 
     private void OnDisable()
     {
         Enemy.OnEnemyDeath -= ScoreChanged;
-        StageSystem.OnStageChanged -= StageChanges;
+        StageManager.OnStageChanged -= StageChanges;
     }
 
     private void ScoreChanged()
@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
 
     private void StageChanges()
     {
-        stageText.text = stageSystem.GetStage.ToString();
+        stageText.text = stageManager.Stage.ToString();
         OpenStageTextHolder();
     }
 
@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     }
     private void OpenStageTextHolder()
     {
-        if(stageSystem.GetStage != 0)
+        if(stageManager.Stage != 0)
             stageTextHolder.SetActive(true);
         else
             stageTextHolder.SetActive(false);
@@ -121,7 +121,7 @@ public class UIManager : MonoBehaviour
     {
         // Save And Load At the End
         double tempScore = 0;
-        tempScore = score * (stageSystem.GetStage * 12.50/100);
+        tempScore = score * (stageManager.Stage * 12.50/100);
         int finalScore = (int)(score + tempScore);
         
         var highScoreData = new HighScoreData(finalScore, 0);

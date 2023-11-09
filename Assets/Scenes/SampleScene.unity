@@ -160,63 +160,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 188}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &88463677
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.0804744
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 10.46419
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.175737
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438672, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357689277000438678, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
-      propertyPath: m_Name
-      value: Boss
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3c3e5501e27be324c87f91e5cfbb57e3, type: 3}
 --- !u!224 &127815121 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1460462904332357002, guid: ab8ce9aa6526cce4fa2ed10e5a200fae, type: 3}
@@ -8061,7 +8004,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1000103025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15975,12 +15918,6 @@ MonoBehaviour:
     line: bende seni bekliyordum hahaha.
   - stage: 0
     line: Devam et simdilik
-  - stage: 0
-    line: ama sonra bozusucaz
-  - stage: 1
-    line: olmedin mi sen
-  - stage: 1
-    line: nasil oluuuuur??
   dialgoueActive: 0
 --- !u!1001 &2049468037
 PrefabInstance:
@@ -16689,4 +16626,3 @@ SceneRoots:
   - {fileID: 1822065257}
   - {fileID: 2717077632106560188}
   - {fileID: 308276819}
-  - {fileID: 88463677}

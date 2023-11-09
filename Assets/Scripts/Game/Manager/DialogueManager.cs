@@ -26,6 +26,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(int stage)
     {
+        if (currentDialogue > dialogues.Count - 1) return;
+        
         StartCoroutine(DialogueWriterCo(stage));
     }
 

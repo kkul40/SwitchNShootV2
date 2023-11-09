@@ -22,8 +22,6 @@ public class Boss : MonoBehaviour, IDamagable
     [SerializeField] private BossProjectiles bossProjectiles;
     [SerializeField] private float eyeOpenDuration;
 
-    [SerializeField] private int bossHealth;
-
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private ParticleScr bossParticleSystem;
 
@@ -35,7 +33,16 @@ public class Boss : MonoBehaviour, IDamagable
     private bool isRightEyeOpen;
     private Vector3 lastDirection;
 
+    private void OnEnable()
+    {
+        ProjectileManager.OnLaserFired += DeathSequence;
+    }
 
+    private void OnDisable()
+    {
+        ProjectileManager.OnLaserFired -= DeathSequence;
+    }
+    
     private void Start()
     {
         currentBossState = BossStates.FirstApproach;
@@ -77,8 +84,8 @@ public class Boss : MonoBehaviour, IDamagable
 
                 break;
             case BossStates.Dead:
-                transform.position += lastDirection * (speed * 3 * Time.deltaTime);
-                transform.position += Vector3.up * (speed / 2 * Time.deltaTime);
+                transform.position += lastDirection * (speed * 5 * Time.deltaTime);
+                transform.position += Vector3.up * (speed * Time.deltaTime);
                 break;
         }
     }
@@ -114,7 +121,6 @@ public class Boss : MonoBehaviour, IDamagable
                 transform.position.z);
 
             isBothEyeOpen = false;
-            CalculateHealth();
             Invoke(nameof(OpenBothEyes), eyeOpenDuration);
         }
 
@@ -167,17 +173,13 @@ public class Boss : MonoBehaviour, IDamagable
         }
     }
 
-    private void CalculateHealth()
+    private void DeathSequence()
     {
-        bossHealth--;
-        if (bossHealth <= 0)
-        {
-            bossParticleSystem.PlayParticleSystem();
-            lastDirection = direction;
-            currentBossState = BossStates.Dead;
-            OnBossLeave?.Invoke();
-            Invoke(nameof(SelfDestroy), 5f);
-        }
+        bossParticleSystem.PlayParticleSystem();
+        lastDirection = direction;
+        currentBossState = BossStates.Dead;
+        OnBossLeave?.Invoke();
+        Invoke(nameof(SelfDestroy), 3f);
     }
 
     private void SelfDestroy()

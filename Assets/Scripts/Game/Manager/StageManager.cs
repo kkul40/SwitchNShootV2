@@ -56,7 +56,7 @@ public class StageManager : MonoBehaviour
         PlayerManager.OnPlayerStarted += StartNextStage;
         
         ProjectileManager.OnHyperDrived += StartNextStage;
-        Boss.OnBossLeave += BossIsDead;
+        Boss.OnBossDeath += BossIsDead;
     }
 
     private void OnDisable()
@@ -65,7 +65,7 @@ public class StageManager : MonoBehaviour
         PlayerManager.OnPlayerStarted -= StartNextStage;
 
         ProjectileManager.OnHyperDrived -= StartNextStage;
-        Boss.OnBossLeave -= BossIsDead;
+        Boss.OnBossDeath -= BossIsDead;
     }
 
     public static event Action OnStageChanged;
@@ -94,7 +94,7 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSeconds(timeToSpawn);
         
         
-        // Dialoge Handler
+        // Dialogue Handler
         dialogueManager.StartDialogue(Stage);
 
         if (dialogueManager.dialgoueActive)
@@ -103,13 +103,17 @@ public class StageManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         
-        HyperDriveScreen.Stop();
 
-        if (Stage % 1 == 0 && Stage != 0) // Boss Çağırma Kodu
+        if (Stage % 3 == 0 && Stage != 0) // Boss Çağırma Kodu
+        {
             StartBossStage();
+        }
         else
+        {
             StartNormalStage();
+        }
         
+        HyperDriveScreen.Stop();
 
         OnStageChanged?.Invoke();
     }

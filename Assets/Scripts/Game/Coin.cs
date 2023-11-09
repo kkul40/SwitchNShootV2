@@ -2,6 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 
+[SelectionBase]
 public class Coin : MonoBehaviour, ICollectable
 {
     [SerializeField] private Transform powerUpPrefab;

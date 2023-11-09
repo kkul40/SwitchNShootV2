@@ -13,6 +13,7 @@ public class StageSystem : MonoBehaviour
 
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private CoinSpawner coinSpawner;
+    [SerializeField] private DialogueManager dialogueManager;
 
     [SerializeField] private int stage;
     public int Stage => stage;
@@ -35,6 +36,8 @@ public class StageSystem : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(this);
+
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
 
@@ -84,7 +87,15 @@ public class StageSystem : MonoBehaviour
         yield return new WaitForSeconds(timeToSpawn);
         
         HyperDriveScreen.Stop();
+        
+        // Dialoge Handler
+        dialogueManager.StartDialogue(Stage);
 
+        if (dialogueManager.dialgoueActive)
+        {
+            yield return new WaitUntil(() => dialogueManager.dialgoueActive == false);
+            yield return new WaitForSeconds(1f);
+        }
 
         if (stage % 3 == 0 && stage != 0) // Boss Çağırma Kodu
             StartBossStage();

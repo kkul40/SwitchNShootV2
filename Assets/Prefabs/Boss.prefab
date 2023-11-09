@@ -5389,7 +5389,7 @@ MonoBehaviour:
   boss: {fileID: 8357689277000438679}
   eyeCollider: {fileID: 8357689275789056213}
   anim: {fileID: 8357689275789056215}
-  whichEye: 0
+  whichEye: 1
   isEyeOpen: 1
 --- !u!95 &8357689275789056215
 Animator:

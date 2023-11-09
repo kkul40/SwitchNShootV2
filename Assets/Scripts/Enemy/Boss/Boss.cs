@@ -92,12 +92,22 @@ public class Boss : MonoBehaviour, IDamagable
     public static event Action OnBossLeave;
 
 
-    private bool CheckIfBothEyesIsClosed()
+    private bool CheckIfBothEyesIsClosed(BossEye.WhichEye whichEye)
     {
         if (!isBothEyeOpen) return false;
 
         if (!leftBossEye.isEyeOpen && !rightBossEye.isEyeOpen)
         {
+            switch (whichEye)
+            {
+                case BossEye.WhichEye.LeftEye:
+                    SpawnCoin(leftBossEye.transform.position);
+                    break;
+                case BossEye.WhichEye.RightEye:
+                    SpawnCoin(rightBossEye.transform.position);
+                    break;
+            }
+            
             transform.position = new Vector3(
                 transform.position.x,
                 transform.position.y + pushForceOnY,
@@ -127,15 +137,13 @@ public class Boss : MonoBehaviour, IDamagable
     public void IsLeftEyeOpen(bool leftEye)
     {
         isLeftEyeOpen = leftEye;
-        if (CheckIfBothEyesIsClosed())
-            SpawnCoin(leftBossEye.transform.position);
+        CheckIfBothEyesIsClosed(BossEye.WhichEye.LeftEye);
     }
 
     public void IsRightEyeOpen(bool rightEye)
     {
         isRightEyeOpen = rightEye;
-        if (CheckIfBothEyesIsClosed())
-            SpawnCoin(rightBossEye.transform.position);
+        CheckIfBothEyesIsClosed(BossEye.WhichEye.RightEye);
     }
 
     private void CloseBothEyes()

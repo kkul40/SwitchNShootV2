@@ -17,11 +17,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private DialogueManager dialogueManager;
 
-    [Header("Music")]
-    public AudioClip DefaualtBackgroundMusic;
-    public AudioClip BossBackgroundMusic;
-    public AudioClip EndGameBackgroundMusic;
-
     private int stage;
 
     public int Stage
@@ -113,12 +108,14 @@ public class StageManager : MonoBehaviour
         }
         
 
-        if (Stage % 2 == 0 && Stage != 0) // Boss Çağırma Kodu
+        if (Stage % 3 == 0 && Stage != 0) // Boss Çağırma Kodu
         {
+            SoundManager.Instance.ChangeBackgroundMusicToBossFight();
             StartBossStage();
         }
         else
         {
+            SoundManager.Instance.ChangeBackgroundMusicToDefault();
             StartNormalStage();
         }
         
@@ -153,7 +150,6 @@ public class StageManager : MonoBehaviour
 
     private void StartNormalStage()
     {
-        SoundManager.Instance.ChangeBackgroundMusic(DefaualtBackgroundMusic);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
     }
@@ -191,7 +187,6 @@ public class StageManager : MonoBehaviour
         if (isBossActive)
             return;
 
-        SoundManager.Instance.ChangeBackgroundMusic(BossBackgroundMusic);
         isBossActive = true;
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }

@@ -10,8 +10,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource BackgroundAudioSource2;
     [SerializeField] private AudioSource audioSourceForSoundEffects;
 
+    [Header("Background Musics")] 
+    [SerializeField] private AudioClip IntroBackgroundMusic;
+    [SerializeField] private AudioClip DefaultBackgroundMusic;
+    [SerializeField] private AudioClip BossBackgroundMusic;
+    [SerializeField] private AudioClip EndGameBackgroundMusic;
+
     private AudioSource susturulan;
     private AudioSource actirilan;
+
+    private bool isDefaultActive;
 
     private float maxVolume = 1f;
     public float MusicChangeSpeed = 1;
@@ -29,6 +37,9 @@ public class SoundManager : MonoBehaviour
     {
         susturulan = BackgroundAudioSource;
         actirilan = BackgroundAudioSource2;
+
+        BackgroundAudioSource.clip = IntroBackgroundMusic;
+        BackgroundAudioSource.Play();
     }
 
     public void PlaySoundEffect(AudioClip clip)
@@ -36,7 +47,26 @@ public class SoundManager : MonoBehaviour
         audioSourceForSoundEffects.PlayOneShot(clip);
     }
 
-    public void ChangeBackgroundMusic(AudioClip audioClip)
+    public void ChangeBackgroundMusicToDefault()
+    {
+        if (isDefaultActive) return;
+        
+        isDefaultActive = true;
+        ChangeBackgroundMusicHandle(DefaultBackgroundMusic);
+    }
+
+    public void ChangeBackgroundMusicToBossFight()
+    {
+        isDefaultActive = false;
+        ChangeBackgroundMusicHandle(BossBackgroundMusic);
+    }
+    public void ChangeBackgroundMusicToEndGame()
+    {
+        isDefaultActive = false;
+        ChangeBackgroundMusicHandle(EndGameBackgroundMusic);
+    }
+
+    private void ChangeBackgroundMusicHandle(AudioClip audioClip)
     {
         if (isBackgroundMusicInProssec)
         {

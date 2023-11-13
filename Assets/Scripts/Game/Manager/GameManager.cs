@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
 {
     public Stages currentStage;
     
-    public AudioClip EndGameBackgroundMusic;
-
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -44,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void PlayerIsDead()
     {
-        SoundManager.Instance.ChangeBackgroundMusic(EndGameBackgroundMusic);
+        SoundManager.Instance.ChangeBackgroundMusicToEndGame();
         currentStage = Stages.Outro;
         UIManager.Instance.OpenEndGameScreen();
     }

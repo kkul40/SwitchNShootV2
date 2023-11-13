@@ -29,11 +29,15 @@ public class ProjectileManager : MonoBehaviour
         
         laser.gameObject.SetActive(false);
     }
+    
+    
 
     private void OnEnable()
     {
         Coin.OnCoinCollected += SwichtToNextProjectile;
         Coin.OnCoinMissed += SwitchToPreviousProjectile;
+        PlayerManager.OnPlayerDeath += SetActiveFalse;
+
         // PlayerManager.OnPlayerDeath += DestroyLaser;
         // Boss.OnBossDeath += ResetLaserNow;
     }
@@ -42,8 +46,15 @@ public class ProjectileManager : MonoBehaviour
     {
         Coin.OnCoinCollected -= SwichtToNextProjectile;
         Coin.OnCoinMissed -= SwitchToPreviousProjectile;
+        PlayerManager.OnPlayerDeath -= SetActiveFalse;
+
         // PlayerManager.OnPlayerDeath -= DestroyLaser;
         // Boss.OnBossDeath -= ResetLaserNow;
+    }
+    
+    private void SetActiveFalse()
+    {
+        laser.gameObject.SetActive(false);
     }
 
     private void SwichtToNextProjectile()

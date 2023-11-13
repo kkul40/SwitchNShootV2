@@ -3,6 +3,7 @@ using System.Collections;
 using PlayerNS.Bullet;
 using UnityEngine;
 using Game.Manager;
+using UnityEngine.Serialization;
 
 public class StageManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private DialogueManager dialogueManager;
+
+    [Header("Music")]
+    public AudioClip DefaualtBackgroundMusic;
+    public AudioClip BossBackgroundMusic;
+    public AudioClip EndGameBackgroundMusic;
 
     private int stage;
 
@@ -57,6 +63,8 @@ public class StageManager : MonoBehaviour
         
         ProjectileManager.OnHyperDrived += StartNextStage;
         Boss.OnBossDeath += BossIsDead;
+        
+        PlayerManager.OnPlayerDeath += StopCoinSpawner;
     }
 
     private void OnDisable()
@@ -66,6 +74,8 @@ public class StageManager : MonoBehaviour
 
         ProjectileManager.OnHyperDrived -= StartNextStage;
         Boss.OnBossDeath -= BossIsDead;
+        
+        PlayerManager.OnPlayerDeath -= StopCoinSpawner;
     }
 
     public static event Action OnStageChanged;
@@ -75,7 +85,6 @@ public class StageManager : MonoBehaviour
         if (isBossActive) return;
         StartCoroutine(NextStageCo());
     }
-    
 
     IEnumerator NextStageCo(float timeToSpawn = 1)
     {
@@ -104,7 +113,7 @@ public class StageManager : MonoBehaviour
         }
         
 
-        if (Stage % 3 == 0 && Stage != 0) // Boss Çağırma Kodu
+        if (Stage % 2 == 0 && Stage != 0) // Boss Çağırma Kodu
         {
             StartBossStage();
         }
@@ -144,8 +153,14 @@ public class StageManager : MonoBehaviour
 
     private void StartNormalStage()
     {
+        SoundManager.Instance.ChangeBackgroundMusic(DefaualtBackgroundMusic);
         enemySpawner.StartSpawning();
         coinSpawner.StartSpawning();
+    }
+
+    private void StopCoinSpawner()
+    {
+        coinSpawner.StopSpawning();
     }
 
     protected void EndStage()
@@ -176,6 +191,7 @@ public class StageManager : MonoBehaviour
         if (isBossActive)
             return;
 
+        SoundManager.Instance.ChangeBackgroundMusic(BossBackgroundMusic);
         isBossActive = true;
         Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
     }

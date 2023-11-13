@@ -39,7 +39,7 @@ public class Coin : MonoBehaviour, ICollectable
     {
         OnCoinCollected?.Invoke();
         SpawnText("POWER-UP", false);
-        SoundManager.Instance.PlayOneShot(CoinCollected);
+        SoundManager.Instance.PlaySoundEffect(CoinCollected);
         Destroy(gameObject);
     }
 
@@ -58,7 +58,7 @@ public class Coin : MonoBehaviour, ICollectable
             isDestroyed = true;
             OnCoinMissed?.Invoke();
             SpawnText("MISSED", true);
-            SoundManager.Instance.PlayOneShot(coinMissed);
+            SoundManager.Instance.PlaySoundEffect(coinMissed);
             Destroy(gameObject, 2);
         }
     }

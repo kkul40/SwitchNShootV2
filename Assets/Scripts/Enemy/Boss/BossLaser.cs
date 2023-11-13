@@ -47,6 +47,6 @@ public class BossLaser : MonoBehaviour, IDamagable
 
     private void PlaySound()
     {
-        SoundManager.Instance.PlayOneShot(bossLaserSoundEffect);
+        SoundManager.Instance.PlaySoundEffect(bossLaserSoundEffect);
     }
 }

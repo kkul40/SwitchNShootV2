@@ -12,8 +12,6 @@ namespace Game.Manager
                 instance = this as T;
             else
                 Destroy(this as T);
-
-            DontDestroyOnLoad(this);
         }
     }
 }

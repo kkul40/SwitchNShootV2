@@ -23,7 +23,7 @@ public class WallSystem : MonoBehaviour
 
     private void StartFireWallSequence()
     {
-        Invoke("StartWarningBars", 0);
+        Invoke(nameof(StartWarningBars), 0);
     }
 
     // fire wall stages 

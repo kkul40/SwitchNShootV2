@@ -16,6 +16,7 @@ namespace PlayerNS
 
         public void CheckCollisions()
         {
+            
             var colliderResults =
                 Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.extents * 2, 0, Vector2.zero);
 
@@ -32,7 +33,7 @@ namespace PlayerNS
                         playerManager.TakeDamage();
                     }
                 }
-                else if (item.transform.TryGetComponent(out ICollectable collectable))
+                else if (item.transform.TryGetComponent(out ICollectable collectable) && GameManager.Instance.currentStage != Stages.Outro)
                 {
                     collectable.Collect();
                 }

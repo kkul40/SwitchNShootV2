@@ -14,8 +14,8 @@ namespace PlayerNS.Bullet
         protected virtual void Awake()
         {
             boxCollider = GetComponent<BoxCollider2D>();
-            soundPlayer = GetComponent<SoundPlayer>();
             bubbleCreater = GetComponent<BubbleCreater>();
+            soundPlayer = GetComponent<SoundPlayer>();
         }
 
         protected virtual void FixedUpdate()

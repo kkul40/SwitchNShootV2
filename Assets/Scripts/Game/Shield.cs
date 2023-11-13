@@ -28,7 +28,7 @@ public class Shield : MonoBehaviour, ICollectable
         {
             isDestroyed = true;
             SpawnText("MISSED SHIELD");
-            SoundManager.Instance.PlayOneShot(shieldMissedSound);
+            SoundManager.Instance.PlaySoundEffect(shieldMissedSound);
             Destroy(gameObject, 2);
         }
     }

@@ -21,8 +21,10 @@ public class Enemy : MonoBehaviour, IDamagable
     private Transform enemyParticlePrefab;
 
     [SerializeField] private AudioClip hit;
+    [SerializeField] private AudioClip WooshSound;
 
     private bool isDead;
+    private bool outroBehaviour;
 
     private void Start()
     {
@@ -39,6 +41,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private void OnEnable()
     {
         isDead = false;
+        outroBehaviour = false;
         StopBubble();
     }
 
@@ -57,7 +60,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
         OnEnemyDeath?.Invoke();
 
-        SoundManager.Instance.PlayOneShot(hit);
+        SoundManager.Instance.PlaySoundEffect(hit);
 
         SpawnParticle();
 
@@ -78,7 +81,6 @@ public class Enemy : MonoBehaviour, IDamagable
         isDead = true;
         animator.SetBool("isDead", true);
 
-
         var bubbleSpawnTimeCalculate = deathDelayOnLine - bubbleLifeTime;
 
         yield return new WaitForSeconds(bubbleSpawnTimeCalculate);
@@ -88,10 +90,18 @@ public class Enemy : MonoBehaviour, IDamagable
 
         SpawnParticle();
 
-        SoundManager.Instance.PlayOneShot(hit);
+        SoundManager.Instance.PlaySoundEffect(hit);
 
         gameObject.SetActive(false);
         //Destroy(gameObject);
+    }
+
+    private IEnumerator OutroBehaviourCo()
+    {
+        outroBehaviour = true;
+        SoundManager.Instance.PlaySoundEffect(WooshSound);
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
     }
 
     private void SpawnBuble()
@@ -114,12 +124,17 @@ public class Enemy : MonoBehaviour, IDamagable
     private void CheckCorner()
     {
         if (isDead) return;
+        if (outroBehaviour) return;
 
-        if (transform.position.y < -5)
+        if (transform.position.y < -5 && GameManager.Instance.currentStage == Stages.Game)
         {
             StartCoroutine(DeadSequenceCo());
             var tempPos = new Vector2(transform.position.x, -5);
             transform.position = tempPos;
+        }
+        else if (transform.position.y < -5)
+        {
+            StartCoroutine(OutroBehaviourCo());
         }
 
         if (transform.position.y <= -10) gameObject.SetActive(false);

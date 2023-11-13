@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PlayerNS.Components;
+using UnityEngine;
 
 namespace PlayerNS.Bullet
 {

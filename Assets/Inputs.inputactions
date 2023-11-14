@@ -40,28 +40,6 @@
                 },
                 {
                     "name": "",
-                    "id": "55bc7099-21fa-441f-aa4f-6537df353572",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45c56fdd-c61c-4026-bf8f-d36ebf6809eb",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "de491b48-98f6-42a3-b238-9745cfd70c7c",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",

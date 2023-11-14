@@ -270,7 +270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 97, y: -214}
+  m_AnchoredPosition: {x: 75, y: -200}
   m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &112144526
@@ -400,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &139412281
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7673,7 +7673,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1073, y: 1475}
+  m_ReferenceResolution: {x: 320, y: 180}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -8781,7 +8781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1177299719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15168,7 +15168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1567631299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15799,7 +15799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1739735579
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16627,9 +16627,11 @@ MonoBehaviour:
   text: {fileID: 215884637}
   dialogues:
   - stage: 0
-    line: Welcome to Sector 0
+    line: There is Danger Ahead!
   - stage: 1
-    line: Go Head to Sector 1
+    line: Ahhhh. Don`t
+  - stage: 2
+    line: You just wait...
   dialgoueActive: 0
 --- !u!1001 &2049468037
 PrefabInstance:
@@ -16727,7 +16729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 96.99997, y: -214}
+  m_AnchoredPosition: {x: 75, y: -200}
   m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2099515777

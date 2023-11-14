@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -84,7 +85,7 @@ public class Boss : MonoBehaviour, IDamagable
 
                 break;
             case BossStates.Dead:
-                transform.position += lastDirection * (speed * 5 * Time.deltaTime);
+                transform.position += lastDirection * (speed * 2.5f * Time.deltaTime);
                 transform.position += Vector3.up * (speed * Time.deltaTime);
                 break;
         }
@@ -97,7 +98,6 @@ public class Boss : MonoBehaviour, IDamagable
 
     public static event Action OnBossDeath;
     public static event Action OnBossLeave;
-
 
     private bool CheckIfBothEyesIsClosed(BossEye.WhichEye whichEye)
     {
@@ -121,7 +121,10 @@ public class Boss : MonoBehaviour, IDamagable
                 transform.position.z);
 
             isBothEyeOpen = false;
+            
             Invoke(nameof(OpenBothEyes), eyeOpenDuration);
+            
+            bossProjectiles.ShootLaser();
         }
 
         return true;
@@ -175,11 +178,22 @@ public class Boss : MonoBehaviour, IDamagable
 
     private void DeathSequence()
     {
+        StartCoroutine(DeathSequenceCo());
+    }
+
+    IEnumerator DeathSequenceCo()
+    {
+        bossParticleSystem.PlayParticleSystem();
+
+        yield return new WaitForSeconds(2);
+        
         bossParticleSystem.PlayParticleSystem();
         lastDirection = direction;
         currentBossState = BossStates.Dead;
         OnBossLeave?.Invoke();
-        Invoke(nameof(SelfDestroy), 3f);
+
+        yield return new WaitForSeconds(5);
+        SelfDestroy();
     }
 
     private void SelfDestroy()

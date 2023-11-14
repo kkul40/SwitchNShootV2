@@ -166,7 +166,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6006,8 +6006,7 @@ MonoBehaviour:
   leftBossEye: {fileID: 8357689276322855217}
   rightBossEye: {fileID: 8357689275789056208}
   bossProjectiles: {fileID: 8357689277000438674}
-  eyeOpenDuration: 5
-  bossHealth: 7
+  eyeOpenDuration: 8
   coinSpawner: {fileID: 0}
   bossParticleSystem: {fileID: 4984054565382978576}
 --- !u!114 &8357689277000438674
@@ -6111,6 +6110,14 @@ PrefabInstance:
     - target: {fileID: 825494745686852957, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
       propertyPath: m_Name
       value: BossParticleSystem Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254944281893171009, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254944281893171009, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[2].time
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3786083516617802054, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
       propertyPath: m_RootOrder

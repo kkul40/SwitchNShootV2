@@ -41,6 +41,7 @@ public class BossProjectiles : MonoBehaviour
     private readonly List<Transform> enemies = new();
     private bool bossDeath;
     private float lastAttackTime;
+    private bool shootLaserOnNextAttack;
 
     private void Start()
     {
@@ -52,9 +53,12 @@ public class BossProjectiles : MonoBehaviour
         if (!isAttacking && !bossDeath)
         {
             lastAttackTime += Time.deltaTime;
-            if (lastAttackTime >= attackDuration)
+            if (lastAttackTime > attackDuration)
             {
-                ChooseAttack();
+                if(shootLaserOnNextAttack)
+                    ShootLaser();
+                else
+                    ChooseAttack();
                 lastAttackTime = 0;
             }
         }
@@ -81,14 +85,6 @@ public class BossProjectiles : MonoBehaviour
     {
         isAttacking = true;
 
-        if (Random.value < stageManager.GetBossLaserChance)
-        {
-            // Fire Laser 
-            ShootLaser();
-            return;
-        }
-
-
         currentAttack = (Attacks)Random.Range(0, 5);
 
         //currentAttack = Attacks.TripleLeftAttack;
@@ -112,8 +108,15 @@ public class BossProjectiles : MonoBehaviour
         }
     }
 
-    private void ShootLaser()
+    public void ShootLaser()
     {
+        if (isAttacking)
+        {
+            shootLaserOnNextAttack = true;
+            return;
+        }
+        
+        isAttacking = true;
         bossLaser.StartLaser(laserDuration);
         Invoke(nameof(StopLaser), laserDuration);
     }
@@ -122,6 +125,7 @@ public class BossProjectiles : MonoBehaviour
     {
         bossLaser.StopLaser();
         isAttacking = false;
+        shootLaserOnNextAttack = false;
     }
 
     private void StopLaserNow()

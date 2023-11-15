@@ -1,0 +1,205 @@
+using System;
+using UnityEngine;
+
+public enum BossStates
+{
+    FirstApproach,
+    Approach,
+    Dead
+}
+
+
+public class Boss : MonoBehaviour, IDamagable
+{
+    [SerializeField] private float speed;
+    [SerializeField] private float offsetX; // For Corners
+    [SerializeField] private float pushForceOnY;
+    [SerializeField] private Vector3 approachPos;
+
+    [SerializeField] private BossEye leftEye;
+    [SerializeField] private BossEye rightEye;
+    [SerializeField] private BossProjectiles bossProjectiles;
+    [SerializeField] private float eyeOpenDuration;
+
+    
+    
+    [SerializeField] private int bossHealth;
+
+    [SerializeField] private ParticleScr bossParticleSystem;
+
+    private BossStates currentBossState;
+    private Vector3 direction;
+
+    private bool isBothEyeOpen;
+    private bool isLeftEyeOpen;
+    private bool isRightEyeOpen;
+    private Vector3 lastDirection;
+
+
+    private void Start()
+    {
+        currentBossState = BossStates.FirstApproach;
+        direction = Vector3.right;
+        lastDirection = direction;
+
+        CloseBothEyes();
+    }
+
+    private void FixedUpdate()
+    {
+        switch (currentBossState)
+        {
+            case BossStates.FirstApproach:
+                transform.position = Vector3.Lerp(transform.position, approachPos, speed * Time.deltaTime);
+
+                if (Vector3.Distance(transform.position, approachPos) < .1f)
+                {
+                    Invoke(nameof(OpenBothEyes), eyeOpenDuration);
+                    currentBossState = BossStates.Approach;
+                }
+
+                break;
+            case BossStates.Approach:
+                CheckCorners();
+
+                if (bossProjectiles.isAttacking)
+                {
+                    //TODO buraya birseyler ekle
+                    //transform.position = Vector3.Lerp(transform.position, transform.position + direction * 0.2f, .4f);
+                }
+                else
+                {
+                    transform.position += direction * (speed * Time.deltaTime);
+                    transform.position += Vector3.down * (speed / 2 * Time.deltaTime);
+                }
+
+                break;
+            case BossStates.Dead:
+                transform.position += lastDirection * (speed * 3 * Time.deltaTime);
+                transform.position += Vector3.up * (speed / 2 * Time.deltaTime);
+                break;
+        }
+    }
+
+    public void TakeDamage()
+    {
+        // Do Nothing
+    }
+
+    public static event Action OnBossDeath;
+    public static event Action OnBossLeave;
+
+
+    private void CheckIfBothEyesIsClosed()
+    {
+        if (!isBothEyeOpen) return;
+
+        if (!leftEye.isEyeOpen && !rightEye.isEyeOpen)
+        {
+            transform.position = new Vector3(
+                transform.position.x,
+                transform.position.y + pushForceOnY,
+                transform.position.z);
+
+            isBothEyeOpen = false;
+            CalculateHealth();
+            Invoke(nameof(OpenBothEyes), eyeOpenDuration);
+        }
+    }
+
+    private void OpenBothEyes()
+    {
+        leftEye.SetEyeOpen();
+        rightEye.SetEyeOpen();
+
+        isBothEyeOpen = true;
+    }
+
+    public void IsLeftEyeOpen(bool leftEye)
+    {
+        isLeftEyeOpen = leftEye;
+        CheckIfBothEyesIsClosed();
+    }
+
+    public void IsRightEyeOpen(bool rightEye)
+    {
+        isRightEyeOpen = rightEye;
+        CheckIfBothEyesIsClosed();
+    }
+
+    private void CloseBothEyes()
+    {
+        leftEye.SetEyeClose();
+        rightEye.SetEyeClose();
+
+        isBothEyeOpen = false;
+    }
+
+    private void CheckCorners()
+    {
+        var leftCorner = CameraScr.Instance.cameraLeftCornerX.x + offsetX;
+        var rightCorner = CameraScr.Instance.cameraRightCornerX.x - offsetX;
+
+        if (transform.position.x < leftCorner || transform.position.x > rightCorner)
+        {
+            if (direction == Vector3.left)
+                direction = Vector3.right;
+            else if (direction == Vector3.right) direction = Vector3.left;
+        }
+    }
+
+    private void CalculateHealth()
+    {
+        bossHealth--;
+        if (bossHealth <= 0)
+        {
+            bossParticleSystem.PlayParticleSystem();
+            lastDirection = direction;
+            currentBossState = BossStates.Dead;
+            OnBossLeave?.Invoke();
+            Invoke(nameof(SelfDestroy), 5f);
+        }
+    }
+
+    private void SelfDestroy()
+    {
+        OnBossDeath?.Invoke();
+        Destroy(gameObject);
+    }
+
+
+    //Attack Pattern
+    /*
+     * 1
+     * +      +
+     *   +  +
+     *    +
+     * 
+     * 2
+     * +
+     *   +
+     *     +
+     * 
+     * 3
+     *     + 
+     *   +
+     * +
+     * 
+     * 4
+     * +
+     *  +
+     *   +
+     *    +
+     *     +
+     *     
+     *5
+     *     +
+     *    +
+     *   +
+     *  +
+     * +
+     * 
+     * 6 
+     * LASER
+     */
+}

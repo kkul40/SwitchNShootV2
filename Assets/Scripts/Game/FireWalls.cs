@@ -28,6 +28,8 @@ public class FireWalls : MonoBehaviour
         
         var leftWallFirstPos = new Vector3(-tempStartPosX, 0f, 0f);
         var rightWallFirstPos = new Vector3(tempStartPosX, 0f, 0f);
+        
+        CameraBorder.SetBorder(-tempStartPosX, tempStartPosX);
 
         LeftFireWall.position = leftWallFirstPos;
         RightFireWall.position = rightWallFirstPos;

@@ -18,8 +18,8 @@ public class EnemySpawner : SpawnerBase
     {
         while (true)
         {
-            var spawnPosx = Random.Range(CameraScr.Instance.cameraLeftCornerX.x + spawnPosOffsetX,
-                CameraScr.Instance.cameraRightCornerX.x - spawnPosOffsetX);
+            var spawnPosx = Random.Range(CameraBorder.leftX + spawnPosOffsetX,
+                CameraBorder.rightX - spawnPosOffsetX);
 
             var spawnPos = new Vector3(spawnPosx, transform.position.y, 0f);
 

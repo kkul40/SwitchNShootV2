@@ -25,6 +25,8 @@ public class CameraScr : MonoBehaviour
 
         cameraLeftCornerX = new Vector3(transform.position.x - boxCollider.bounds.extents.x, 0f, 0f);
         cameraRightCornerX = new Vector3(transform.position.x + boxCollider.bounds.extents.x, 0f, 0f);
+        
+        CameraBorder.SetBorder(cameraLeftCornerX.x, cameraRightCornerX.x);
     }
 
     private void OnDrawGizmosSelected()
@@ -37,10 +39,6 @@ public class CameraScr : MonoBehaviour
         StopCoroutine(Shake(0, 0));
     }
 
-    public void CameraShake(float duration, float magnitude)
-    {
-        StartCoroutine(Shake(duration, magnitude));
-    }
 
     public void StopCameraShakeY()
     {
@@ -52,6 +50,10 @@ public class CameraScr : MonoBehaviour
         StartCoroutine(ShakeY(duration, magnitude));
     }
 
+    public void CameraShake(float duration, float magnitude)
+    {
+        StartCoroutine(Shake(duration, magnitude));
+    }
     private IEnumerator Shake(float duration, float magnitude)
     {
         var elapsed = 0f;

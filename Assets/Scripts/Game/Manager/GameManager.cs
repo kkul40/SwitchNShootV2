@@ -63,3 +63,9 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 }
+/*
+    TODO Tek dusman varyantlarini degistir
+    serit degistiren dusman
+    arada ates eden dusman
+
+*/

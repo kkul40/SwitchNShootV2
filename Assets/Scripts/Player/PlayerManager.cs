@@ -115,7 +115,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        return;
         if (playerShield.HasShield)
         {
             playerShield.HasShield = false;

@@ -15,12 +15,12 @@ namespace PlayerNS
 
         private void OnEnable()
         {
-            Player.OnShoot += StartBubble;
+            ProjectileManager.OnShoot += StartBubble;
         }
 
         private void OnDisable()
         {
-            Player.OnShoot -= StartBubble;
+            ProjectileManager.OnShoot -= StartBubble;
         }
 
         private void StartBubble()

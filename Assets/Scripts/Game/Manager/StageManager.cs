@@ -3,7 +3,6 @@ using System.Collections;
 using PlayerNS.Bullet;
 using UnityEngine;
 using Game.Manager;
-using UnityEngine.Serialization;
 
 public class StageManager : MonoBehaviour
 {
@@ -48,7 +47,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Stage = -1;
+        Stage = 2;
     }
 
     private void OnEnable()

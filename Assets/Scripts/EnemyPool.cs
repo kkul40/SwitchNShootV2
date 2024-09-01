@@ -51,6 +51,15 @@ public class EnemyPool : MonoBehaviour
 
         return tmp;
     }
+    public GameObject GetPooledEnemyObject()
+    {
+        for (var i = 0; i < amountEnemyToPool; i++)
+            if (!enemyObjects[i].activeInHierarchy)
+                return enemyObjects[i];
+
+        var temp = AddEnemyToPool();
+        return temp;
+    }
 
     private GameObject AddBossEnemyToPool()
     {
@@ -64,15 +73,6 @@ public class EnemyPool : MonoBehaviour
         return tmp;
     }
 
-    public GameObject GetPooledEnemyObject()
-    {
-        for (var i = 0; i < amountEnemyToPool; i++)
-            if (!enemyObjects[i].activeInHierarchy)
-                return enemyObjects[i];
-
-        var temp = AddEnemyToPool();
-        return temp;
-    }
 
     public GameObject GetPooledBossEnemyObject()
     {

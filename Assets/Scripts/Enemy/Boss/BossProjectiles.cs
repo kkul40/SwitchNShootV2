@@ -76,6 +76,11 @@ public class BossProjectiles : MonoBehaviour
         Boss.OnBossLeave -= BossIsDead;
     }
 
+    public void SetAttackDuration(float duration)
+    {
+        attackDuration = duration;
+    }
+
     private void BossIsDead()
     {
         bossDeath = true;

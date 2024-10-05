@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -499,8 +498,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1609,7 +1608,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 70
+  m_LengthScale: 50
   m_SortingFudge: 0
   m_NormalDirection: 0.01
   m_ShadowBias: 0
@@ -2273,7 +2272,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 9, y: 1, z: -0.1}
+    m_Scale: {x: 8.5, y: 1, z: -0.1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -2471,7 +2470,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 25
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -8406,8 +8405,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stage
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15562,8 +15561,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15696,8 +15695,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15832,8 +15831,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16237,8 +16236,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
+  m_sharedMaterial: {fileID: 2746356487339034864, guid: 25fa6f128d38a134ebe60088fb19ad7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16752,11 +16751,25 @@ MonoBehaviour:
   text: {fileID: 215884637}
   dialogues:
   - stage: 0
-    line: There is Danger Ahead!
+    line: I Will Finish You Today!!
   - stage: 1
-    line: Ahhhh. Don`t
+    line: Hahaha Hahahaa
   - stage: 2
-    line: You just wait...
+    line: You Still Here!..
+  - stage: 3
+    line: My Strongest v1
+  - stage: 4
+    line: Huuhh. No Way...
+  - stage: 5
+    line: You Are Crazy!!!
+  - stage: 6
+    line: My Strongest v2
+  - stage: 7
+    line: You Can't Get Away With This...
+  - stage: 8
+    line: I Will Destroy You This Time.
+  - stage: 9
+    line: You Broke The Game
   dialgoueActive: 0
 --- !u!1001 &2049468037
 PrefabInstance:

@@ -16,6 +16,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private CoinSpawner coinSpawner;
     [SerializeField] private DialogueManager dialogueManager;
 
+
+    private int bossCount = 0;
     private int stage;
 
     public int Stage
@@ -35,7 +37,6 @@ public class StageManager : MonoBehaviour
     private bool isBossActive;
     public float GetBossLaserChance => bossLaserChanceByStage.Evaluate(Stage);
 
-
     public static StageManager Instance;
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Stage = 2;
+        Stage = -1;
     }
 
     private void OnEnable()
@@ -186,8 +187,12 @@ public class StageManager : MonoBehaviour
         if (isBossActive)
             return;
 
+        bossCount++;
         isBossActive = true;
-        Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
+        var boss = Instantiate(bossPrefab, bossSpawnPos.position, Quaternion.identity);
+        
+        if (bossCount >= 2)
+            boss.GetComponent<BossProjectiles>().SetAttackDuration(1);
     }
 
 

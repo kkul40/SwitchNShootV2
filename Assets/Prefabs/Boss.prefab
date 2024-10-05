@@ -6112,6 +6112,14 @@ PrefabInstance:
       value: BossParticleSystem Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3254944281893171009, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254944281893171009, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254944281893171009, guid: c9863c34fd2214640b17b3c152ce8923, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[1].time
       value: 1
       objectReference: {fileID: 0}

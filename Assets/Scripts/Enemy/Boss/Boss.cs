@@ -182,6 +182,7 @@ public class Boss : MonoBehaviour, IDamagable
 
     IEnumerator DeathSequenceCo()
     {
+        OnBossLeave?.Invoke();
         bossParticleSystem.PlayParticleSystem();
 
         yield return new WaitForSeconds(2);
@@ -189,7 +190,6 @@ public class Boss : MonoBehaviour, IDamagable
         bossParticleSystem.PlayParticleSystem();
         lastDirection = direction;
         currentBossState = BossStates.Dead;
-        OnBossLeave?.Invoke();
 
         yield return new WaitForSeconds(5);
         SelfDestroy();

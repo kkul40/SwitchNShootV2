@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI startHighScoreText;
 
-
     [Header("GameScreen")] [SerializeField]
     private GameObject GameScreen;
     [SerializeField] private GameObject stageTextHolder;
@@ -24,6 +23,7 @@ public class UIManager : MonoBehaviour
     [Header("EndGameScreen")] [SerializeField]
     private GameObject EndGameScreen;
     private UiInput uiInput;
+    private float timer;
 
     [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI endHighScoreText;
@@ -51,9 +51,17 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance.currentStage != Stages.Outro) return;
-        
-        if (uiInput.IsRestartPressed())
-            GameManager.Instance.ResetScene();
+
+        timer += Time.deltaTime;
+
+        if (timer > 2.5f)
+        {
+            if (uiInput.IsRestartPressed())
+            {
+                GameManager.Instance.ResetScene();
+                timer = 0;
+            }
+        }
     }
 
     private void OnEnable()

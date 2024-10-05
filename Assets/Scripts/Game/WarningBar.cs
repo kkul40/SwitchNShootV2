@@ -4,7 +4,6 @@ public class WarningBar : MonoBehaviour
 {
     [SerializeField] private Transform leftWarningBar, rightWarningBar;
 
-
     private void Start()
     {
         transform.position = Vector3.zero;
@@ -13,6 +12,9 @@ public class WarningBar : MonoBehaviour
 
     public void OpenWarningBars()
     {
+        leftWarningBar.position = new Vector3(CameraBorder.leftX + 0.4f, leftWarningBar.position.y, leftWarningBar.position.z);
+        rightWarningBar.position = new Vector3(CameraBorder.rightX - 0.4f, rightWarningBar.position.y, rightWarningBar.position.z);
+        
         leftWarningBar.gameObject.SetActive(true);
         rightWarningBar.gameObject.SetActive(true);
     }

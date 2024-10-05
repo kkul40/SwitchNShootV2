@@ -16,7 +16,7 @@ public class BossLaser : MonoBehaviour, IDamagable
     {
         laserPartical.PlayParticleSystem();
 
-        var shooTime = laserDuration - 2;
+        var shootTime = laserDuration - 2;
         Invoke(nameof(ShootLaser), 2);
     }
 
@@ -40,6 +40,7 @@ public class BossLaser : MonoBehaviour, IDamagable
     public void StoplaserNow()
     {
         CancelInvoke(nameof(PlaySound));
+        CancelInvoke(nameof(ShootLaser));
         CameraScr.Instance.StopCameraShakeY();
         laserPartical.StopParticleSystem();
         enemyLaser.gameObject.SetActive(false);
